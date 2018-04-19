@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Suncorp Data Flow Diagram Editor</title>
+    <link rel="stylesheet" href="./assets/bin/jointjs/joint.css" />
+    <link rel="stylesheet" href="./assets/bin/bootstrap/bootstrap.css" />
+    <script src="./assets/bin/jquery/jquery.js"></script>
+    <script src="./assets/bin/lodash/lodash.js"></script>
+    <script src="./assets/bin/backbone/backbone.js"></script>
+    <script src="./assets/bin/jointjs/joint.js"></script>
+    <script src="./assets/bin/chartjs/Chart.bundle.js"></script>
+    <script src="./assets/js/site.js"></script>
+    <link rel="stylesheet" href="https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins.min.ACSHASHb7dfb12d52aa5c311544a29ba366b9a4.css" />
+    <link rel="stylesheet" href="https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_viewstyles_sunins.min.ACSHASH02b270a05a0276c8639f4511b6108556.css" />
+    <link rel="stylesheet" href="./assets/bin/fontawesome/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="./assets/css/site.css" />
+</head>
+
+<body>
+    <div class="Page">
+
+        <div class="Main" id="browser-messages">
+            <div class="Main-content">
+                <section class="BgPlaceholder BgPlaceholder--white">
+                    <div class="Middle-column Middle-column--Nil">
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <header class="Header">
+            <div class="Header-desktop">
+                <div class="HeaderInfo">
+                    <div class="HeaderInfo-content sg-u-clearfix">
+                        <ul>
+                            <li class="BrandShared-navigation Header-desktop-element">
+                                <div class="HeaderInfo-logo">
+                                    <a href="https://www.suncorp.com.au" class="Image-linkWrapper">
+                                        <img class="cq-dd-image" data-emptytext="Image" id="img_all_views_4920804145829230533" src="./assets/img/Suncorp_New_Logo.png">
+                                    </a>
+                                </div>
+                                <h2>Security Portal</h2>
+                                <div class="BrandShared-right">
+                                    <div class="HeaderInfo-login">
+                                        <ol class="custom-js-static-links-menu sg-Menu sg-Menu--bar sg-Menu--buttonBar js-Menu--navMenu  " style="max-height: none;">
+                                            <a class="Login-link sg-Btn sg-Btn--primary" href="/secure/login/my-insurance-manager.html" target="_blank">
+                                                <i class="Icon Icon-lock--default Icon--small"></i>
+                                                <span>Login</span>
+                                            </a>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="BrandSecond-navigation">
+                                <div class="Secondary-navigation">
+                                    <div class="Navigation-wrapper">
+                                        <ol class="sg-Menu sg-Menu--bar js-Menu--navMenu sg-Menu--barMegaMenu sg-Menu--secondary  sg-Menu--responsiveLeft sg-Menu--collapseXlarge" style="max-height: none;">
+                                            <li class="sg-Menu-item mobile-order__2">
+                                                <a class="sg-Menu-link js--ensighten-event" href="javascript:void(0);" aria-haspopup="true" aria-expanded="false" data-event-type="event" data-event-details="StickyNav-Insurance-Insurance-3-2-HomeInsurance">
+                                                    <span class="sg-Menu-text">View</span>
+                                                </a>
+                                                <div class="asg-Menu-MenuBody">
+                                                    <ol class="sg-Menu sg-Menu--list" aria-hidden="true">
+                                                        <li class="sg-Menu-item">
+                                                            <a class="sg-Menu-link" href="#">
+                                                                <i class="fas fa-home"></i>
+                                                                <span class="sg-Menu-text">Home</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="sg-Menu-item">
+                                                            <a class="sg-Menu-link" href="#">
+                                                                <i class="fab fa-connectdevelop"></i>
+                                                                <span class="sg-Menu-text">Secure Development Life Cycle</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="sg-Menu-item">
+                                                            <a class="sg-Menu-link" href="#">
+                                                                <i class="fas fa-bug"></i>
+                                                                <span class="sg-Menu-text">Vulnerability &amp; Patching Portal</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="sg-Menu-item">
+                                                            <a class="sg-Menu-link" href="#">
+                                                                <i class="fas fa-database"></i>
+                                                                <span class="sg-Menu-text">Database Administration</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="sg-Menu-item">
+                                                            <a class="sg-Menu-link" href="#">
+                                                                <i class="fas fa-cogs"></i>
+                                                                <span class="sg-Menu-text">Settings</span>
+                                                            </a>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="Main">
+
+            <div class="Main-content sticky-nav">
+
+                <div class="Middle-column">
+                    <ul class="breadcrumb sg-List-breadcrumb" id="asg_site_breadcrumbs">
+                        <li>
+                            <a class="breadcrumb-link" href="/"><i class="Icon-home--secondary Icon--small"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="asg_app_container">
+                    <!--         Home Page           -->
+                    <section class="asg_app_page" id="page_home">
+                        <div id="home_page_buttons">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="#!/sdl" class="home_button">
+                                        <i class="fab fa-connectdevelop"></i>
+                                        <h2>Secure Development Lifecycle</h2>
+                                    </a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="#!/vuln" class="home_button">
+                                        <i class="fas fa-bug"></i>
+                                        <h2>Vulnerability and Patching Portal</h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="#!/sdl" class="home_button">
+                                        <i class="fas fa-database"></i>
+                                        <h2>Database Administration</h2>
+                                    </a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="#!/sdl" class="home_button">
+                                        <i class="fas fa-cogs"></i>
+                                        <h2>Settings</h2>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--         Utility Pages           -->
+                    <section class="asg_app_page" id="page_blank"></section>
+                    <section class="asg_app_page" id="page_loading" style="display:block;">
+                        <div id="asg_loading_block" class="fa-10x">
+                            <i class="fas fa-cog fa-spin"></i>
+                            <h1 class="primary-green">Loading <span id="asg_loading_what">Appliction</span></h1>
+                        </div>
+                    </section>
+
+                    <!--         Secure Development Life Cycle           -->
+                    <section class="asg_app_page" id="page_sdl">
+                        <a href="#!/sdl/dfd">Data Flow Diagram Demo</a>
+                    </section>
+                    <section class="asg_app_page" id="page_sdl_dfd">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <div class="asg-control-surface">
+                                    <div class="asg-control-surface-header">
+                                        <div class="asg-control-surface-header-text">Tools</div>
+                                    </div>
+                                    <div class="asg-control-surface-panel" id="asg_tools_panel">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="asg-control-surface">
+                                    <div class="asg-control-surface-header">
+                                        <div class="asg-control-surface-header-text">Diagram</div>
+                                    </div>
+                                    <div class="asg-control-surface-panel">
+                                        <div id="dfd_container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="asg-control-surface">
+                                    <div class="asg-control-surface-header">
+                                        <div class="asg-control-surface-header-text">Properties</div>
+                                    </div>
+                                    <div class="asg-control-surface-panel">
+                                        <div id="properties_form"></div>
+                                        <div id="properties_buttons"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--         Vulnerability & Patching Portal           -->
+                    <section class="asg_app_page" id="page_vuln">
+
+                        <div class="row">
+                            <div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
+                            <div class="col-xs-12 col-lg-10">
+                                <div class="visible-sm">visible-sm</div>
+                                <div class="asg-dashboard-container bg-white" id="asg-vuln-dashboard">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6">
+                                            <div class="asg-dashboard-quickstats" id="asg_vdash_quickstats">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6">
+                                            <div class="asg-dashboard-chart" id="asg_vdash_chart"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <div id="dialog_screen" onclick="asg.ui.closeDialog();"></div>
+
+    <div id="modal_dialog" class="sg-Modal">
+        <div class="sg-Modal-content">
+            <div class="sg-Modal-header" id="modal_body_header">
+                <span id="modal_header_text" class="sg-Modal-headerTitle"></span>
+                <span class="sg-Modal-headerBtnClose" onclick="asg.ui.closeDialog();"></span>
+            </div>
+            <div id="modal_body_content" class="sg-Modal-body">
+                <p></p>
+            </div>
+            <div id="modal_body_footer" class="sg-Modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 sg-u-textRight" id="modal_button_content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
