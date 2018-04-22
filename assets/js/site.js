@@ -2,18 +2,38 @@
 /**
 ToDo
 ---------------------------------
-Add default action on enter to modals
-Add close functionality to modal X and screen
-Swap targets on data flow dialog
-Put the rest of the ids into the ids table
-Put the rest of the strings into the strings table
+Dev:
+    Put the rest of the ids into the ids table
+    Put the rest of the strings into the strings table
+    Use strReplace function for string operations
+    Bresk up JS file into modules
+    
+    SDL:
+        Diagram:
+            Add drag to resize zones
+            Add update / delete functionality to zones
+ 
+        
+    Vuln Portal:
+        Build Data Tables
+        
+
+ 
+    Admin:
+         Create UI data model
+        Set up build pipelin
+
 
 Done
 ---------------------------------
-Add ids to shape labels
-
-
-
+Dev:
+Fixed bug in vulnerability portal - multiple copies of quickstats panels
+ Dependency injection using page.oninitialise
+ Added zones to diagram
+ 
+ Admin:
+    Create status page in confluence
+ 
 */
 
 var asg = {};
@@ -176,7 +196,17 @@ asg.app = {
 
             asg.app.fn.applyHashChangeEventListener();
             asg.app.fn.load();
-            asg.app.fn.showFirstPage();
+
+            var display = function () {
+                if (asg.app.model.ready()) {
+                    asg.app.fn.showFirstPage();
+                } else {
+                    window.setTimeout(display, 200);
+                }
+            }
+
+            display();
+
         },
 
         load: function () {
@@ -202,6 +232,68 @@ asg.app = {
                     currPage.oninitialise(initEvent, currPage);
                 }
 
+            }
+        },
+
+        module: {
+            get: function (strModuleName) {
+                if (asg.app.fn.module.isModule(strModuleName)) {
+                    for (var i = 0; i < asg.app.model.modules.length; i++) {
+                        if (strModuleName.toLowerCase() == asg.app.model.modules[i].id.toLowerCase()) {
+                            return asg.app.model.modules[i];
+                            break;
+                        }
+                    }
+                }
+                return null;
+            },
+            isLoaded: function (strModuleName) {
+                for (var i = 0; i < asg.app.model.modules.length; i++) {
+                    if (strModuleName.toLowerCase() == asg.app.model.modules[i].id.toLowerCase()) {
+                        return asg.app.model.modules[i].loaded;
+                        break;
+                    }
+                }
+                return false;
+            },
+            isModule: function (strModuleName) {
+                for (var i = 0; i < asg.app.model.modules.length; i++) {
+                    if (strModuleName.toLowerCase() == asg.app.model.modules[i].id.toLowerCase()) {
+                        return true;
+                        break;
+                    }
+                }
+                return false;
+            },
+            isRequested: function (strModuleName) {
+                for (var i = 0; i < asg.app.model.modules.length; i++) {
+                    if (strModuleName.toLowerCase() == asg.app.model.modules[i].id.toLowerCase()) {
+                        return asg.app.model.modules[i].requested;
+                        break;
+                    }
+                }
+                return false;
+            },
+            setLoaded: function (strModuleName) {
+                for (var i = 0; i < asg.app.model.modules.length; i++) {
+                    if (strModuleName.toLowerCase() == asg.app.model.modules[i].id.toLowerCase()) {
+                        asg.app.model.modules[i].loaded = true;
+                        return true;
+                        break;
+                    }
+                }
+                return false;
+            },
+        },
+
+        modules: function (objOptions) {
+            if (objOptions == null) {
+                // Return the full list
+                return asg.app.model.modules;
+            } else {
+                if (typeof objOptions == "string") {
+                    alert("string")
+                }
             }
         },
 
@@ -233,6 +325,41 @@ asg.app = {
                         crumbContainer.innerHTML = strCrumbHTML;
                     }
                 }
+            }
+        },
+
+        require: function (arrModules) {
+            var loaded = false;
+            var error = false;
+
+            for (var i = 0; i < arrModules.length; i++) {
+                var strModule = arrModules[i];
+                if (asg.app.fn.module.isModule(strModule)) {
+                    var objModule = asg.app.fn.module.get(strModule);
+                    if (!objModule.requested) {
+                        objModule.requested = true;
+
+                        var loadError = function (oError) {
+                            objModule.error = true;
+                        }
+                        var notify = function (evt) {
+                            objModule.loaded = true;
+                        }
+
+
+                        if (asg.app.fn.module.get(strModule))
+                            var strModule = arrModules[i];
+                        if (asg.app.fn.module.isModule(strModule)) {
+                            var newScript = document.createElement("script");
+                            newScript.onerror = loadError;
+                            newScript.onload = notify;
+                            document.head.appendChild(newScript);
+
+                            newScript.src = "./assets/js/" + strModule + ".js";
+                        }
+                    }
+                }
+
             }
         },
 
@@ -296,6 +423,31 @@ asg.app = {
             objWhat.innerHTML = strWhat;
         }
     },
+
+    model: {
+        modules: [
+            {
+                error: false,
+                id: "components",
+                loaded: false,
+                requested: false,
+
+            }
+        ],
+
+        ready: function () {
+            for (var i = 0; i < asg.app.model.modules.length; i++) {
+                var currModule = asg.app.model.modules[i];
+                var moduleReady = (!currModule.requested || (currModule.requested && currModule.loaded));
+                if (!moduleReady) {
+                    return false; // If one ain't ready, they all ain't ready
+                }
+            }
+            return true;
+        }
+
+    },
+
     structure: {
         container: {
             id: asg.conf.ids.app,
@@ -397,6 +549,26 @@ asg.app = {
                 },
                 onshow: function (evt, objPage) {
                     asg.util.vdash.initialise();
+                },
+                onhide: function (evt, objPage) {
+                    return true;
+                }
+            },
+            /**** Testing - to be removed ****/
+            {
+                id: "page_test",
+                ui: null,
+                default: false,
+                route: "/test",
+                label: "Testing scratchpad",
+                oninitialise: function (evt, objPage) {
+                    asg.app.fn.require(['components']);
+                },
+                onshow: function (evt, objPage) {
+                    /*  var bob = new asg.h2({
+                          target: document.body,
+                          label: "Meow Luke!"
+                      }); */
                 },
                 onhide: function (evt, objPage) {
                     return true;
@@ -684,6 +856,15 @@ asg.data = {
             },
             view: null,
             selectedElement: null,
+            resize: {
+                isResizing: false,
+                direction: '',
+                element: null,
+                coords: {
+                    x: 0,
+                    y: 0
+                }
+            }
         },
         vdash: {
             chartData: {
@@ -1388,6 +1569,7 @@ asg.ui = {
 };
 
 asg.util = {
+
     AppError: function (name, message) {
         this.name = name;
         this.message = message;
@@ -1807,19 +1989,24 @@ asg.util = {
                 width: '95%',
                 height: 600,
                 model: asg.data.elements.diagram.graph,
-                gridSize: 1
+                gridSize: 1,
+                interactive: false,
             });
 
             asg.data.elements.diagram.paper.on('cell:pointerup', function (elementView, evt) {
-
+                var r = asg.data.system.diagram.resize;
+                r.coords = {
+                    x: 0,
+                    y: 0
+                };
+                r.direction = '';
+                r.isResizing = false;
+                r.element = null;
                 asg.util.diagram.selectElement(elementView);
 
             });
 
-
             var isBorderClicked = function (bbox, mX, mY, strokeWidth) {
-                //debugger;
-                //bbox = g.Rect {x: 100, y: 100, width: 200, height: 100}, x = 287, y = 201, strokeWidth = 3
                 var borderRanges = {
                     left: {
                         start: (bbox.x),
@@ -1879,15 +2066,80 @@ asg.util = {
 
             }
 
-            asg.data.elements.diagram.paper.on('cell:pointerdown', function (cellView, evt, x, y) {
-                var bbox = cellView.getBBox();
-                var strokeWidth = cellView.model.attr('rect/stroke-width') || 3;
-                console.log(isBorderClicked(bbox, x, y, strokeWidth));
+            asg.data.elements.diagram.paper.on('cell:pointerdown', function (elementView, evt) {
+                var bbox = elementView.getBBox();
+                var stroke = elementView.model.attr('rect/stroke-width') || 3;
+                var isBorder = isBorderClicked(bbox, evt.offsetX, evt.offsetY, stroke)
+                if (isBorder.inRange) {
+                    var r = asg.data.system.diagram.resize;
+                    r.isResizing = true;
+                    r.direction = isBorder.direction;
+                    r.element = elementView;
+                    r.coords.x = evt.offsetX;
+                    r.coords.y = evt.offsetY;
+                }
             });
 
-            //debugger;
-            var e = asg.data.elements;
+            asg.data.elements.diagram.paper.on('cell:pointermove', function (elementView, evt, x, y) {
+                evt.stopImmediatePropagation();
 
+                evt.stopPropagation();
+                evt.cancelBubble = true;
+                var r = asg.data.system.diagram.resize;
+                var g = asg.data.elements.diagram.graph;
+                var bbox = elementView.getBBox();
+                var dx = x - r.coords.x;
+                var dy = y - r.coords.y;
+                var modelData = elementView.model;
+                var shape = asg.util.diagram.getModelShapeById(modelData.id);
+                var cell = asg.data.elements.diagram.graph.getCell(modelData.id);
+
+                r.coords.x = x;
+                r.coords.y = y;
+
+
+                switch (r.direction) {
+                    case 'left':
+                        {
+                            cell.attr('rect/width', cell.attributes.width + dx);
+                            break;
+                        }
+                    case 'right':
+                        {
+                            var _x = bbox.x;
+                            var _y = bbox.y;
+                            var repos = function () {
+                                cell.attr('rect/position/x', bbox.x);
+                                cell.attr('rect/position/y', bbox.y);
+                            }
+                            var newWidth = bbox.width + dx;
+
+                            cell.attr('rect/width', bbox.width + dx);
+                            window.setTimeout(repos, 1);
+                            break;
+                        }
+                    case 'top':
+                        {
+
+                            break;
+                        }
+                    case 'bottom':
+                        {
+
+                            break;
+                        }
+                    default:
+                        {
+
+                            break;
+                        }
+                }
+                cell.attr('rect/stroke', '#ff0000');
+                return false;
+            });
+
+
+            var e = asg.data.elements;
 
             e.controlPanel = document.createElement('div');
 
@@ -1909,7 +2161,6 @@ asg.util = {
             p.appendChild(e.controlPanel);
             asg.util.diagram.redraw();
         },
-
 
         redraw: function () {
             asg.util.diagram.clear();
@@ -2420,6 +2671,7 @@ asg.util = {
     vdash: {
         drawPieChart: function () {
             var container = document.getElementById(asg.conf.ids.vdash_chart);
+            container.innerHTML = "";
             var canvas = document.createElement('canvas');
             canvas.setAttribute('id', 'vdash_chart');
             canvas.setAttribute('width', '200');
@@ -2451,16 +2703,16 @@ asg.util = {
 
         drawQuickstats: function () {
             var arrItems = asg.data.system.vdash.quickstats;
+            var container = document.getElementById(asg.conf.ids.vdash_qs);
+            container.innerHTML = "";
             for (var i = 0; i < arrItems.length; i++) {
                 var objItem = arrItems[i];
-                asg.util.vdash.drawQuickstatsPanel(objItem);
+                asg.util.vdash.drawQuickstatsPanel(objItem, container);
             }
         },
 
-        drawQuickstatsPanel: function (objPanel) {
+        drawQuickstatsPanel: function (objPanel, container) {
             try {
-
-                var container = document.getElementById(asg.conf.ids.vdash_qs);
                 var panelHover = function () {
                     this.setAttribute('style',
                         asg.util.strReplace('color:#fff;background-color:%1%;border-color:%2%;', [
@@ -2470,22 +2722,31 @@ asg.util = {
                     );
                 };
                 var panelOut = function () {
-                    this.setAttribute('style', 'color:' + objPanel.display.fgcolour + ';background-color:' + objPanel.display.bgcolour + ';border-color:' + objPanel.display.bdrcolour + ';');
-                    //this.setAttribute('color:yellow;background-color:blue;border-color:red;');
+                    this.setAttribute('style',
+                        asg.util.strReplace('color:%1%;background-color:%2%;border-color:%3%;', [
+                            objPanel.display.fgcolour,
+                            objPanel.display.bgcolour,
+                            objPanel.display.bdrcolour
+                        ])
+                    );
                 };
                 var elPanel = asg.util.createElement({
                     tag: 'div',
                     attrs: {
                         id: objPanel.id,
                         class: 'asg-quickstats-panel',
-                        style: 'color:' + objPanel.display.fgcolour + ';background-color:' + objPanel.display.bgcolour + ';border-color:' + objPanel.display.bdrcolour + ';',
+                        style: asg.util.strReplace('color:%1%;background-color:%2%;border-color:%3%;', [
+                            objPanel.display.fgcolour,
+                            objPanel.display.bgcolour,
+                            objPanel.display.bdrcolour
+                        ]),
                     }
                 });
                 elPanel.onmouseover = panelHover;
                 elPanel.onmouseout = panelOut;
                 var elNumber = asg.util.createFromFragment('<h1>' + objPanel.number + (objPanel.delta != 0 ? '<sub><i class="fas fa-arrow-' + objPanel.deltaDir + '"></i> ' + objPanel.delta + '%</sub>' : '') + '</h1>');
 
-                var elLabel = asg.util.createFromFragment('<h2>' + objPanel.label + '</h2');
+                var elLabel = asg.util.createFromFragment(asg.util.strReplace('<h2>%1%</h2>', [objPanel.label]));
 
                 elPanel.appendChild(elNumber);
                 elPanel.appendChild(elLabel);
@@ -2515,7 +2776,6 @@ asg.main = {
         //asg.ui.diagram.addExternalSystem();
 
         window.setTimeout(asg.app.fn.initialise, 200);
-
 
     }
 };
@@ -2612,8 +2872,6 @@ joint.shapes.basic.Zone = joint.shapes.basic.Generic.extend({
 
     }, joint.shapes.basic.Generic.prototype.defaults)
 });
-
-
 
 
 
