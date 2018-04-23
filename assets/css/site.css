@@ -104,6 +104,14 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 }
 
 .asg-control-surface-panel button {
+    text-align: left;
+    display: block;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.asg-control-surface-panel button {
     display: block;
     width: 95%;
     margin-left: auto;
