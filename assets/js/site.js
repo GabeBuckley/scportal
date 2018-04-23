@@ -6,9 +6,6 @@ Dev:
     Put the rest of the ids into the ids table
     Put the rest of the strings into the strings table
     Use strReplace function for string operations
-    
-    
- 
  
         
     Vuln Portal:
@@ -24,12 +21,6 @@ Dev:
 Done
 ---------------------------------
 
-Bresk up JS file into modules
-
-SDL:
-    Diagram:
-    Add drag to resize zones
-Add update / delete functionality to zones
 
 */
 
@@ -42,19 +33,6 @@ asg.conf = {
         app: 'asg_app_container',
         ldr_text: 'asg_loading_what',
         breadcrumbs: 'asg_site_breadcrumbs',
-
-        //Diagram Components
-        dia_prop_box: 'properties_form',
-        dia_prop_btns: 'properties_buttons',
-
-        // Diagram data fields
-        dia_shape_name: 'asg_shape_name',
-        dia_shape_label_display: 'asg_shape_label_display',
-        dia_shape_id_display: 'asg_shape_id_display',
-        dia_shape_type_image: 'asg_shape_type_image',
-        dia_shape_from: 'asg_shape_from',
-        dia_shape_to: 'asg_shape_to',
-        dia_shape_transport: 'asg_shape_transport',
 
         // Vulnerability & Patching Dashboard Regions
         vdash: 'asg-vuln-dashboard',
@@ -447,6 +425,12 @@ asg.app = {
             },
             {
                 error: false,
+                id: "diagram",
+                loaded: false,
+                requested: false,
+            },
+            {
+                error: false,
                 id: "ui",
                 loaded: false,
                 requested: false,
@@ -551,7 +535,7 @@ asg.app = {
                 route: "/sdl/dfd",
                 label: "Data Flow Diagram",
                 oninitialise: function (evt, objPage) {
-
+                    asg.app.fn.require(['diagram']);
                 },
                 onshow: function (evt, objPage) {
                     window.setTimeout(asg.util.diagram.initialise, 500);
@@ -604,109 +588,13 @@ asg.app = {
 
 asg.main = {
     init: function () {
-        //asg.ui.showMsg('100', 'secondary', 'booyah!', 'This is the message text.');
-        //asg.util.diagram.initialise();
-        //asg.ui.diagram.addExternalSystem();
-
         window.setTimeout(asg.app.fn.initialise, 200);
-
     }
 };
 
 
-
-
 // Fire 'er up!
 $(document).ready(asg.main.init);
-
-
-/************************* JointJS Custom Shapes **************************/
-joint.shapes.basic.ExternalSystem = joint.shapes.basic.Generic.extend({
-
-    markup: '<g class="rotatable"><g class="scalable"><rect/></g><image/><text/></g>',
-
-    defaults: joint.util.deepSupplement({
-
-        type: 'basic.ExternalSystem',
-        size: {
-            width: 100,
-            height: 60
-        },
-        attrs: {
-            'rect': {
-                position: {
-                    x: 200,
-                    y: 200
-                },
-                fill: '#FFFFFF',
-                stroke: '#333333',
-                width: 100,
-                height: 60
-            },
-            'text': {
-                'font-size': 10,
-                text: '',
-                'ref-x': .5,
-                'ref-y': .5,
-                ref: 'rect',
-                'y-alignment': 'middle',
-                'x-alignment': 'middle',
-                fill: 'black'
-            },
-            'image': {
-                'ref-x': 82,
-                'ref-y': 42,
-                ref: 'rect',
-                width: 16,
-                height: 16
-            }
-        }
-
-    }, joint.shapes.basic.Generic.prototype.defaults)
-});
-
-joint.shapes.basic.Zone = joint.shapes.basic.Generic.extend({
-
-    markup: '<g class="rotatable"><g class="scalable"><rect/></g><text/></g>',
-
-    defaults: joint.util.deepSupplement({
-
-        type: 'basic.Zone',
-        size: {
-            width: 100,
-            height: 60
-        },
-        attrs: {
-            'rect': {
-                position: {
-                    x: 100,
-                    y: 100
-                },
-                stroke: '#6C999A',
-                'stroke-width': 3,
-                'stroke-dasharray': "5,10,5",
-                'stroke-linecap': "round",
-                fill: '#FFFFFF00',
-                width: 200,
-                height: 100
-            },
-            'text': {
-                'font-size': 9,
-                text: '',
-                'ref-x': '99%',
-                'ref-y': 2,
-                ref: 'rect',
-                'y-alignment': 'top',
-                'x-alignment': 'right',
-                fill: 'black'
-            }
-        }
-
-    }, joint.shapes.basic.Generic.prototype.defaults)
-});
-
-
-
 
 
 // EOF

@@ -257,6 +257,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
     font-weight: bold;
     padding: 2px;
     padding-bottom: 10px;
+    width:  auto;
 }
 
 #properties_buttons .sg-Btn,
