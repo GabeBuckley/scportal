@@ -219,11 +219,6 @@ asg.data.system.diagram = {
                 id: 'S0001',
                 type: 'system',
                 label: 'Demo System'
-            },
-            {
-                id: 'Z0001',
-                type: 'zone',
-                label: 'AWS Public'
             }
         ],
         nextID: function (strType) {

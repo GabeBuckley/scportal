@@ -6,11 +6,12 @@ Dev:
     Put the rest of the ids into the ids table
     Put the rest of the strings into the strings table
     Use strReplace function for string operations
+    
  
         
     Vuln Portal:
         Build Data Tables
-        
+    Fix bug with < 30 days chart multiple additions, clear html    
 
  
     Admin:
@@ -20,26 +21,21 @@ Dev:
 
 Done
 ---------------------------------
-
+Automated, configurable menus
+Dashboard split off into separate file
 
 */
 
 var asg = {};
 
 asg.conf = {
-
     ids: {
         // Main App Components
         app: 'asg_app_container',
+        app_menu: 'asg_main_menu',
         ldr_text: 'asg_loading_what',
         breadcrumbs: 'asg_site_breadcrumbs',
-
-        // Vulnerability & Patching Dashboard Regions
-        vdash: 'asg-vuln-dashboard',
-        vdash_qs: 'asg_vdash_quickstats',
-        vdash_chart: 'asg_vdash_chart',
     }
-
 };
 
 asg.app = {
@@ -168,7 +164,7 @@ asg.app = {
         },
 
         initialise: function () {
-            asg.app.fn.require(['util', 'data', 'ui']);
+            asg.app.fn.loadSiteModules();
 
             var doLoad = function () {
                 if (asg.app.model.ready()) {
@@ -188,18 +184,14 @@ asg.app = {
                 }
             }
             doLoad();
-
-
-
-
         },
 
         load: function () {
-            asg.app.fn.updateLoadingScreen("Pages Collection");
             asg.app.fn.loadPages();
         },
 
         loadPages: function () {
+            asg.app.fn.updateLoadingScreen("Pages Collection");
             var pagesContainer = document.getElementById(asg.conf.ids.app);
             asg.app.structure.container.ui = pagesContainer;
             var arrPages = asg.app.structure.pages;
@@ -218,6 +210,90 @@ asg.app = {
                 }
 
             }
+        },
+
+        loadSiteModules: function () {
+            asg.app.fn.updateLoadingScreen("Site Modules");
+            asg.app.fn.require(['util', 'data', 'ui']);
+        },
+
+        menu: {
+            init: function () {
+                var menuBar = document.getElementById(asg.conf.ids.app_menu);
+                if (menuBar != null) {
+                    menuBar.innerHTML = '';
+
+                    var _data = asg.data.system.menu.main.menu_data;
+                    for (var i = 0; i < _data.length; i++) {
+                        var elMenu = asg.app.fn.menu._processMenu(_data[i]);
+                        menuBar.appendChild(elMenu);
+                    }
+                }
+            },
+
+
+
+
+
+            _processMenu: function (objMenu) {
+                var elMenu = null;
+                if (objMenu.id != null && objMenu.label != null) {
+                    elMenu = asg.util.createFromFragment(
+                        asg.util.strReplace(
+                            [
+                                '<li class="sg-Menu-item">',
+                                '   <a id="menu_%1%" class="sg-Menu-link js--ensighten-event" href="%2%" aria-haspopup="true" aria-expanded="false">',
+                                '        <span class="sg-Menu-text">%3%</span>',
+                                '   </a>',
+                                '   <div class="asg-Menu-MenuBody">',
+                                '       <ol class="sg-Menu sg-Menu--list" aria-hidden="true"></ol>',
+                                '   </div>',
+                                '</li>'
+                            ].join(''), [
+                                objMenu.id,
+                                objMenu.link || '#',
+                                objMenu.label
+                            ]
+                        )
+                    );
+
+                    if (objMenu.menu_data != null) {
+                        var elMenuBody = elMenu.lastElementChild.lastElementChild;
+                        for (var i = 0; i < objMenu.menu_data.length; i++) {
+                            var elItem = asg.app.fn.menu._processMenuItem(objMenu.menu_data[i]);
+                            elMenuBody.appendChild(elItem);
+                        }
+                    }
+                }
+                return elMenu;
+            },
+
+            _processMenuItem: function (objItem) {
+                var elItem = asg.util.createFromFragment(
+                    asg.util.strReplace(
+                        [
+                            '<li id="menuitem_%1%" class="sg-Menu-item">',
+                            '   <a class="sg-Menu-link" href="%2%">',
+                            '       <i class="%3%"></i>',
+                            '       <span class="sg-Menu-text">%4%</span>',
+                            '   </a>',
+                            '</li>'
+                        ].join(''), [
+                            objItem.id,
+                            objItem.link || '#',
+                            objItem.icon || '',
+                            objItem.label
+                        ]
+                    )
+                );
+
+                if (objItem.click != null) {
+                    elItem.onclick = objItem.click;
+                }
+
+                return elItem;
+            },
+
         },
 
         module: {
@@ -333,7 +409,6 @@ asg.app = {
                             objModule.loaded = true;
                         };
 
-
                         var newScript = document.createElement("script");
                         newScript.setAttribute('name', strModule);
                         newScript.onerror = loadError;
@@ -394,6 +469,7 @@ asg.app = {
 
                 var loaded = currPage.onshow(showEvent, currPage);
                 asg.app.structure.currentPage = currPage;
+                asg.app.fn.menu.init();
                 asg.app.fn.populateBreadCrumbs();
 
                 currPage.ui.style.display = "none";
@@ -408,9 +484,9 @@ asg.app = {
         }
     },
 
+
     model: {
         modules: [
-
             {
                 error: false,
                 id: "components",
@@ -440,6 +516,12 @@ asg.app = {
                 id: "util",
                 loaded: false,
                 requested: false,
+            },
+            {
+                error: false,
+                id: "vdash",
+                loaded: false,
+                requested: false,
             }
         ],
 
@@ -453,7 +535,6 @@ asg.app = {
             }
             return true;
         }
-
     },
 
     structure: {
@@ -553,16 +634,24 @@ asg.app = {
                 route: "/vuln",
                 label: "Vulnerability & Patching Portal",
                 oninitialise: function (evt, objPage) {
-
+                    asg.app.fn.require(['vdash']);
                 },
                 onshow: function (evt, objPage) {
-                    asg.util.vdash.initialise();
+                    var doInit = function () {
+                        if (asg.app.model.ready()) {
+                            asg.util.vdash.initialise();
+                        } else {
+                            window.setTimeout(doInit, 200);
+                        }
+                    };
+
+                    doInit();
                 },
                 onhide: function (evt, objPage) {
                     return true;
                 }
-            },
-            /**** Testing - to be removed ****/
+    },
+    /**** Testing - to be removed ****/
             {
                 id: "page_test",
                 ui: null,
@@ -581,8 +670,8 @@ asg.app = {
                 onhide: function (evt, objPage) {
                     return true;
                 }
-            },
-        ],
+    },
+    ],
     }
 };
 
@@ -592,9 +681,7 @@ asg.main = {
     }
 };
 
-
 // Fire 'er up!
 $(document).ready(asg.main.init);
-
 
 // EOF

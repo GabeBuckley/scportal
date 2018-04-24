@@ -56,46 +56,8 @@
                             <li class="BrandSecond-navigation">
                                 <div class="Secondary-navigation">
                                     <div class="Navigation-wrapper">
-                                        <ol class="sg-Menu sg-Menu--bar js-Menu--navMenu sg-Menu--barMegaMenu sg-Menu--secondary  sg-Menu--responsiveLeft sg-Menu--collapseXlarge" style="max-height: none;">
-                                            <li class="sg-Menu-item mobile-order__2">
-                                                <a class="sg-Menu-link js--ensighten-event" href="javascript:void(0);" aria-haspopup="true" aria-expanded="false" data-event-type="event" data-event-details="StickyNav-Insurance-Insurance-3-2-HomeInsurance">
-                                                    <span class="sg-Menu-text">View</span>
-                                                </a>
-                                                <div class="asg-Menu-MenuBody">
-                                                    <ol class="sg-Menu sg-Menu--list" aria-hidden="true">
-                                                        <li class="sg-Menu-item">
-                                                            <a class="sg-Menu-link" href="#">
-                                                                <i class="fas fa-home"></i>
-                                                                <span class="sg-Menu-text">Home</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sg-Menu-item">
-                                                            <a class="sg-Menu-link" href="#">
-                                                                <i class="fab fa-connectdevelop"></i>
-                                                                <span class="sg-Menu-text">Secure Development Life Cycle</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sg-Menu-item">
-                                                            <a class="sg-Menu-link" href="#">
-                                                                <i class="fas fa-bug"></i>
-                                                                <span class="sg-Menu-text">Vulnerability &amp; Patching Portal</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sg-Menu-item">
-                                                            <a class="sg-Menu-link" href="#">
-                                                                <i class="fas fa-database"></i>
-                                                                <span class="sg-Menu-text">Database Administration</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sg-Menu-item">
-                                                            <a class="sg-Menu-link" href="#">
-                                                                <i class="fas fa-cogs"></i>
-                                                                <span class="sg-Menu-text">Settings</span>
-                                                            </a>
-                                                        </li>
-                                                    </ol>
-                                                </div>
-                                            </li>
+                                        <ol id="asg_main_menu" class="sg-Menu sg-Menu--bar js-Menu--navMenu sg-Menu--barMegaMenu sg-Menu--secondary  sg-Menu--responsiveLeft sg-Menu--collapseXlarge" style="max-height: none;">
+
                                         </ol>
                                     </div>
                                 </div>
@@ -205,22 +167,21 @@
 
                     <!--         Vulnerability & Patching Portal           -->
                     <section class="asg_app_page" id="page_vuln">
-
                         <div class="row">
                             <div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
                             <div class="col-xs-12 col-lg-10">
-                                <div class="visible-sm">visible-sm</div>
                                 <div class="asg-dashboard-container bg-white" id="asg-vuln-dashboard">
                                     <div class="row">
                                         <div class="col-xs-12 col-lg-6">
-                                            <div class="asg-dashboard-quickstats" id="asg_vdash_quickstats">
+                                            <div id="asg_vdash_quickstats">
+                                            </div>
+                                            <div class="asg-dashboard-openbydays" id="asg_vdash_openbydays">
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-lg-6">
                                             <div class="asg-dashboard-chart" id="asg_vdash_chart"></div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
                             </div>
