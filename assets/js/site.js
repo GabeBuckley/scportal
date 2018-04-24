@@ -11,7 +11,6 @@ Dev:
         
     Vuln Portal:
         Build Data Tables
-    Fix bug with < 30 days chart multiple additions, clear html    
 
  
     Admin:
@@ -21,8 +20,6 @@ Dev:
 
 Done
 ---------------------------------
-Automated, configurable menus
-Dashboard split off into separate file
 
 */
 

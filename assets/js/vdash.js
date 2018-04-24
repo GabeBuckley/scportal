@@ -293,6 +293,7 @@ asg.util.vdash = {
 
         // Create the chart container
         _me.view.openByDaysChart = document.getElementById(asg.conf.ids.vdash_obd);
+        _me.view.openByDaysChart.innerHTML = '';
 
         // Create the chart title
         _me.view.openByDaysChart.appendChild(
@@ -303,7 +304,7 @@ asg.util.vdash = {
             )
         );
 
-        // Add in the three panels
+        // Add in the panel
         var panelContainer = _util.createFromFragment('<div class="asg-dashboard-openbydays-chart" />');
         for (var i = 0; i < _data.panels.length; i++) {
             var currPanel = _data.panels[i];
