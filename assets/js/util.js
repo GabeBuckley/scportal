@@ -1,5 +1,12 @@
 asg.util = {
 
+    addClass: function (objEl, strClass) {
+        var strClassList = objEl.getAttribute("class") || '';
+        var arrClasses = strClassList.split(' ');
+        arrClasses.push(strClass);
+        objEl.setAttribute('class', arrClasses.join(' '));
+    },
+
     AppError: function (name, message) {
         this.name = name;
         this.message = message;
@@ -49,7 +56,28 @@ asg.util = {
     },
 
     createFromFragment: function (strHTMLFragment) {
-        var container = document.createElement('div');
+        var strFragTag = strHTMLFragment.slice(
+            strHTMLFragment.indexOf('<') + 1,
+            strHTMLFragment.indexOf(' ')
+        );
+
+        var strElTag = 'div';
+        switch (strFragTag) {
+            case 'td':
+            case 'th':
+                {
+                    strElTag = 'tr';
+                    break;
+                }
+
+            default:
+                {
+                    break;
+                }
+        }
+
+
+        var container = document.createElement(strElTag);
         container.innerHTML = strHTMLFragment;
         var objEl = container.firstElementChild;
         return objEl;
@@ -117,6 +145,17 @@ asg.util = {
         return strHash;
     },
 
+    removeClass: function (objEl, strClass) {
+        var strClassList = objEl.getAttribute("class") || '';
+        var arrClasses = strClassList.split(' ');
+        for (var i = 0; i < arrClasses.length; i++) {
+            if (arrClasses[i] == strClass) {
+                arrClasses[i] = '';
+            }
+        }
+        objEl.setAttribute('class', arrClasses.join(' '));
+    },
+
     strReplace: function (strHaystack, arrNeedles) {
         if (arrNeedles != null) {
             for (var i = 1; i <= arrNeedles.length; i++) {
@@ -128,6 +167,16 @@ asg.util = {
         return strHaystack;
     },
 
+    toggleClass: function (objEl, strFrom, strTo) {
+        var strClass = objEl.getAttribute("class") || '';
+        var arrClasses = strClass.split(' ');
+        for (var i = 0; i < arrClasses.length; i++) {
+            if (arrClasses[i] == strFrom) {
+                arrClasses[i] = strTo;
+            }
+        }
+        objEl.setAttribute('class', arrClasses.join(' '));
+    }
 };
 
 asg.u = asg.util;
