@@ -30,6 +30,10 @@
     	border: 1px solid #b04b0d;
     }
     
+    .sg-Btn.sg-Btn--huge {
+    	font-size: 2em;
+    }
+    
     div.asg-Menu-MenuBody {
     	width: 300px;
     	min-height: 200px;
@@ -487,7 +491,7 @@
     	}
     	.asg-view-component table thead tr th i.fa-sort-down,
     	.asg-view-component table thead tr th i.fa-sort-up {
-    		color: #eb6411;
+    		color: #ffcd05;
     	}
     	.asg-view-component th.col-grouped {
     		width: 1%;
@@ -521,7 +525,7 @@
     		padding-right: 0.5em;
     		display: inline-block;
     	}
-    	.asg-view-component table tbody th.selector,
+    	.asg-view-component table thead th.selector,
     	.asg-view-component table tbody td.selector {
     		width: 5%;
     	}

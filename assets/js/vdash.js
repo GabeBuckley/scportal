@@ -332,7 +332,7 @@ asg.data.templates.html.vdash = {
 		addDataListItem: {
 			content: '<fieldset>' +
 				'<input type="hidden" id="dlg_datalist_id" />' +
-				'<input type="hidden" id="dlg_dataitem_id" />' +
+				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>' +
 				'<legend id="dlg_legend"></legend>' +
 				'<div class="row">' +
 				'   <div class="col-xs-12 col-sm-5">' +
@@ -347,7 +347,7 @@ asg.data.templates.html.vdash = {
 				'       <label for="dlg_dataitem_label"></label>' +
 				'   </div>' +
 				'   <div class="col-xs-12 col-sm-7">' +
-				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label" />' +
+				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label"  data-accessor="Name" />' +
 				'   </div>' +
 				'</div>' +
 				'</fieldset>',
@@ -368,7 +368,7 @@ asg.data.templates.html.vdash = {
 		editDataListItem: {
 			content: '<fieldset>' +
 				'<input type="hidden" id="dlg_datalist_id" />' +
-				'<input type="hidden" id="dlg_dataitem_id" />' +
+				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>' +
 				'<legend id="dlg_legend"></legend>' +
 				'<div class="row">' +
 				'   <div class="col-xs-12 col-sm-5">' +
@@ -383,7 +383,7 @@ asg.data.templates.html.vdash = {
 				'       <label for="dlg_dataitem_label"></label>' +
 				'   </div>' +
 				'   <div class="col-xs-12 col-sm-7">' +
-				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label" />' +
+				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label" data-accessor="Name" />' +
 				'   </div>' +
 				'</div>' +
 				'</fieldset>',
@@ -426,7 +426,10 @@ asg.data.templates.html.vdash = {
                 }
             ]
 		},
-	}
+	},
+	sys: {
+		dl_button: '<button class="sg-Btn sg-Btn--iconLeftLarge sg-Btn--huge sg-Btn--next" data-href="%1%"><i class="sg-Btn-icon %2%"></i> %3%</button>',
+	},
 };
 
 // Copy in configuration items
@@ -440,11 +443,43 @@ asg.__etc.conf = {
 			vdash_obd: 'asg_vdash_openbydays',
 			vdash_teams: 'asg_vdash_top_teams',
 			vdash_iiris: 'asg_vdash_iiris',
+			vdash_lists: 'asg_vdash_lists',
 		},
 		endpoints: {
-			get_support_teams_list: '/ws/mocks/get_support_teams_list.json',
-			get_teams_issues_list: '/ws/mocks/get_open_issues_by_team.json',
-			get_iiris_issues_list: '/ws/mocks/get_iiris_issues.json',
+			DEV: {
+				get_support_teams_list: '/ws/mocks/get_support_teams_list.json',
+				get_teams_issues_list: '/ws/mocks/get_open_issues_by_team.json',
+				get_iiris_issues_list: '/ws/mocks/get_iiris_issues.json',
+				get_data_list_severity: '/ws/mocks/get_data_list_severity.json',
+				get_data_list_source: '/ws/mocks/get_data_list_source.json',
+				get_data_list_tech: '/ws/mocks/get_data_list_tech.json',
+				get_data_list_type: '/ws/mocks/get_data_list_type.json',
+				add_data_list_severity: '/ws/mocks/get_data_list_severity.json',
+				add_data_list_source: '/ws/mocks/get_data_list_source.json',
+				add_data_list_tech: '/ws/mocks/get_data_list_tech.json',
+				add_data_list_type: '/ws/mocks/get_data_list_type.json',
+				upd_data_list_severity: '/ws/mocks/get_data_list_severity.json',
+				upd_data_list_source: '/ws/mocks/get_data_list_source.json',
+				upd_data_list_tech: '/ws/mocks/get_data_list_tech.json',
+				upd_data_list_type: '/ws/mocks/get_data_list_type.json',
+			},
+			TEST: {
+				get_support_teams_list: '/ws/mocks/get_support_teams_list.json',
+				get_teams_issues_list: '/ws/mocks/get_open_issues_by_team.json',
+				get_iiris_issues_list: '/ws/mocks/get_iiris_issues.json',
+				get_data_list_severity: '/ws/mocks/get_data_list_severity.json',
+				get_data_list_source: 'http://localhost:57373/api/Source/GetSource',
+				get_data_list_tech: 'http://localhost:57373/api/Source/GetTechnology',
+				get_data_list_type: 'http://localhost:57373/api/Source/GetIssueType',
+				add_data_list_severity: 'http://localhost:57373/api/Source/GetSeverity',
+				add_data_list_source: '/ws/mocks/get_data_list_source.json',
+				add_data_list_tech: '/ws/mocks/get_data_list_tech.json',
+				add_data_list_type: '/ws/mocks/get_data_list_type.json',
+				upd_data_list_severity: '/ws/mocks/get_data_list_severity.json',
+				upd_data_list_source: '/ws/mocks/get_data_list_source.json',
+				upd_data_list_tech: '/ws/mocks/get_data_list_tech.json',
+				upd_data_list_type: '/ws/mocks/get_data_list_type.json',
+			}
 		}
 	}
 };
@@ -478,14 +513,18 @@ asg.util.vdash = {
 	addDataListItem: function () {
 		var listId = document.getElementById('dlg_datalist_id').value;
 		var objList = asg.util.vdash.getListById(listId);
-		var itemId = document.getElementById('dlg_dataitem_id').value;
+		var idField = document.getElementById('dlg_dataitem_id');
+		var itemId = idField.value;
+		var strIdProp = idField.getAttribute('data-accessor');
+
 		var labelField = document.getElementById('dlg_dataitem_label')
 		var itemLabel = labelField.value;
+		var strLabelProp = labelField.getAttribute('data-accessor');
 		if (itemLabel.length > 0) {
-			var newItem = {
-				id: itemId,
-				label: itemLabel
-			}
+			var newItem = {};
+			newItem[strIdProp] = itemId;
+			newItem[strLabelProp] = itemLabel;
+
 			objList.data.push(newItem);
 			asg.ui.closeDialog();
 			asg.u.vdash.data.currDataListView.redraw();
@@ -511,6 +550,8 @@ asg.util.vdash = {
 
 		currDataListId: '',
 		currDataListView: null,
+
+		severityDataListLoaded: false,
 	},
 
 	deleteDataListItems: function () {
@@ -718,7 +759,7 @@ asg.util.vdash = {
 			id: 'view_team_issues',
 			title: 'Top 5 Teams - Open Issues',
 			target: container,
-			height: '400px',
+			height: '300px',
 			width: '100%',
 			columns: [
 				{
@@ -752,7 +793,7 @@ asg.util.vdash = {
 			id: 'view_team_issues',
 			title: 'Open Issues with IIRIS Records',
 			target: container,
-			height: '400px',
+			height: '300px',
 			width: '100%',
 			columns: [
 				{
@@ -783,15 +824,49 @@ asg.util.vdash = {
 
 	getData: function () {
 		let _dash = asg.util.vdash;
+
 		_dash.getTeamsListData();
 		_dash.getTeamsIssuesData();
 		_dash.getIIRISIssuesData();
 	},
 
-	getDataListItem: function (objList, strId) {
+	getDataListData: function (strlist, strTarget) {
+		var _self = this;
+		var _endpointBase = asg.conf.endpoints[asg.app.fn.mode()];
+		var _endpoint = _endpointBase[strlist];
+
+		var _onResult = function () {
+			let _me = _self;
+			let _this = this;
+			let _options = _this.options;
+
+			let _data = _this.result;
+			let _target = this.options.target;
+
+			let _targetBase = asg.data.system.vdash.lists.lookupTables;
+			for (let i = 0; i < _targetBase.length; i++) {
+				if (_targetBase[i].id == _target) {
+					_targetBase[i].data = _data;
+				}
+			}
+
+			asg.util.vdash.data[strTarget + 'DataListLoaded'] = true;
+		}
+
+		let objOptions = {
+			on_result: _onResult,
+			target: strTarget
+		};
+
+		asg.app.fn.ws.fetch(_endpoint, objOptions);
+
+	},
+
+	getDataListItem: function (objList, strId, strIdField) {
+		_id = strIdField || 'id';
 		var arrNew = [];
 		for (var i = 0; i < objList.data.length; i++) {
-			if (objList.data[i].id == strId) {
+			if (objList.data[i][_id] == strId) {
 				return objList.data[i];
 			}
 		}
@@ -804,6 +879,17 @@ asg.util.vdash = {
 			var currList = _lists[i];
 			if (currList.id == strListId) {
 				return currList;
+			}
+		}
+		return null;
+	},
+
+	getMenuById: function (strMenuId) {
+		var _menus = asg.data.system.vdash.menu_data;
+		for (let i = 0; i < _menus.length; i++) {
+			var _menu = _menus[i];
+			if (_menu.id == strMenuId) {
+				return _menu;
 			}
 		}
 		return null;
@@ -838,21 +924,21 @@ asg.util.vdash = {
 		let objOptions = {
 			on_result: asg.util.vdash.updateIIRISList
 		};
-		asg.app.fn.ws.fetch(asg.conf.endpoints.get_iiris_issues_list, objOptions);
+		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_iiris_issues_list, objOptions);
 	},
 
 	getTeamsListData: function () {
 		let objOptions = {
 			on_result: asg.util.vdash.updateTeamsList
 		};
-		asg.app.fn.ws.fetch(asg.conf.endpoints.get_support_teams_list, objOptions);
+		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_support_teams_list, objOptions);
 	},
 
 	getTeamsIssuesData: function () {
 		let objOptions = {
 			on_result: asg.util.vdash.updateTeamsIssuesData
 		};
-		asg.app.fn.ws.fetch(asg.conf.endpoints.get_teams_issues_list, objOptions);
+		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_teams_issues_list, objOptions);
 	},
 
 	initialise: function () {
@@ -899,7 +985,7 @@ asg.util.vdash = {
 
 		var _form = document.getElementById('modal_body_content');
 		var objList = asg.u.vdash.getListById(viewId);
-		var _newId = asg.util.vdash.getNextDataListID(viewId);
+		var _newId = null;
 
 		var listIdField = document.getElementById('dlg_datalist_id');
 		listIdField.value = viewId;
@@ -907,7 +993,7 @@ asg.util.vdash = {
 		var idField = document.getElementById('dlg_dataitem_id');
 		idField.value = _newId;
 		var idDisplay = document.getElementById('dlg_dataitem_id_display');
-		idDisplay.innerHTML = _newId;
+		idDisplay.innerHTML = '---';
 
 		var legend = document.getElementById('dlg_legend');
 		legend.innerHTML = "Add " + objList.label;
@@ -919,6 +1005,35 @@ asg.util.vdash = {
 			}
 			if (currLabel.getAttribute('for') == 'dlg_dataitem_label') {
 				currLabel.innerHTML = objList.label + ' Label:';
+			}
+		}
+	},
+
+	showAllDataListLinks: function () {
+		var _container = document.getElementById(asg.conf.ids.vdash_lists);
+		var _menu = asg.u.vdash.getMenuById('repdata');
+		var _templates = asg.data.templates.html.vdash.sys;
+
+		_container.innerHTML = '';
+		if (_menu != null) {
+			var _data = _menu.menu_data;
+			for (var i = 0; i < _data.length; i++) {
+				var _item = _data[i];
+				var objItem = asg.u.createFromFragment(
+					asg.u.strReplace(
+						_templates.dl_button, [_item.link, _item.icon, _item.label]
+					)
+				);
+
+				var _onclick = function () {
+					var strURL = this.getAttribute('data-href');
+					if (strURL != null && strURL != '') {
+						window.location = strURL;
+					}
+				}
+
+				objItem.addEventListener('click', _onclick.bind(objItem));
+				_container.appendChild(objItem);
 			}
 		}
 	},
@@ -958,7 +1073,7 @@ asg.util.vdash = {
 			var arrID = rowID.split('_');
 			var itemID = arrID[2];
 			var objList = asg.u.vdash.getListById(viewId);
-			var objItem = asg.u.vdash.getDataListItem(objList, itemID);
+			var objItem = asg.u.vdash.getDataListItem(objList, itemID, 'Id');
 			var _form = document.getElementById('modal_body_content');
 			var objList = asg.u.vdash.getListById(viewId);
 
@@ -966,12 +1081,15 @@ asg.util.vdash = {
 			listIdField.value = viewId;
 
 			var idField = document.getElementById('dlg_dataitem_id');
-			idField.value = objItem.id;
+			var strIdField = idField.getAttribute('data-accessor');
+			idField.value = objItem[strIdField];
+
 			var idDisplay = document.getElementById('dlg_dataitem_id_display');
-			idDisplay.innerHTML = objItem.id;
+			idDisplay.innerHTML = objItem[strIdField];
 
 			var labelField = document.getElementById('dlg_dataitem_label')
-			labelField.value = objItem.label;
+			var strLabelField = labelField.getAttribute('data-accessor');
+			labelField.value = objItem[strLabelField];
 
 			var legend = document.getElementById('dlg_legend');
 			legend.innerHTML = "Edit " + objList.label;
@@ -1029,16 +1147,19 @@ asg.util.vdash = {
 					{
 						label: 'ID',
 						sorted: false,
-						source: 'id',
+						source: 'Id',
 						width: '20%',
+						sortable: true,
+						is_id: true,
                     },
 					{
 						label: 'Label',
 						sorted: true,
 						sortkey: 'alpha',
 						sortdir: 'asc',
-						source: 'label',
+						source: 'Name',
 						width: '75%',
+						sortable: true
                     }
                 ],
 				row_data: list.data,
@@ -1047,6 +1168,10 @@ asg.util.vdash = {
 				}
 			});
 		}
+	},
+
+	updateDataListData: function (evt, data) {
+		debugger;
 	},
 
 	updateDataListItem: function () {

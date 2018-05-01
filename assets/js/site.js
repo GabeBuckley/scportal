@@ -6,14 +6,13 @@ Dev:
     Put the rest of the ids into the ids table
     Put the rest of the strings into the strings table
     Use strReplace function for string operations
-    
     IE11 Polyfil classes
  
         
     Vuln Portal:
-        Build Data Tables
-
- 
+ 		Tie in reports with data from API
+		
+		
     Admin:
          Create UI data model
         Set up build pipeline
@@ -21,7 +20,7 @@ Dev:
 
 Done
 ---------------------------------
-
+Added mode test based on hostname (DEV / TEST / PROD)
 */
 
 var asg = {};
@@ -29,7 +28,7 @@ var asg = {};
 asg.conf = {
 	hosts: {
 		dev: ['localhost', '127\.0\.0\.1', '.+\.dev'],
-		test: [],
+		test: ['10\.75\.17\.43', '.+\.test'],
 		prod: []
 	},
 	endpoints: {
@@ -127,15 +126,27 @@ asg.app = {
 		},
 
 		getPageByRoute: function (strRoute) {
+			var page = null;
 			var arrPages = asg.app.structure.pages;
 			strRoute = strRoute.toLowerCase();
-			for (var i = 0; i < arrPages.length; i++) {
-				var currPage = arrPages[i];
-				if (currPage.route.toLowerCase() == strRoute) {
-					return currPage;
+
+			while (strRoute.length != '' && page == null) {
+				for (var i = 0; i < arrPages.length; i++) {
+					var currPage = arrPages[i];
+					if (currPage.route.toLowerCase() == strRoute) {
+						page = currPage;
+					}
+				}
+
+				if (page == null) {
+					// shrink the route by one component and try again;
+					var arrRoute = strRoute.split('/');
+					arrRoute.pop();
+					strRoute = arrRoute.join('/');
 				}
 			}
-			return null;
+
+			return page;
 		},
 
 		hidePage: function (strPageID) {
@@ -150,8 +161,10 @@ asg.app = {
 			} else {
 				// Sorted, hide the ui
 				currPage.visible = false;
-				currPage.ui.style.display = 'block';
-				$(currPage.ui).toggle('fade');
+				if (currPage.ui != null) {
+					currPage.ui.style.display = 'block';
+					$(currPage.ui).toggle('fade');
+				}
 				return true;
 			}
 		},
@@ -569,9 +582,10 @@ asg.app = {
 				asg.app.fn.menu.init();
 				asg.app.fn.populateBreadCrumbs();
 
-				currPage.ui.style.display = "none";
-				$(currPage.ui).toggle('fade');
-
+				if (currPage.ui != null) {
+					currPage.ui.style.display = "none";
+					$(currPage.ui).toggle('fade');
+				}
 			}
 		},
 
@@ -904,8 +918,8 @@ asg.app = {
 				id: "page_vuln_data",
 				ui: null,
 				default: false,
-				route: "/vuln",
-				label: "Vulnerability & Patching Portal",
+				route: "/vuln/data",
+				label: "Data Lists",
 				oninitialise: function (evt, objPage) {
 					asg.app.fn.require(['vdash', 'components']);
 				},
@@ -913,7 +927,7 @@ asg.app = {
 					var doInit = function () {
 						if (asg.app.model.ready()) {
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
-							asg.util.vdash.initialise();
+							asg.util.vdash.showAllDataListLinks();
 						} else {
 							window.setTimeout(doInit, 200);
 						}
@@ -941,13 +955,15 @@ asg.app = {
 				},
 				onshow: function (evt, objPage) {
 					var doInit = function () {
-						if (asg.app.model.ready()) {
+						let _data = asg.u.vdash.data;
+						if (asg.app.model.ready() && _data.sourceDataListLoaded) {
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
 							asg.u.vdash.initDataList('source', 'asg_vdash_lists_source');
 						} else {
 							window.setTimeout(doInit, 200);
 						}
 					};
+					asg.u.vdash.getDataListData('get_data_list_source', 'source');
 
 					doInit();
 				},
@@ -971,13 +987,15 @@ asg.app = {
 				},
 				onshow: function (evt, objPage) {
 					var doInit = function () {
-						if (asg.app.model.ready()) {
+						let _data = asg.u.vdash.data;
+						if (asg.app.model.ready() && _data.severityDataListLoaded) {
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
 							asg.u.vdash.initDataList('severity', 'asg_vdash_lists_sev');
 						} else {
 							window.setTimeout(doInit, 200);
 						}
 					};
+					asg.u.vdash.getDataListData('get_data_list_severity', 'severity');
 
 					doInit();
 				},
@@ -1001,13 +1019,15 @@ asg.app = {
 				},
 				onshow: function (evt, objPage) {
 					var doInit = function () {
-						if (asg.app.model.ready()) {
+						let _data = asg.u.vdash.data;
+						if (asg.app.model.ready() && _data.typeDataListLoaded) {
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
 							asg.u.vdash.initDataList('type', 'asg_vdash_lists_type');
 						} else {
 							window.setTimeout(doInit, 200);
 						}
 					};
+					asg.u.vdash.getDataListData('get_data_list_type', 'type');
 
 					doInit();
 				},
@@ -1031,13 +1051,15 @@ asg.app = {
 				},
 				onshow: function (evt, objPage) {
 					var doInit = function () {
-						if (asg.app.model.ready()) {
+						let _data = asg.u.vdash.data;
+						if (asg.app.model.ready() && _data.technologyDataListLoaded) {
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
 							asg.u.vdash.initDataList('technology', 'asg_vdash_lists_tech');
 						} else {
 							window.setTimeout(doInit, 200);
 						}
 					};
+					asg.u.vdash.getDataListData('get_data_list_tech', 'technology');
 
 					doInit();
 				},

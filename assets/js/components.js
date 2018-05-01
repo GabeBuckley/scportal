@@ -106,9 +106,16 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 
 	doColumnSort(_index) {
 		_index = _index || 0;
+		var _colIndex = _index;
 		var _view = this;
+
+		if (_view._selectable) {
+			// Decrement to account for checkbox column
+			_colIndex = _colIndex - 1;
+		}
+
 		var _data = _view._row_data;
-		var _col = _view._columns[_index];
+		var _col = _view._columns[_colIndex];
 		var _src = _col.source;
 		var _target = this._thead.lastChild.children[_index].lastElementChild;
 		var _sortMode = _target.getAttribute('class');
@@ -275,6 +282,17 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 		return arrRows;
 	}
 
+	getIdColumn() {
+		var _view = this;
+		var _cols = _view._columns;
+		for (var i = 0; i < _cols.length; i++) {
+			if (_cols[i]['is_id']) {
+				return _cols[i];
+			}
+		}
+		return null;
+	}
+
 	getSelectedRows() {
 		var allRows = this._tbody.getElementsByTagName('tr');
 		var selectedRows = [];
@@ -380,10 +398,15 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 	}
 
 	processBodyRows(objTbody, objData) {
+		var idKey = 'id';
+		var idCol = this.getIdColumn();
+		if (idCol != null) {
+			idKey = idCol.source;
+		}
 		for (var i = 0; i < objData.length; i++) {
 			var objRow = document.createElement('tr');
 			objRow.setAttribute('class', 'view-body-row not-selected');
-			objRow.setAttribute('id', 'view_row_' + objData[i].id);
+			objRow.setAttribute('id', 'view_row_' + objData[i][idKey]);
 			objRow.addEventListener('click', this._handleRowClick.bind(this));
 			if (this._selectable) {
 				var newCell = asg.u.createFromFragment('<td class="selector"><input type="checkbox" /></td>');
