@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<!-- START HEAD BLOCK -->
 	<title>Suncorp Data Flow Diagram Editor</title>
 	<link rel="stylesheet" href="./assets/dist/jointjs/joint.css" />
 	<link rel="stylesheet" href="./assets/dist/bootstrap/bootstrap.css" />
@@ -11,18 +12,16 @@
 	<script src="./assets/dist/jointjs/joint.js"></script>
 	<script src="./assets/dist/chartjs/Chart.bundle.js"></script>
 	<script src="./assets/js/site.js"></script>
-	<!-- Old Stylesheets
-    <link rel="stylesheet" href="https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins.min.ACSHASHb7dfb12d52aa5c311544a29ba366b9a4.css" />
-    <link rel="stylesheet" href="https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_viewstyles_sunins.min.ACSHASH02b270a05a0276c8639f4511b6108556.css" />
--->
-	<!-- Shiny new hotness: -->
-	<link rel="stylesheet" href="./assets/css/suncorp_base.css" />
-	<link rel="stylesheet" href="./assets/dist/fontawesome/css/fontawesome-all.min.css" />
-	<link rel="stylesheet" href="./assets/css/site.css" />
+
+	<link rel="stylesheet" href="/assets/css/suncorp_base.css" />
+	<link rel="stylesheet" href="/assets/dist/fontawesome/css/fontawesome-all.min.css" />
+	<link rel="stylesheet" href="/assets/css/site.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<!-- END HEAD BLOCK -->
 </head>
 
 <body>
+	<!-- START PAGE_HEADER BLOCK -->
 	<div class="Page">
 
 		<div class="Main" id="browser-messages">
@@ -71,7 +70,8 @@
 				</div>
 			</div>
 		</header>
-
+		<!-- END PAGE_HEADER BLOCK -->
+		<!-- START PAGE_MAIN_TOP BLOCK -->
 		<main class="Main">
 
 			<div class="Main-content sticky-nav">
@@ -83,7 +83,8 @@
 						</li>
 					</ul>
 				</div>
-
+				<!-- END PAGE_MAIN_TOP BLOCK -->
+				<!-- START PAGES BLOCK -->
 				<div id="asg_app_container">
 					<!--         Home Page           -->
 					<section class="asg_app_page" id="page_home">
@@ -335,13 +336,17 @@
 							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
 						</div>
 					</section>
+
 				</div>
+				<!-- END PAGES BLOCK -->
+				<!-- START PAGE_MAIN_BOT BLOCK -->
 			</div>
 
 		</main>
 
 	</div>
-
+	<!-- END PAGE_MAIN_BOT BLOCK -->
+	<!-- START PAGE_DLG BLOCK -->
 	<div id="dialog_screen" onclick="asg.ui.closeDialog();"></div>
 
 	<div id="modal_dialog" class="sg-Modal">
@@ -360,6 +365,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- END PAGE_DLG BLOCK -->
 
 </body>
 

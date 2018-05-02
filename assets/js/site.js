@@ -20,7 +20,7 @@ Dev:
 
 Done
 ---------------------------------
-Added mode test based on hostname (DEV / TEST / PROD)
+
 */
 
 var asg = {};
