@@ -1,0 +1,67 @@
+[
+
+	{
+
+		"Id": 1,
+
+		"Name": "SQL Injection"
+
+  },
+
+	{
+
+		"Id": 2,
+
+		"Name": "XSS"
+
+  },
+
+	{
+
+		"Id": 3,
+
+		"Name": "Cipher"
+
+  },
+
+	{
+
+		"Id": 4,
+
+		"Name": "Uncontrolled Redirection"
+
+  },
+
+	{
+
+		"Id": 5,
+
+		"Name": "Information Disclosure"
+
+  },
+
+	{
+
+		"Id": 6,
+
+		"Name": "Authentication"
+
+  },
+
+	{
+
+		"Id": 7,
+
+		"Name": "Cookies"
+
+  },
+
+	{
+
+		"Id": 8,
+
+		"Name": "Request Forgery"
+
+  }
+
+]

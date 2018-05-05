@@ -1,0 +1,51 @@
+[
+
+	{
+
+		"Id": 1,
+
+		"Name": "Pen Test"
+
+  },
+
+	{
+
+		"Id": 2,
+
+		"Name": "Code Review"
+
+  },
+
+	{
+
+		"Id": 3,
+
+		"Name": "WAS Scan"
+
+  },
+
+	{
+
+		"Id": 4,
+
+		"Name": "App Review"
+
+  },
+
+	{
+
+		"Id": 5,
+
+		"Name": "Fortify"
+
+  },
+
+	{
+
+		"Id": 6,
+
+		"Name": "Manual Detection"
+
+  }
+
+]

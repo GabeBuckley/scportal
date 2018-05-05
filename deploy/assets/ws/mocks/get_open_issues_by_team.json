@@ -1,0 +1,1065 @@
+{
+    "response": {
+        "status": 200,
+        "response_type": "get_open_issues_by_team_response",
+        "response_data": [{
+                "name": "External Services - Retrieve Hogan ID",
+                "id": "05d3ba70dbeafa00d808fa0dbf961943",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Bank of New York Cheque Scanner",
+                "id": "01937b346f5e610039e8a5c5eb3ee4d9",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "BI SAS Visual Analytics - Prod",
+                "id": "00b26bfedbdf66406d3973e9bf961909",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Two Factor Authentication Service",
+                "id": "00c07eb76f23f940c5cc29309d3ee4a4",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Collibra Data Governance Centre",
+                "id": "03d83745db90974866e5326f7c961953",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "LANGUARD",
+                "id": "0aa3bb346f5e610039e8a5c5eb3ee46e",
+                "support_group": {
+                    "id": "0293bb346f5e610039e8a5c5eb3ee405",
+                    "label": "Operational Compliance"
+                }
+            },
+            {
+                "name": "W-001143: Innovation Labs",
+                "id": "067ad21d4f142240877166a01310c7e0",
+                "support_group": {
+                    "id": "05c68d19db5ddb4c49a3384f7c96195d",
+                    "label": "Consulting & Design"
+                }
+            },
+            {
+                "name": "Personal Loans Web Service (OLD)",
+                "id": "0810ce3cdb62fa00d808fa0dbf9619ad",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Mobile Bank Card Management Service",
+                "id": "07ab97ebdb420f042ec8326c7c961935",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Bloomberg",
+                "id": "11937b346f5e610039e8a5c5eb3ee4dc",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Broker Mortgage Manager",
+                "id": "1fb8b143db744f009ccc347d7c9619c4",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Bpay View",
+                "id": "1d937b346f5e610039e8a5c5eb3ee4dc",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Digital Interaction Services - Transaction History Service",
+                "id": "27d161f8db2aba00d808fa0dbf961999",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "delete medup2",
+                "id": "28ad27704fb7d600877166a01310c74a",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "CTP Policy",
+                "id": "28901a804fa39280877166a01310c71e",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "COLLECTIONS SOFTPHONE ADAPTER",
+                "id": "2693bb346f5e610039e8a5c5eb3ee406",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Maximizer",
+                "id": "2ea3bb346f5e610039e8a5c5eb3ee484",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "IRESS",
+                "id": "29a3bb346f5e610039e8a5c5eb3ee469",
+                "support_group": {
+                    "id": "02b3bb346f5e610039e8a5c5eb3ee4d9",
+                    "label": "Finance Systems Support"
+                }
+            },
+            {
+                "name": "MARQ",
+                "id": "2aa3bb346f5e610039e8a5c5eb3ee483",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "CARMS (CLAIMS FILE MANAGER)",
+                "id": "2d937b346f5e610039e8a5c5eb3ee4ef",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "RITS",
+                "id": "30b3bb346f5e610039e8a5c5eb3ee4b8",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "EBS",
+                "id": "3393bb346f5e610039e8a5c5eb3ee424",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Banking Online Apps",
+                "id": "35309e0edb0fb604d808fa0dbf961973",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "CENTRAL MIS",
+                "id": "31937b346f5e610039e8a5c5eb3ee4f2",
+                "support_group": {
+                    "id": "02b3bb346f5e610039e8a5c5eb3ee4d8",
+                    "label": "Data Services"
+                }
+            },
+            {
+                "name": "ISYNC CLIENT",
+                "id": "31a3bb346f5e610039e8a5c5eb3ee46a",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Reuters FXT",
+                "id": "38b3bb346f5e610039e8a5c5eb3ee4b6",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "IB Mobile Landing Page (OLD)",
+                "id": "377031b4db6eba00d808fa0dbf9619b6",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "SPY",
+                "id": "39b60bb16f429a00b0554447ad3ee467",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Risk Vision",
+                "id": "3cb3bb346f5e610039e8a5c5eb3ee4b7",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "SDS2 Non-Prod",
+                "id": "3f507ff04fb7d600877166a01310c7eb",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "IDW S3",
+                "id": "3bf751b14f0c2600877166a01310c7cc",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "POWER TAX (PRM)",
+                "id": "40b3bb346f5e610039e8a5c5eb3ee4aa",
+                "support_group": {
+                    "id": "02b3bb346f5e610039e8a5c5eb3ee4d9",
+                    "label": "Finance Systems Support"
+                }
+            },
+            {
+                "name": "WEALTH SMART - DEV",
+                "id": "43b3bb346f5e610039e8a5c5eb3ee4f8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "BI Platform - Production",
+                "id": "493f440adb01c3046d3973e9bf961964",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "SWIFT",
+                "id": "4ab3bb346f5e610039e8a5c5eb3ee4db",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "POS POLICY NUMBER GENERATOR SERVICE - DEV",
+                "id": "48b3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "WEALTH SOLUTIONS - UAT",
+                "id": "4bb3bb346f5e610039e8a5c5eb3ee4f8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Broker Mortgage Manager (BMM)",
+                "id": "4edc70686fc88640b0554447ad3ee420",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "OPICS",
+                "id": "4fa3bb346f5e610039e8a5c5eb3ee48f",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Exigo",
+                "id": "521be15a6fc4c680c5cc29309d3ee4b0",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Budget Tracker",
+                "id": "55937b346f5e610039e8a5c5eb3ee4eb",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Internet Banking Daemon",
+                "id": "53e06470dbe27a00d808fa0dbf961906",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "MACCESS TREASURY",
+                "id": "56a3bb346f5e610039e8a5c5eb3ee481",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "SDS2 ELK",
+                "id": "5b33987f4ffa9600877166a01310c772",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Reuters Eikon",
+                "id": "5ab3bb346f5e610039e8a5c5eb3ee4de",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Neutron",
+                "id": "5ae7e20b6f08a60039e8a5c5eb3ee4ea",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "ctp-policy-cluster-prod",
+                "id": "590092404fa39280877166a01310c77c",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Trade Finance (OTF)",
+                "id": "5ba3bb346f5e610039e8a5c5eb3ee490",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Macquarie Access (MACCESS)",
+                "id": "5aa3bb346f5e610039e8a5c5eb3ee481",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "HPA INTERVIEW",
+                "id": "5da3bb346f5e610039e8a5c5eb3ee448",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "InfoSphere Guardium 9.5.0",
+                "id": "5fb4e0fedbaeba00d808fa0dbf961986",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Customer Entitlements",
+                "id": "690482504f88db00ec08593f0310c7e4",
+                "support_group": {
+                    "id": "00c07eb76f23f940c5cc29309d3ee4a4",
+                    "label": "Suncorp API Gateway Support"
+                }
+            },
+            {
+                "name": "ARNIE",
+                "id": "64937b346f5e610039e8a5c5eb3ee4d2",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Panoptes",
+                "id": "6c31a642db1ccb846d3973e9bf961976",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "BI Platform dev tools",
+                "id": "7329887a6f5d32801175efdc5d3ee4f8",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "POS CREATE POLICY SERVICE - UAT",
+                "id": "77a3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "POS BSB SERVICE",
+                "id": "77a3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "POS CREATE POLICY SERVICE",
+                "id": "73a3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "TEA AD Checker",
+                "id": "78919771dbbd0300a60c342f7c9619a8",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Shared Drives (RITS)",
+                "id": "73558aff6faaca40c5cc29309d3ee449",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Qualys",
+                "id": "744cff016f695a00b0554447ad3ee4e2",
+                "support_group": {
+                    "id": "0293bb346f5e610039e8a5c5eb3ee405",
+                    "label": "Operational Compliance"
+                }
+            },
+            {
+                "name": "POS BSB SERVICE - UAT",
+                "id": "7ba3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "CID to HoganID",
+                "id": "7c9713e6db133e046d3973e9bf961980",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "POS CONFIRM APPLICATION SERVICE - DEV",
+                "id": "7fa3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Banking Application Forms",
+                "id": "81937b346f5e610039e8a5c5eb3ee4d9",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "BarCap",
+                "id": "81937b346f5e610039e8a5c5eb3ee4da",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Control Centre",
+                "id": "88216138db2aba00d808fa0dbf961936",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Bank Build/Slave",
+                "id": "864462cadb54c340d808fa0dbf961972",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Mobile Banking",
+                "id": "875c54a86fdcf90039e8a5c5eb3ee419",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "UAMA - IB",
+                "id": "8ed69d27db880fc0d808fa0dbf961978",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Integrated Data Management (IDM)",
+                "id": "8e3cc33ddb52478430f7347d7c961910",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Tableau (Cloud)",
+                "id": "92781824dbaa0f082ec8326c7c961951",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Edison Platform Tools",
+                "id": "90916ffadb172e40d808fa0dbf96191c",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "BROKER AUTHENTICATOR",
+                "id": "99937b346f5e610039e8a5c5eb3ee4dd",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "TEA AD Extract",
+                "id": "946a0c24dbbbc34049a3384f7c961985",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "BI Cognos - AWS",
+                "id": "99ee489c6f11be001175efdc5d3ee4cb",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Internet Banking Peon",
+                "id": "9f51e034dbe27a00d808fa0dbf96196c",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "SDS-CLI",
+                "id": "9d838784db0ba6006d3953e9bf96191c",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Aginity for Redshift",
+                "id": "9be4ab5b6f23a6401175efdc5d3ee4dc",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "COLLECTIONS TRANSACTION HISTORY",
+                "id": "a693bb346f5e610039e8a5c5eb3ee406",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Deutsche Bank Autobahn",
+                "id": "ab93bb346f5e610039e8a5c5eb3ee41f",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "OPS Redshift Tools",
+                "id": "a7cb6feedb36c7c0a60c342f7c9619b4",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Digital Interaction Services (DIS)",
+                "id": "ab45b9586f0132881175efdc5d3ee424",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "MINDA",
+                "id": "aaa3bb346f5e610039e8a5c5eb3ee487",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Treasury Testing Server",
+                "id": "ab0aedc3dbb1a2406d3953e9bf961968",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "IB PWD IFrame",
+                "id": "a6ecdf72db7a83c02ec8326c7c9619a6",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "Redshift Monitoring",
+                "id": "b2669ef06fc8220039e8a5c5eb3ee492",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "MAPS",
+                "id": "aea3bb346f5e610039e8a5c5eb3ee482",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "ASTERON EQUATE",
+                "id": "b0937b346f5e610039e8a5c5eb3ee4d3",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "ABS SUITE",
+                "id": "af93bb346f5e610039e8a5c5eb3ee41e",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "QRM EcoCap",
+                "id": "b72c88aa6ffbf140b0554447ad3ee413",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "REUTERS DACS",
+                "id": "b4b3bb346f5e610039e8a5c5eb3ee4b6",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "ctp-policy-cluster",
+                "id": "b35f02004fa39280877166a01310c711",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "REUTERS INSERTLINK",
+                "id": "b8b3bb346f5e610039e8a5c5eb3ee4b6",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "ASX Austraclear",
+                "id": "bc937b346f5e610039e8a5c5eb3ee4d3",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "RTGS",
+                "id": "bcb3bb346f5e610039e8a5c5eb3ee4b8",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Brands 4 Me tool",
+                "id": "c25c5fc7db36be80d808fa0dbf961992",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Suncorp API Platform",
+                "id": "bf053f846f1a9e00c5cc29309d3ee446",
+                "support_group": {
+                    "id": "00c07eb76f23f940c5cc29309d3ee4a4",
+                    "label": "Suncorp API Gateway Support"
+                }
+            },
+            {
+                "name": "WEALTH SOLUTIONS - DEV",
+                "id": "c7b3bb346f5e610039e8a5c5eb3ee4f8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Bank BT Infrastructure",
+                "id": "c961dfd16f992e0439e8a5c5eb3ee452",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "POS POLICY NUMBER GENERATOR SERVICE",
+                "id": "c4b3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "POS POLICY NUMBER GENERATOR SERVICE - UAT",
+                "id": "c8b3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "WEALTH SMART - UAT",
+                "id": "c3b3bb346f5e610039e8a5c5eb3ee4f8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Mobile Banking Frontend API & DIS (Retrieve Hogan ID from CID)",
+                "id": "c541a6356f64b68839e8a5c5eb3ee424",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "ABFX OPTIONS PRICER",
+                "id": "cc937b346f5e610039e8a5c5eb3ee4b0",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "BI App Store",
+                "id": "cb4e2c854ff5fe80b81fafee0310c7e5",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "map-tool-cluster-prod",
+                "id": "cd6192044fa39280877166a01310c7c4",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "POWER TAX",
+                "id": "ccb3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "02b3bb346f5e610039e8a5c5eb3ee4d9",
+                    "label": "Finance Systems Support"
+                }
+            },
+            {
+                "name": "QRM ERF",
+                "id": "d4b3bb346f5e610039e8a5c5eb3ee4b0",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Algo Collateral",
+                "id": "d4937b346f5e610039e8a5c5eb3ee4b5",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "QRM TDM",
+                "id": "d2b3bb346f5e610039e8a5c5eb3ee4dd",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "ABS Securitisation",
+                "id": "d4482f5e6f7bf140b0554447ad3ee44f",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Everyday Super (IB)",
+                "id": "da506cbcdba27a00d808fa0dbf961970",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "SDS2 (Suncorp Data Services) Prod",
+                "id": "d970a64b6fa54200b0554447ad3ee45f",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Edison Team Discovery",
+                "id": "e080e33edbdf66406d3973e9bf9619d0",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "Edison Data Lake",
+                "id": "dc52e33edbdf66406d3973e9bf9619d0",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "SIRA",
+                "id": "ddb3bb346f5e610039e8a5c5eb3ee4c0",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Treasury External Links",
+                "id": "e6b3bb346f5e610039e8a5c5eb3ee4e0",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Internet Banking",
+                "id": "e1a3bb346f5e610039e8a5c5eb3ee468",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "VERISIGN",
+                "id": "e2b3bb346f5e610039e8a5c5eb3ee4e3",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Internet Banking (Incl. internet admin/ internet support)",
+                "id": "e2dc70686fc88640b0554447ad3ee429",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "QRM MR",
+                "id": "e850190c4f2e6a40665f72a6f310c729",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Markitwire",
+                "id": "f0fb259a6fc4c680c5cc29309d3ee462",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "Reuters RWDS",
+                "id": "f03c699a6fc4c680c5cc29309d3ee454",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "POS CREATE POLICY SERVICE - DEV",
+                "id": "f3a3bb346f5e610039e8a5c5eb3ee4a9",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Bank Mobile Apps",
+                "id": "f53c50f4db627a00d808fa0dbf96197e",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "BI SDS Datastage",
+                "id": "f9c299496f95aa0439e8a5c5eb3ee4aa",
+                "support_group": {
+                    "id": "00b26bfedbdf66406d3973e9bf961909",
+                    "label": "BI Cloud Platform"
+                }
+            },
+            {
+                "name": "360T",
+                "id": "f7837b346f5e610039e8a5c5eb3ee4ad",
+                "support_group": {
+                    "id": "04282bc1db7c8b00f3d7342f7c96191d",
+                    "label": "Treasury & Risk"
+                }
+            },
+            {
+                "name": "POS BSB SERVICE - DEV",
+                "id": "f7a3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "Commission Update Process",
+                "id": "fda025b4db2aba00d808fa0dbf961948",
+                "support_group": {
+                    "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+                    "label": "Digital - Bank - Banking"
+                }
+            },
+            {
+                "name": "POS CONFIRM APPLICATION SERVICE - UAT",
+                "id": "ffa3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            },
+            {
+                "name": "POS CONFIRM APPLICATION SERVICE",
+                "id": "fba3bb346f5e610039e8a5c5eb3ee4a8",
+                "support_group": {
+                    "id": "000262c8dbe37e006d3973e9bf9619d8",
+                    "label": "Business Support"
+                }
+            }
+
+
+		]
+    }
+}
