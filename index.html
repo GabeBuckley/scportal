@@ -11,6 +11,7 @@
 	<script src="./assets/dist/backbone/backbone.js"></script>
 	<script src="./assets/dist/jointjs/joint.js"></script>
 	<script src="./assets/dist/chartjs/Chart.bundle.js"></script>
+	<script src="./assets/dist/moment/moment.js"></script>
 	<script src="./assets/js/site.js"></script>
 
 	<link rel="stylesheet" href="/assets/css/suncorp_base.css" />
@@ -133,16 +134,74 @@
 					<!--         Secure Development Life Cycle           -->
 					<section class="asg_app_page" id="page_sdl">
 						<div class="row">
-							<div class="col-xs-12">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
 								<div class="asg-control-surface">
 									<div class="asg-control-surface-header">
-										<div class="asg-control-surface-header-text">Secure Development Lifecycle</div>
+										<div class="asg-control-surface-header-text">Secure Development Cycle</div>
 									</div>
 									<div class="asg-control-surface-panel">
-										<a href="#!/sdl/dfd">Data Flow Diagram Demo</a>
+										<div class="asg-view-container" id="asg_sdl_workbook">
+
+										</div>
 									</div>
 								</div>
 							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_version">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Version Control</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_version">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_srp">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">System Risk Profile</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_srp">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_sca">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Security Controls Assessment</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_sca">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
 						</div>
 					</section>
 					<section class="asg_app_page" id="page_sdl_dfd">
@@ -178,6 +237,78 @@
 									</div>
 								</div>
 							</div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_list">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Element List</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_list">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_assumptions">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Assumptions</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_assumptions">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_threats">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Threat List</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_threats">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
+					<section class="asg_app_page" id="page_sdl_recommendations">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text">Recommendations</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_sdl_recommendations">
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
 						</div>
 					</section>
 

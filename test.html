@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Security Portal</title>
+	<link rel="stylesheet" href="/assets/dist/jointjs/joint.css">
+	<link rel="stylesheet" href="/assets/dist/bootstrap/bootstrap.css">
+	<script src="./assets/dist/jquery/jquery.js"></script>
+	<script src="./assets/dist/lodash/lodash.js"></script>
+	<script src="./assets/dist/backbone/backbone.js"></script>
+	<script src="./assets/dist/jointjs/joint.js"></script>
+	<script src="./assets/dist/chartjs/Chart.bundle.js"></script>
+	<script src="./assets/dist/moment/moment.js"></script>
+	<script src="./assets/js/site.js"></script>
+
+	<link rel="stylesheet" href="/assets/css/suncorp_base.css">
+	<link rel="stylesheet" href="/assets/dist/fontawesome/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<!-- split stop -->
+	<script name="util" src="./assets/js/util.js"></script>
+	<script name="data" src="./assets/js/data.js"></script>
+	<script name="ui" src="./assets/js/ui.js"></script>
+	<script name="sdl_workbook" src="./assets/js/sdl_workbook.js"></script>
+	<script name="sdl_refdata" src="./assets/js/sdl_refdata.js"></script>
+	<script name="diagram" src="./assets/js/diagram.js"></script>
+	<script name="vdash" src="./assets/js/vdash.js"></script>
+	<script name="components" src="./assets/js/components.js"></script>
+</head>
+
+<body>
+
+	<div>
+		<div class="row">
+			<div class="col-xs-9">
+				<div class="row">
+					<div class="col-xs-12"><label for="asg_sdl_srp_project_name">Project or Enhancement Name:</label></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12"><input type="text" id="asg_sdl_srp_project_name" name="asg_sdl_srp_project_name" placeholder="Enter the project name..." /></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12"><label for="asg_sdl_srp_iteration_mgr">Iteration Manager(s):</label></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12"><input type="text" id="asg_sdl_srp_iteration_mgr" name="asg_sdl_srp_iteration_mgr" placeholder="Click to select..." /></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12"><label for="asg_sdl_srp_completion_date">Completion Date:</label></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12"><input type="text" id="asg_sdl_srp_completion_date" name="asg_sdl_srp_completion_date" placeholder="Click to select..." /></div>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<h4 class="security-rating">Security Rating</h4>
+				<div id="asg_sdl_security_rating">L</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<div class="row">
+					<div class="col-xs-12"><label for="asg_sdl_srp_change_type">This system risk profile applies to a:</label></div>
+				</div>
+			</div>
+			<div class="col-xs-3" id="asg_sdl_srp_change_type"></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>System Risk Profile</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="asg_sdl_srp_qns"></div>
+			</div>
+		</div>
+		<div class="button-bar">
+			<a href="#!/sdl/version" class="sg-Btn sg-Btn--prev">Back to Version Control</a>
+			<a href="#!/sdl/sca" class="sg-Btn sg-Btn--next">Security Controls Assessment</a>
+		</div>
+	</div>
+</body>
+
+</html>

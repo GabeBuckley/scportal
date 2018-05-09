@@ -46,6 +46,12 @@ asg.conf = {
 
 asg.app = {
 	fn: {
+		addClass: function (objEl, strClassName) {
+			let strCurrentClass = objEl.className;
+			strNewClass = strCurrentClass + ' ' + strClassName;
+			objEl.setAttribute('class', strNewClass);
+		},
+
 		applyHashChangeEventListener: function () {
 			var handleHashChange = function (evt) {
 
@@ -565,6 +571,19 @@ asg.app = {
 			}
 		},
 
+		removeClass: function (objEl, strClass) {
+			let strCurrentClass = objEl.getAttribute('class');
+			let arrClassNames = strCurrentClass.split(' ');
+			let newArray = [];
+			for (let i = 0; i < arrClassNames.length; i++) {
+				if (arrClassNames[i] != strClass) {
+					newArray.push(arrClassNames[i]);
+				}
+			}
+			let strNewClass = newArray.join(' ');
+			objEl.setAttribute('class', strNewClass);
+		},
+
 		showPage: function (strPageID) {
 			var currPage = asg.app.fn.getPageById(strPageID);
 			if (currPage != null) {
@@ -599,6 +618,12 @@ asg.app = {
 				}
 			}
 			return false;
+		},
+
+		toggleClass: function (objEl, strClassFrom, strClassTo) {
+			let _app = asg.app.fn;
+			_app.removeClass(objEl, strClassFrom);
+			_app.addClass(objEl, strClassTo);
 		},
 
 		updateLoadingScreen: function (strWhat) {
@@ -715,6 +740,18 @@ asg.app = {
 				id: "vdash",
 				loaded: false,
 				requested: false,
+            },
+			{
+				error: false,
+				id: "sdl_workbook",
+				loaded: false,
+				requested: false,
+            },
+			{
+				error: false,
+				id: "sdl_refdata",
+				loaded: false,
+				requested: false,
             }
         ],
 
@@ -793,12 +830,110 @@ asg.app = {
 				route: "/sdl",
 				label: "Secure Development Lifecycle",
 				oninitialise: function (evt, objPage) {
-
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
 				},
 				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+						} else {
+							window.setTimeout(doInit, 200);
+						}
+					};
 
+					doInit();
 				},
 				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					var doUnload = function () {
+
+					}
+					window.setTimeout(doUnload, 2);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_version",
+				ui: null,
+				default: false,
+				route: "/sdl/version",
+				label: "Version Control",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showVersionControl();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_srp",
+				ui: null,
+				default: false,
+				route: "/sdl/srp",
+				label: "System Risk Profile",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showSRP();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_sca",
+				ui: null,
+				default: false,
+				route: "/sdl/sca",
+				label: "Security Controls Assessment",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showSCA();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
 					return true;
 				}
             },
@@ -809,15 +944,144 @@ asg.app = {
 				route: "/sdl/dfd",
 				label: "Data Flow Diagram",
 				oninitialise: function (evt, objPage) {
-					asg.app.fn.require(['diagram']);
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata', 'diagram']);
 				},
 				onshow: function (evt, objPage) {
-					window.setTimeout(asg.util.diagram.initialise, 500);
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.diagram.initialise();
+							window.setTimeout(asg.util.diagram.redraw, 30);
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
 				},
 				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
 					return true;
 				}
-            }, // END SDL Block 
+            },
+			{
+				id: "page_sdl_list",
+				ui: null,
+				default: false,
+				route: "/sdl/list",
+				label: "Element List",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showElementList()();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_assumptions",
+				ui: null,
+				default: false,
+				route: "/sdl/assumptions",
+				label: "Assumptions",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showAssumptions();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_threats",
+				ui: null,
+				default: false,
+				route: "/sdl/threats",
+				label: "Threat List",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showThreatList();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+			{
+				id: "page_sdl_recommendations",
+				ui: null,
+				default: false,
+				route: "/sdl/recommendations",
+				label: "Recommendations",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['sdl_workbook', 'sdl_refdata']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready() && asg.app.fn.module.isLoaded('sdl_workbook') && asg.app.fn.module.isLoaded('sdl_refdata')) {
+							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
+							asg.util.sdl.initialise();
+
+							asg.util.sdl.showRecommendations();
+						} else {
+							window.setTimeout(doInit, 20);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['view', 'file']);
+					return true;
+				}
+            },
+
+
+
+			// END SDL Block 
 
             /**** Vulnerabilities ****/
 			{

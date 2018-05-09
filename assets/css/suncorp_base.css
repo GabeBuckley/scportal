@@ -3185,19 +3185,19 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-Btn.sg-Btn--prev:after {
 	content: "";
 	left: 8px;
-	background-image: url("https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/img/Icon-arrowLeft--secondary.svg");
-	background-repeat: no-repeat
+	background-image: url("/assets/img/Icon-arrowLeft--secondary.svg");
+	background-repeat: no-repeat;
 }
 
 .sg-Btn.sg-Btn--next {
-	padding-right: 38px
+	padding-right: 38px;
 }
 
 .sg-Btn.sg-Btn--next:after {
 	content: "";
 	right: 8px;
-	background-image: url("https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/img/Icon-arrowRight--secondary.svg");
-	background-repeat: no-repeat
+	background-image: url("/assets/img/Icon-arrowRight--secondary.svg");
+	background-repeat: no-repeat;
 }
 
 .sg-Btn.sg-Btn--callToAction {
@@ -3207,8 +3207,8 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-Btn.sg-Btn--callToAction:after {
 	content: "";
 	right: 8px;
-	background-image: url("https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/img/Icon-arrowRight--text.svg");
-	background-repeat: no-repeat
+	background-image: url("/assets/img/Icon-arrowRight--text.svg");
+	background-repeat: no-repeat;
 }
 
 .sg-List-unordered,
@@ -36304,7 +36304,8 @@ button {
 
 button,
 select {
-	text-transform: none
+	text-transform: none;
+	/* width: 100%; */
 }
 
 button,
