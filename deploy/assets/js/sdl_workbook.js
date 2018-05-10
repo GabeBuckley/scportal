@@ -5,6 +5,11 @@ if (asg.__etc == null) {
 
 // Add system data
 asg.data.system.sdl = {
+
+	getModel: function () {
+		return JSON.stringify(asg.data.system.sdl.workbook);
+	},
+
 	workbook: {
 		selectedTabIndex: 0,
 		tabs: [],
@@ -257,6 +262,7 @@ asg.data.system.sdl = {
 		ins: {},
 		vn: {},
 		srp: {
+			completionDate: null,
 			accessControl: 'no',
 			accessibility: 'internal_only',
 			activities: {},
@@ -423,7 +429,7 @@ asg.data.templates.html.sdl = {
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_iteration_mgr">Iteration Manager(s):</label></div></div>' +
 		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_iteration_mgr" name="asg_sdl_srp_iteration_mgr" placeholder="Click to select..." /></div></div>' +
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_completion_date">Completion Date:</label></div></div>' +
-		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_completion_date" name="asg_sdl_srp_completion_date" placeholder="Click to select..." /></div></div>' +
+		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_completion_date"></div></div>' +
 		'</div><div class="col-xs-3"><h4 class="security-rating">Security Rating</h4><div id="asg_sdl_security_rating">L</div></div></div>' +
 		'<div class="row"><div class="col-xs-9">' +
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_change_type">This system risk profile applies to a:</label></div></div>' +
@@ -691,6 +697,18 @@ asg.util.sdl = {
 			_changeTypeFieldContainer.appendChild(_changeTypeField);
 		}
 
+		let _compDateContainer = document.getElementById('asg_sdl_srp_completion_date');
+		if (_compDateContainer) {
+
+			var compDate = new asg.DatePicker({
+				id: 'asg_wb_comp_date',
+				target: _compDateContainer,
+				value: _data.workbook.srp.completionDate,
+				onvaluechange: function (objDatePicker) {
+					asg.u.sdl.updateModel('srp.completionDate', objDatePicker.value);
+				},
+			});
+		}
 		let _qnsTableContainer = document.getElementById('asg_sdl_srp_qns');
 		if (_qnsTableContainer) {
 			_qnsTableContainer.innerHTML = '';

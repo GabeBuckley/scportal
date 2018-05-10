@@ -1,6 +1,4 @@
 /**** Custom JS Classes *****/
-
-
 asg.HTMLComponent = class {
 	constructor(objArgs) {
 		this.init(objArgs);
@@ -18,7 +16,9 @@ asg.HTMLComponent = class {
 			this[strIntKey] = objArgs[argName];
 		}
 		this._template = this.template();
-
+		if (this.styles) {
+			this._styles = this.styles();
+		}
 	}
 
 	compile() {
@@ -35,11 +35,22 @@ asg.HTMLComponent = class {
 	}
 
 	build() {
+		this.setStyles();
 		this._target.innerHTML = '';
 		this._view = asg.util.createFromFragment(this.compile());
 		this._target.appendChild(this._view);
 	}
 
+	setStyles() {
+		if (this._styles) {
+			let _styleId = this._id + '_styles';
+			var styleBlock = document.getElementById(_styleId);
+			if (styleBlock == null) {
+				styleBlock = asg.util.createFromFragment(asg.util.strReplace('<style id="%1%">%2%</style>', [_styleId, this._styles]));
+				document.head.appendChild(styleBlock);
+			}
+		}
+	}
 
 	ui() {
 		return this._view;
@@ -62,7 +73,6 @@ asg.HTMLComponent = class {
 
 }
 
-
 asg.h2 = class extends asg.HTMLComponent {
 	template() {
 		return '<h2>%1%</h2>';
@@ -76,6 +86,382 @@ asg.h2 = class extends asg.HTMLComponent {
 	}
 }
 
+asg.baseClass = class extends asg.HTMLComponent {
+	/** Options
+		{
+			id: 'string',
+			target: HTMLElement,
+			
+		}
+		**/
+	on_init() {
+		var _view = this.ui();
+	}
+
+	template() {
+		return [
+            '<div class="asg-component" id="%1%">',
+			'<h2>Base Component Class</h2>',
+            '</div>'].join('');
+	}
+
+	styles() {
+		return [
+            '.asg-component {display:block;width:400px;height:300px;background:#DDD;border:5px dashed green;}',
+			'.asg-component h2 {color: green; font-size:2em;}'].join('');
+	}
+
+	templateArgs() {
+		return [this._id];
+	}
+}
+
+asg.DatePicker = class extends asg.HTMLComponent {
+	/** Options
+	{
+		id: 'string',
+		target: HTMLElement,
+		value: Date || null,
+		onvaluechange: function,
+		disabled: true || false
+	}
+	**/
+
+	set disabled(boolDisabled) {
+		if (boolDisabled != false) {
+			this._disabled = true;
+		} else {
+			this._disabled = false;
+		}
+
+
+		if (this._disabled) {
+			this._view.setAttribute('class', 'asg-date-picker disabled');
+			this._view.firstElementChild.removeAttribute('title');
+		} else {
+			this._view.setAttribute('class', 'asg-date-picker');
+			this._view.firstElementChild.setAttribute('title', 'Click to open calendar');
+		}
+	}
+
+	get disabled() {
+		if (this._disabled != null) {
+			return this._disabled;
+		} else {
+			return false;
+		}
+	}
+
+	drawCalendar() {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+		let _c = _cal.lastElementChild;
+		_c.innerHTML = '';
+		this._calendarContainer = _c;
+	}
+
+	drawCalendarControls() {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+		let _c = _cal.firstElementChild;
+		_c.innerHTML = '';
+		_c.appendChild(asg.util.createFromFragment(this._frags.controls));
+
+		var _yearBackButton = _c.firstElementChild.firstElementChild;
+		_yearBackButton.addEventListener('click', this.moveYearBack.bind(this));
+
+		var _monthBackButton = _yearBackButton.nextElementSibling;
+		_monthBackButton.addEventListener('click', this.moveMonthBack.bind(this));
+
+		this._textDisplay = _monthBackButton.nextElementSibling;
+
+		var _monthForwardButton = this._textDisplay.nextElementSibling;
+		_monthForwardButton.addEventListener('click', this.moveMonthForward.bind(this));
+
+		var _yearForwardButton = _monthForwardButton.nextElementSibling;
+		_yearForwardButton.addEventListener('click', this.moveYearForward.bind(this));
+	}
+
+	fragments() {
+		let _dt = asg.util.dt;
+
+		var _dayArr = [];
+		for (let i = 0; i < _dt.days.length; i++) {
+			_dayArr.push(_dt.days[i].a);
+		}
+
+		return {
+			controls: [
+				'<div class="asg-cal-controls">',
+				'<div class="asg-cal-btn asg-year-back">',
+				'<i class="fas fa-angle-double-left"></i>',
+				'</div>',
+				'<div class="asg-cal-btn asg-month-back">',
+				'<i class="fas fa-angle-left"></i>',
+				'</div>',
+				'<div class="asg-cal-month-disp">',
+				'Wednesday May 10th 2018',
+				'</div>',
+				'<div class="asg-cal-btn asg-year-forward">',
+				'<i class="fas fa-angle-right"></i>',
+				'</div>',
+				'<div class="asg-cal-btn asg-month-forward">',
+				'<i class="fas fa-angle-double-right"></i>',
+				'</div>',
+				'</div>'
+			].join(''),
+
+			cal_table: [
+				'<table class="asg-cal-main">',
+				'<thead>',
+				'<tr><th>' + _dayArr.join('</th><th>') + '</th></tr>',
+				'</thead>',
+				'<tbody>',
+				'</tbody>',
+				'</table>'
+			].join(''),
+		}
+	}
+
+	handleDateCellClick(evt) {
+		evt.cancelBubble = true;
+		var target = evt.target;
+		var strDate = target.getAttribute('data-date-string');
+		var newDate = new Date(strDate);
+		this.value = newDate;
+		this.updateDisplay();
+		this.hideCalendar();
+		if (this._onvaluechange) {
+			this._onvaluechange(this);
+		}
+	}
+
+	hideCalendar() {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		document.body.removeEventListener('click', this._hideFunction);
+		_cal.setAttribute('style', 'display: none;');
+	}
+
+	moveMonthBack(evt) {
+		evt.cancelBubble = true;
+		this._currentDate.setMonth(this._currentDate.getMonth() - 1);
+		this.redraw();
+	}
+
+	moveMonthForward(evt) {
+		evt.cancelBubble = true;
+		this._currentDate.setMonth(this._currentDate.getMonth() + 1);
+		this.redraw();
+	}
+
+	moveYearBack(evt) {
+		evt.cancelBubble = true;
+		this._currentDate.setYear(this._currentDate.getFullYear() - 1);
+		this.redraw();
+	}
+
+	moveYearForward(evt) {
+		evt.cancelBubble = true;
+		this._currentDate.setYear(this._currentDate.getFullYear() + 1);
+		this.redraw();
+	}
+
+	on_init() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+		let _dt = asg.util.dt;
+
+		this._showFunction = this.showCalendar.bind(this);
+		this._hideFunction = this.hideCalendar.bind(this);
+
+		this._frags = this.fragments();
+
+		_body.addEventListener('click', this._showFunction);
+
+		if (this._value == null) {
+			this._currentDate = _dt.now();
+		} else {
+			this._currentDate = new Date(this._value);
+		}
+
+		this.updateDisplay();
+		if (this._disabled != null) {
+			this.disabled = this._disabled;
+		}
+	}
+
+	redraw() {
+		let _dt = asg.util.dt;
+		let _u = asg.util;
+		let _c = this._calendarContainer;
+		_c.innerHTML = '';
+		let _d = new Date(this._currentDate);
+		let _startDate = new Date(_d);
+		let _isLeap = _dt.isLeapYear(_startDate.getYear());
+
+		_startDate.setDate(1);
+
+		let _offsetPadStart = _startDate.getDay();
+		if (_offsetPadStart == 0) {
+			_offsetPadStart = 7;
+		}
+
+		let _intMonth = _startDate.getMonth();
+		let _month = _dt.getMonth(_intMonth);
+		let _table = _u.createFromFragment(this._frags.cal_table);
+		let _tbod = _table.lastElementChild;
+
+		var _row = document.createElement('tr');
+
+		for (var i = 1; i < _offsetPadStart; i++) {
+			var _cell = document.createElement('td');
+			_cell.setAttribute('class', 'cal-pad-cell');
+			_row.appendChild(_cell);
+		}
+
+		while (_startDate.getMonth() == _intMonth) {
+
+
+			var _cell = document.createElement('td');
+			if (_startDate.getDay() == 6 || _startDate.getDay() == 0) {
+				_cell.setAttribute('class', 'cal-sat-sun');
+			}
+			if (this._originalDate.getDate() == _startDate.getDate() &&
+				this._originalDate.getMonth() == _startDate.getMonth() &&
+				this._originalDate.getFullYear() == _startDate.getFullYear()) {
+				_cell.setAttribute('class', 'cal-curr-cell');
+			}
+			_cell.setAttribute('data-date-string', _startDate.toUTCString());
+			_cell.addEventListener('click', this.handleDateCellClick.bind(this));
+			_cell.innerHTML = _startDate.getDate();
+			_row.appendChild(_cell);
+
+			if (_startDate.getDay() % 7 == 0) {
+				_tbod.appendChild(_row);
+				var _row = document.createElement('tr');
+			}
+
+			_startDate.setDate(_startDate.getDate() + 1);
+		}
+
+		var _endPad = 7 - _row.children.length;
+		for (var i = 1; i <= _endPad; i++) {
+			var _cell = document.createElement('td');
+			_cell.setAttribute('class', 'cal-pad-cell');
+			_row.appendChild(_cell);
+		}
+		_tbod.appendChild(_row);
+
+		_c.appendChild(_table);
+
+		this.updateCalendarText(this._currentDate);
+	}
+
+	styles() {
+		return [
+            '.asg-date-picker {display:inline-block; height: 36px; width: 300px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
+            '.asg-date-picker.disabled {background: #f3f3f3; border-color: #999999;}',
+			'.asg-date-picker .asg-date-picker-body {display: inline-block;cursor:pointer;}',
+			'.asg-date-picker.disabled .asg-date-picker-body {cursor:default;}',
+			'.asg-date-picker .asg-date-display {display: inline-block; width: 255px; color: #006f66; text-align: center;}',
+			'.asg-date-picker.disabled .asg-date-display {color: #999999; font-style: italic;}',
+			'.asg-date-picker .asg-date-button {display: inline-block; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
+			'.asg-date-picker.disabled .asg-date-button, .asg-date-picker.disabled .asg-date-button:hover {border-color:#999999;background: #f3f3f3;color: #999999;}',
+			'.asg-date-picker .asg-date-button:hover {background: #7fb7b2; color: #fff;}',
+			'.asg-date-picker .asg-date-calendar {display: none; position:absolute; z-index: 9000; width: 330px; height: 250px;border: 2px solid #006f66; border-radius: 10px; background: #fff; -webkit-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);-moz-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);}',
+			'.asg-date-picker .asg-cal-head {height: 30px;border-bottom: 2px outset #bfdbd9; border-top-left-radius: 10px;border-top-right-radius: 10px; background: #bfdbd9; }',
+			'.asg-date-picker .asg-cal-controls {display: block; width: 100%;font-weight: bold; color: #00534c; font-size: 0.9em; }',
+			'.asg-date-picker .asg-cal-btn {cursor:pointer;height: 24px; margin-top:3px;line-height: 21px; display: inline-block; width: 45px; text-align: center;}',
+			'.asg-date-picker .asg-cal-btn:hover {background:#7fb7b2;color:#003733;border-radius: 10px;}',
+			'.asg-date-picker .asg-cal-month-disp {font-size: 0.8em; display: inline-block; width: 142px; text-align: center;}',
+			'.asg-date-picker .asg-year-back, .asg-date-picker .asg-month-back {margin-left:1px;}',
+			'.asg-date-picker .asg-year-forward, .asg-date-picker .asg-month-forward {margin-right:1px;}',
+			'.asg-date-picker .asg-cal-main {width: 280px; border: 1px solid #006f66;margin-top: 5px; margin-left: auto; margin-right: auto;}',
+			'.asg-date-picker .asg-cal-main tr:nth-child(even) {background: #f9f9f9;}',
+			'.asg-date-picker .asg-cal-main th {width: 40px; height: 20px; border-right: 1px solid #006f66;border-bottom: 1px solid #006f66; text-align: center; background: #d0d0d0; font-weight: bold; color: #00534c; font-size: 0.75em;}',
+			'.asg-date-picker .asg-cal-main td {cursor:pointer;width: 40px; height: 30px; border-right: 1px solid #40938c; text-align: center; color: #00534c;}',
+			'.asg-date-picker .asg-cal-main td.cal-sat-sun {background:#f5f5f5;}',
+			'.asg-date-picker .asg-cal-main td:hover, .asg-date-picker .asg-cal-main td.cal-sat-sun:hover {background:#bfdbd9;}',
+			'.asg-date-picker .asg-cal-main td:last-child {border-right: 1px solid #006f66;}',
+			'.asg-date-picker .asg-cal-main td.cal-pad-cell, .asg-date-picker .asg-cal-main td.cal-pad-cell:hover {cursor:default;background: #e0e0e0;}',
+			'.asg-date-picker .asg-cal-main td.cal-curr-cell, .asg-date-picker .asg-cal-main td.cal-curr-cell:hover {background: #006f66; color:#fff;}',
+
+		].join('');
+	}
+
+	showCalendar(evt) {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		evt.cancelBubble = true;
+		if (!this.disabled) {
+			this._originalDate = new Date(this._currentDate);
+
+			this.drawCalendarControls();
+			this.drawCalendar();
+			this.redraw();
+
+			document.body.addEventListener('click', this._hideFunction);
+			_cal.setAttribute('style', 'display: block;');
+		}
+	}
+
+	template() {
+		return [
+            '<div class="asg-date-picker" id="%1%">',
+			'  <div class="asg-date-picker-body"  title="Click to open calendar">',
+			'    <div class="asg-date-display"></div>',
+			'    <div class="asg-date-button">',
+			'      <i class="fas fa-calendar-alt"></i>',
+			'    </div>',
+			'  </div>',
+			'  <div class="asg-date-calendar">',
+			'    <div class="asg-cal-head"></div>',
+			'    <div class="asg-cal-body"></div>',
+			'  </div',
+            '</div>'].join('');
+	}
+
+	templateArgs() {
+		return [
+            this._id
+        ];
+	}
+
+	updateCalendarText(objDate) {
+		let _t = this._textDisplay;
+		let _dt = asg.util.dt;
+		var _month = _dt.getMonth(objDate.getMonth());
+
+		var _year = objDate.getFullYear();
+		_t.innerHTML = _month.name + ' ' + _year;
+	}
+
+	updateDisplay() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+		var _disp = _body.firstElementChild;
+		if (this.value == null) {
+			if (this.disabled) {
+				_disp.innerHTML = '';
+			} else {
+				_disp.innerHTML = 'Click to select...';
+			}
+		} else {
+			_disp.innerHTML = this.value.toLocaleDateString();
+		}
+	}
+
+	set value(objDate) {
+		this._value = objDate;
+	}
+
+	get value() {
+		return this._value;
+	}
+}
 
 asg.ViewComponent = class extends asg.HTMLComponent {
 

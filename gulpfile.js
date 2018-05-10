@@ -23,7 +23,7 @@ gulp.task('default', ['tidy'], function () {
 	console.log('Done');
 });
 
-gulp.task('tidy', ['replaceTags'], function () {
+gulp.task('tidy', ['generateCSHTML'], function () {
 	// Clean out the Temp Directory
 	return gulp.src(app.tempDir + '/*.*')
 		.pipe(clean());
@@ -38,7 +38,7 @@ gulp.task('replaceTags', ['generateCSHTML'], function () {
 
 	var csStyleStart = '@Styles.Render("~';
 	var csStyleEnd = '.css")';
-	var csScriptStart = '@Scrupts.Render("~';
+	var csScriptStart = '@Scripts.Render("~';
 	var csScriptEnd = '.js")';
 
 	return gulp.src([app.cshtmlDir + '/' + app.headFile])
