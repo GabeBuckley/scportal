@@ -463,6 +463,7 @@ asg.DatePicker = class extends asg.HTMLComponent {
 	}
 }
 
+
 asg.ViewComponent = class extends asg.HTMLComponent {
 
 	applyDefaultSort() {
@@ -1142,6 +1143,187 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 		}
 	}
 }
+
+
+
+asg.UserPicker = class extends asg.HTMLComponent {
+	/** Options
+	{
+	//- Mandatory
+	//------------------------
+		id: 'string',
+		target: HTMLElement,
+		userTree: object;
+		
+	//- Optional
+	//------------------------
+		value: Object || null,
+		onvaluechange: function,
+		disabled: true || false
+		
+		
+	}
+	**/
+
+	set disabled(boolDisabled) {
+		if (boolDisabled != false) {
+			this._disabled = true;
+		} else {
+			this._disabled = false;
+		}
+
+
+		if (this._disabled) {
+			this._view.setAttribute('class', 'asg-user-picker disabled');
+			this._view.firstElementChild.removeAttribute('title');
+		} else {
+			this._view.setAttribute('class', 'asg-user-picker');
+			this._view.firstElementChild.setAttribute('title', 'Click to open calendar');
+		}
+	}
+
+	get disabled() {
+		if (this._disabled != null) {
+			return this._disabled;
+		} else {
+			return false;
+		}
+	}
+
+	fragments() {
+		let _dt = asg.util.dt;
+
+		var _dayArr = [];
+		for (let i = 0; i < _dt.days.length; i++) {
+			_dayArr.push(_dt.days[i].a);
+		}
+
+		return {
+			controls: [
+				'<div class="asg-cal-controls">',
+				'<div class="asg-cal-btn asg-year-back">',
+				'<i class="fas fa-angle-double-left"></i>',
+				'</div>',
+				'<div class="asg-cal-btn asg-month-back">',
+				'<i class="fas fa-angle-left"></i>',
+				'</div>',
+				'<div class="asg-cal-month-disp">',
+				'Wednesday May 10th 2018',
+				'</div>',
+				'<div class="asg-cal-btn asg-year-forward">',
+				'<i class="fas fa-angle-right"></i>',
+				'</div>',
+				'<div class="asg-cal-btn asg-month-forward">',
+				'<i class="fas fa-angle-double-right"></i>',
+				'</div>',
+				'</div>'
+			].join(''),
+
+			cal_table: [
+				'<table class="asg-cal-main">',
+				'<thead>',
+				'<tr><th>' + _dayArr.join('</th><th>') + '</th></tr>',
+				'</thead>',
+				'<tbody>',
+				'</tbody>',
+				'</table>'
+			].join(''),
+		}
+	}
+
+	hidePicker() {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		document.body.removeEventListener('click', this._hideFunction);
+		_cal.setAttribute('style', 'display: none;');
+	}
+
+	on_init() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+		let _dt = asg.util.dt;
+
+		this._showFunction = this.showPicker.bind(this);
+		this._hideFunction = this.hidePicker.bind(this);
+
+		this._frags = this.fragments();
+
+		_body.addEventListener('click', this._showFunction);
+
+		if (this._value == null) {
+			this._currentDate = _dt.now();
+		} else {
+			this._currentDate = new Date(this._value);
+		}
+
+		if (this._disabled != null) {
+			this.disabled = this._disabled;
+		}
+	}
+
+	showPicker(evt) {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		evt.cancelBubble = true;
+		if (!this.disabled) {
+
+			document.body.addEventListener('click', this._hideFunction);
+
+			_cal.setAttribute('style', 'display: block;');
+		}
+	}
+
+
+	styles() {
+		return [
+            '.asg-user-picker {display:inline-block; height: 36px; width: 300px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
+            '.asg-user-picker.disabled {background: #f3f3f3; border-color: #999999;}',
+			'.asg-user-picker .asg-user-picker-body {display: inline-block;cursor:pointer;}',
+			'.asg-user-picker.disabled .asg-user-picker-body {cursor:default;}',
+			'.asg-user-picker .asg-user-display {display: inline-block; width: 255px; color: #006f66; text-align: center;}',
+			'.asg-user-picker.disabled .asg-user-display {color: #999999; font-style: italic;}',
+			'.asg-user-picker .asg-user-button {display: inline-block; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
+			'.asg-user-picker.disabled .asg-user-button, .asg-user-picker.disabled .asg-user-button:hover {border-color:#999999;background: #f3f3f3;color: #999999;}',
+			'.asg-user-picker .asg-user-button:hover {background: #7fb7b2; color: #fff;}',
+			'.asg-user-picker .asg-user-browser {display: none; position:absolute; z-index: 9000; width: 450px; height: 350px;border: 2px solid #006f66; border-radius: 10px; background: #fff; -webkit-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);-moz-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);}',
+			'.asg-user-picker .asg-user-browser-head {height: 30px;border-bottom: 2px outset #bfdbd9; border-top-left-radius: 10px;border-top-right-radius: 10px; background: #bfdbd9; }',
+
+		].join('');
+	}
+
+	template() {
+		return [
+            '<div class="asg-user-picker" id="%1%">',
+			'  <div class="asg-user-picker-body"  title="Click to select">',
+			'    <div class="asg-user-display"></div>',
+			'    <div class="asg-user-button">',
+			'      <i class="fas fa-user"></i>',
+			'    </div>',
+			'  </div>',
+			'  <div class="asg-user-browser">',
+			'    <div class="asg-user-browser-head"></div>',
+			'    <div class="asg-user-browser-body"></div>',
+			'  </div',
+            '</div>'].join('');
+	}
+
+	templateArgs() {
+		return [
+            this._id
+        ];
+	}
+
+	set value(objDate) {
+		this._value = objDate;
+	}
+
+	get value() {
+		return this._value;
+	}
+}
+
 
 
 //EOF

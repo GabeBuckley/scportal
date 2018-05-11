@@ -263,6 +263,7 @@ asg.data.system.sdl = {
 		vn: {},
 		srp: {
 			completionDate: null,
+			iterationManager: null,
 			accessControl: 'no',
 			accessibility: 'internal_only',
 			activities: {},
@@ -427,7 +428,7 @@ asg.data.templates.html.sdl = {
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_project_name">Project or Enhancement Name:</label></div></div>' +
 		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_project_name" name="asg_sdl_srp_project_name" placeholder="Enter the project name..." /></div></div>' +
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_iteration_mgr">Iteration Manager(s):</label></div></div>' +
-		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_iteration_mgr" name="asg_sdl_srp_iteration_mgr" placeholder="Click to select..." /></div></div>' +
+		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_iteration_mgr"></div></div>' +
 		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_completion_date">Completion Date:</label></div></div>' +
 		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_completion_date"></div></div>' +
 		'</div><div class="col-xs-3"><h4 class="security-rating">Security Rating</h4><div id="asg_sdl_security_rating">L</div></div></div>' +
@@ -696,6 +697,20 @@ asg.util.sdl = {
 			_changeTypeField.addEventListener('change', _updateField.bind(_changeTypeField));
 			_changeTypeFieldContainer.appendChild(_changeTypeField);
 		}
+
+		let _itMgrContainer = document.getElementById('asg_sdl_srp_iteration_mgr');
+		if (_itMgrContainer) {
+
+			var itMgr = new asg.UserPicker({
+				id: 'asg_wb_it_mgr',
+				target: _itMgrContainer,
+				value: _data.workbook.srp.iterationManager,
+				onvaluechange: function (objUserPicker) {
+					asg.u.sdl.updateModel('srp.iterationManager', objUserPicker.value);
+				},
+			});
+		}
+
 
 		let _compDateContainer = document.getElementById('asg_sdl_srp_completion_date');
 		if (_compDateContainer) {

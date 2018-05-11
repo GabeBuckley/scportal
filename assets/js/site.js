@@ -31,6 +31,7 @@ asg.conf = {
 		test: ['10\.75\.17\.43', '.+\.test'],
 		prod: []
 	},
+
 	endpoints: {
 
 	},
@@ -41,7 +42,16 @@ asg.conf = {
 		app_menu: 'asg_main_menu',
 		ldr_text: 'asg_loading_what',
 		breadcrumbs: 'asg_site_breadcrumbs',
-	}
+	},
+
+	tests: [
+		{
+			id: 'Test User Roles',
+			assert: 'asg.app.user.hasRole("u262303","can_delete_workbook")',
+			result: true,
+			msg: 'Unable to find role for user'
+		},
+	]
 };
 
 asg.app = {
@@ -155,6 +165,49 @@ asg.app = {
 			return page;
 		},
 
+		handleLoginAttempt: function (objLoginData) {
+			var _fn = asg.app.fn;
+			var _u = asg.app.user;
+			var _o = objLoginData;
+			var _auth = _u.validateUser(_o)
+			if (_auth) {
+				_u.setCurrentUser(_auth);
+				var _page = _fn.getPageByRoute(_o.passRoute);
+				if (_page != null) {
+					_fn.showPage(_page.id);
+				}
+			} else {
+				_fn.showPage('page_error');
+			}
+		},
+
+		handleLoginSubmit: function () {
+			var _fn = asg.app.fn;
+			var _user = document.getElementById('asg_site_login_username');
+			var _pw = document.getElementById('asg_site_login_password');
+			var _passroute = document.getElementById('asg_on_success_route');
+			var _failroute = document.getElementById('asg_on_fail_route');
+			var _msg = document.getElementById('asg_login_message');
+			var loginData = {
+				username: _user.value,
+				password: _pw.value,
+				passRoute: _passroute.value,
+				failRoute: _failroute.value,
+				message: _msg.innerHTML
+			}
+			asg.ui.closeDialog();
+
+			_fn.handleLoginAttempt(loginData);
+		},
+
+		handleUnauthorisedAccess: function (objExceptionData) {
+			var _u = objExceptionData.user;
+			var _fn = asg.app.fn;
+			if (_u = null || _u.id == 'anonymous') {
+				_fn.showLoginDialog(objExceptionData);
+			}
+		},
+
 		hidePage: function (strPageID) {
 			var currPage = asg.app.fn.getPageById(strPageID);
 			var hideEvent = {
@@ -202,6 +255,7 @@ asg.app = {
 		},
 
 		initialise: function () {
+
 			asg.app.fn.loadSiteModules();
 
 			var doLoad = function () {
@@ -211,6 +265,10 @@ asg.app = {
 					var display = function () {
 						if (asg.app.model.ready()) {
 							asg.app.fn.showFirstPage();
+							asg.app.test.runAll();
+							if (asg.app.fn.devMode()) {
+								asg.app.test.output();
+							}
 						} else {
 							window.setTimeout(display, 200);
 						}
@@ -221,6 +279,7 @@ asg.app = {
 					window.setTimeout(doLoad, 200);
 				}
 			}
+			asg.app.test.loadTests();
 			doLoad();
 		},
 
@@ -533,6 +592,23 @@ asg.app = {
 			}
 		},
 
+		removeClass: function (objEl, strClass) {
+			let strCurrentClass = objEl.getAttribute('class');
+			let arrClassNames = strCurrentClass.split(' ');
+			let newArray = [];
+			for (let i = 0; i < arrClassNames.length; i++) {
+				if (arrClassNames[i] != strClass) {
+					newArray.push(arrClassNames[i]);
+				}
+			}
+			let strNewClass = newArray.join(' ');
+			objEl.setAttribute('class', strNewClass);
+		},
+
+		resolvePermissions: function (arrPerms) {
+			return asg.app.user.resolvePermissions(asg.data.system.current_user, arrPerms);
+		},
+
 		setSiteTitle: function (strTitle) {
 			window.document.title = strTitle;
 		},
@@ -571,17 +647,28 @@ asg.app = {
 			}
 		},
 
-		removeClass: function (objEl, strClass) {
-			let strCurrentClass = objEl.getAttribute('class');
-			let arrClassNames = strCurrentClass.split(' ');
-			let newArray = [];
-			for (let i = 0; i < arrClassNames.length; i++) {
-				if (arrClassNames[i] != strClass) {
-					newArray.push(arrClassNames[i]);
-				}
+		showLoginDialog: function (objExceptionData) {
+			asg.ui.showDialog('doLogin', {
+				size: 'medium'
+			});
+			var toField = document.getElementById('asg_on_success_route');
+			if (objExceptionData.route != null) {
+				toField.value = objExceptionData.route;
+			} else {
+				toField.value = '/';
 			}
-			let strNewClass = newArray.join(' ');
-			objEl.setAttribute('class', strNewClass);
+
+			var failField = document.getElementById('asg_on_fail_route');
+			failField.value = '/error';
+
+			var msgBlock = document.getElementById('asg_login_message');
+			if (objExceptionData.message != null) {
+				msgBlock.innerHTML = objExceptionData.message;
+				msgBlock.style.display = 'block';
+			}
+
+			var uNameField = document.getElementById('asg_site_login_username');
+			uNameField.focus();
 		},
 
 		showPage: function (strPageID) {
@@ -703,6 +790,366 @@ asg.app = {
 		}
 	},
 
+	test: {
+
+		tests: [],
+
+		test_cases: {},
+
+		add: function (objTestSettings) {
+			let _t = asg.app.test;
+
+			var _c = {
+				type: 'test_case',
+				passed: false,
+				status: 'not_yet_run',
+				executionResult: {
+					type: 'test_result',
+					msg: 'This test has not yet been run',
+					result: null
+				},
+				run: function () {
+					let _t = asg.app.test;
+					let _result = {
+						type: 'test_result'
+					};
+
+					this.executionResult.testId = this.id;
+
+					try {
+						var _test = eval(this.assert);
+						if (_.isEqual(_test, this.result)) {
+							this.executionResult.result = _test;
+							this.executionResult.msg = 'Test Passed';
+							this.status = 'passed';
+							this.passed = true;
+						} else {
+							this.executionResult.result = _test;
+							this.executionResult.msg = this.msg;
+							this.status = 'failed';
+							this.passed = false;
+						}
+					} catch (e) {
+						this.executionResult.result = e;
+						this.executionResult.msg = this.msg;
+						this.status = 'execution_error';
+						this.passed = false;
+					}
+					return Object.assign({}, this.executionResult);
+				}
+			};
+
+			if (objTestSettings.hasOwnProperty('id')) {
+				if (objTestSettings.hasOwnProperty('assert')) {
+					if (objTestSettings.hasOwnProperty('result')) {
+						if (objTestSettings.hasOwnProperty('msg')) {
+							_t.addTest(Object.assign(objTestSettings, _c));
+						} else {
+							return {
+								type: 'test_error',
+								msg: 'No msg property specified'
+							}
+						}
+					} else {
+						return {
+							type: 'test_error',
+							msg: 'No result property specified'
+						}
+					}
+				} else {
+					return {
+						type: 'test_error',
+						msg: 'No assert property specified'
+					}
+				}
+			} else {
+				return {
+					type: 'test_error',
+					msg: 'No id property specified'
+				}
+			}
+		},
+
+		addTest: function (objTest) {
+			let _t = asg.app.test;
+			if (objTest.type == 'test_case') {
+				_t.tests.push(objTest);
+				_t.test_cases[objTest.id] = objTest;
+			}
+		},
+
+		loadTests: function () {
+			var _d = asg.conf.tests;
+			for (var i = 0; i < _d.length; i++) {
+				this.add(_d[i]);
+			}
+		},
+
+		output: function () {
+			console.group('TEST RESULTS  -  ' + new Date());
+			console.log('Test:                     | Status:                   | Message:');
+			console.log('---------------------------------------------------------------------------------');
+			for (var i = 0; i < this.tests.length; i++) {
+				var _t = this.tests[i];
+
+				var _strTest = _t.id + '                         ';
+				_strTest = _strTest.slice(0, 25);
+
+				var _strStatus = _t.status + '                         ';
+				_strStatus = _strStatus.slice(0, 25);
+
+				var _strMessage = _t.executionResult.msg;
+				var _strOutput = _strTest + ' | ' + _strStatus + ' | ' + _strMessage;
+
+				if (_t.status == 'not_yet_run') {
+					console.info(_strOutput);
+				}
+
+				if (_t.status == 'execution_error') {
+					console.error(_strOutput);
+				}
+
+				if (_t.status == 'passed') {
+					console.log(_strOutput);
+				}
+
+				if (_t.status == 'failed') {
+					console.warn(_strOutput);
+				}
+			}
+			console.log('---------------------------------------------------------------------------------');
+
+			console.groupEnd('// END TEST RESULTS');
+		},
+
+		run: function (strTestId) {
+			let _t = asg.app.test;
+			if (typeof strTestId != "string") {
+				return {
+					type: 'test_error',
+					msg: 'Invalid strTestId ( ' + strTestId.toString() + ' ) supplied. String expected.'
+				}
+			}
+			if (_t.test_cases[strTestId]) {
+				return _t.runTest(_t.test_cases[strTestId]);
+			} else {
+				return {
+					type: 'test_error',
+					msg: 'Unknown strTestId ( ' + strTestId + ' ) supplied.'
+				}
+			}
+		},
+
+		runAll: function () {
+			let _t = asg.app.test;
+			var _results = [];
+			for (var i = 0; i < _t.tests.length; i++) {
+				_results.push(_t.runTest(_t.tests[i].id));
+			}
+			return _results;
+		},
+
+		runTest: function (strTestId) {
+			let _c = asg.app.test.test_cases[strTestId];
+
+			return _c.run();
+		}
+
+	},
+
+	user: {
+		data: 'asg.data.user_data',
+
+		getGroupById: function (strGroup) {
+			let _d = eval(asg.app.user.data);
+			var objGroup = null;
+			for (var i = 0; i < _d.groups.length; i++) {
+				_g = _d.groups[i];
+				if (_g.id == strGroup) {
+					objGroup = Object.assign({}, _d.groups[i]);
+				}
+			}
+			return objGroup;
+		},
+
+		getGroups: function () {
+			let _d = eval(asg.app.user.data);
+			var groupList = [];
+			for (var i = 0; i < _d.groups.length; i++) {
+				groupList.push(Object.assign({}, _d.groups[i]));
+			}
+			return groupList;
+		},
+
+		getUsers: function () {
+			let _d = eval(asg.app.user.data);
+			var userList = [];
+			for (var i = 0; i < _d.users.length; i++) {
+				userList.push(Object.assign({}, _d.users[i]));
+			}
+			return userList;
+		},
+
+		getUserById: function (strId) {
+			let _d = eval(asg.app.user.data);
+			var objUser = null;
+			for (var i = 0; i < _d.users.length; i++) {
+				var strUserId = _d.users[i].id;
+				if (strUserId == strId) {
+					objUser = Object.assign({}, _d.users[i]);
+					break;
+				}
+			}
+			return objUser;
+		},
+
+		getUserGroups: function (objUser) {
+			let _u = asg.app.user;
+			let _d = eval(asg.app.user.data);
+			if (typeof objUser == 'string') {
+				objUser = _u.getUserById(objUser);
+			}
+			var groupList = [];
+			if (objUser != null) {
+				for (var i = 0; i < _d.groups.length; i++) {
+					var _g = _d.groups[i];
+					if (_u.isMember(objUser.id, _g.id)) {
+						groupList.push(Object.assign({}, _g));
+					}
+				}
+			}
+			return groupList;
+		},
+
+		groupHasRole(objGroup, strRole) {
+			let _u = asg.app.user;
+			let _d = eval(asg.app.user.data);
+			if (typeof objGroup == 'string') {
+				objGroup = _u.getGroupById(objGroup);
+			}
+			if (objGroup != null) {
+
+				for (var i = 0; i < objGroup.roles.length; i++) {
+					let _r = objGroup.roles[i];
+					if (_r == strRole) {
+						return true;
+					}
+				}
+				return false;
+			}
+			return false;
+		},
+
+		hasRole: function (objUser, strRole) {
+			let _u = asg.app.user;
+			let _d = eval(asg.app.user.data);
+			if (typeof objUser == 'string') {
+				objUser = _u.getUserById(objUser);
+			}
+			if (objUser != null) {
+				for (var i = 0; i < objUser.roles.length; i++) {
+					if (objUser.roles[i] == strRole) {
+						return true;
+					}
+				}
+				var _g = _u.getUserGroups(objUser);
+				for (var i = 0; i < _g.length; i++) {
+					if (_u.groupHasRole(_g[i].id, strRole)) {
+						return true;
+					}
+				}
+				return false;
+			}
+			return false;
+		},
+
+		isMember: function (objUser, strGroup) {
+			let _u = asg.app.user;
+			let _d = eval(asg.app.user.data);
+
+			if (typeof objUser == 'string') {
+				objUser = _u.getUserById(objUser);
+			}
+
+			if (objUser != null) {
+				if (strGroup == 'sys_all_users') {
+					return true;
+				}
+
+				var _g = _u.getGroupById(strGroup);
+
+				for (var i = 0; i < _g.members.length; i++) {
+					if (_g.members[i] == objUser.id) {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			return false;
+		},
+
+		resolvePermissions: function (objUser, arrPerms) {
+			let _u = asg.app.user;
+			for (var i = 0; i < arrPerms.length; i++) {
+				if (!_u.hasRole(objUser.id, arrPerms[i])) {
+					return false;
+				}
+			}
+			return true;
+		},
+
+		searchUsers: function (strQuery) {
+			let _d = eval(asg.app.user.data);
+			var userList = [];
+			var strAdded = '';
+			var strTest = new String(strQuery);
+			var intMatchStrength = 100;
+			while (strTest.length > 0) {
+				for (var i = 0; i < _d.users.length; i++) {
+					if (_d.users[i].name.indexOf(strTest) >= 0 && strAdded.indexOf(_d.users[i].id) < 0) {
+						userList.push(Object.assign({
+							match: intMatchStrength
+						}, _d.users[i]));
+						strAdded = strAdded + _d.users[i].id;
+					}
+				}
+				strTest = strTest.slice(0, strTest.length - 1);
+				intMatchStrength = intMatchStrength - 5;
+			}
+			return userList;
+		},
+
+		setCurrentUser: function (objUser) {
+			let _u = asg.app.user;
+			var _s = asg.data.system;
+			var _user = _u.getUserById(objUser.id);
+			if (_user != null) {
+				_s.current_user = _user;
+				var usrBtn = document.getElementById('asg_user_button');
+				usrBtn.innerHTML = '<i class="fas fa-user-lock"></i> ' + _s.current_user.name;
+				return true;
+			} else {
+				var usrBtn = document.getElementById('asg_user_button');
+				usrBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>Login</span>';
+				return false;
+			}
+		},
+
+		validateUser: function (objLoginData) {
+			var _u = asg.app.user;
+			var _o = objLoginData;
+			// TODO: Put actual verification in here
+			var _user = _u.getUserById(_o.username);
+			if (_user != null) {
+				return _user;
+			} else {
+				return false;
+			}
+		}
+	},
+
 	model: {
 		modules: [
 			{
@@ -752,6 +1199,12 @@ asg.app = {
 				id: "sdl_refdata",
 				loaded: false,
 				requested: false,
+            },
+			{
+				error: false,
+				id: "settings",
+				loaded: false,
+				requested: false,
             }
         ],
 
@@ -795,6 +1248,22 @@ asg.app = {
 				ui: null,
 				default: false,
 				route: "/blank",
+				label: "",
+				oninitialise: function (evt, objPage) {
+
+				},
+				onshow: function (evt, objPage) {
+
+				},
+				onhide: function (evt, objPage) {
+					return true;
+				}
+            },
+			{
+				id: "page_error",
+				ui: null,
+				default: false,
+				route: "/error",
 				label: "",
 				oninitialise: function (evt, objPage) {
 
@@ -1079,8 +1548,6 @@ asg.app = {
 				}
             },
 
-
-
 			// END SDL Block 
 
             /**** Vulnerabilities ****/
@@ -1339,7 +1806,48 @@ asg.app = {
 
             // END Vulnerabilities Block             
 
-            /**** Testing - to be removed ****/
+			/**** Settings, Manage Users, Groups, Roles etc ****/
+			{
+				id: "page_settings",
+				ui: null,
+				default: false,
+				route: "/settings",
+				label: "System Settings",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['components', 'settings']);
+				},
+				onshow: function (evt, objPage) {
+					var _perms = ['can_access_system', 'can_access_settings'];
+					let _fn = asg.app.fn;
+					var _d = asg.data.system;
+					if (asg.app.fn.resolvePermissions(_perms)) {
+						var doInit = function () {
+							let _settings = asg.util.settings;
+							if (asg.app.model.ready() && _settings != null) {
+								_settings.initialise();
+							} else {
+								window.setTimeout(doInit, 200);
+							}
+						};
+						doInit();
+					} else {
+
+						_fn.handleUnauthorisedAccess({
+							user: _d.current_user,
+							permissions: _perms,
+							route: this.route,
+							message: 'You must be logged in to access this system'
+						});
+					}
+				},
+				onhide: function (evt, objPage) {
+					return true;
+				}
+					},
+
+					// END Settings Block             
+
+					/**** Testing - to be removed ****/
 			{
 				id: "page_test",
 				ui: null,
@@ -1350,18 +1858,16 @@ asg.app = {
 					asg.app.fn.require(['components']);
 				},
 				onshow: function (evt, objPage) {
-					/*  var bob = new asg.h2({
-					      target: document.body,
-					      label: "Meow Luke!"
-					  }); */
+
 				},
 				onhide: function (evt, objPage) {
 					return true;
 				}
-            },
-        ],
+					},
+					],
 		title: 'asg.data.system.name',
 	}
+
 };
 
 asg.main = {
