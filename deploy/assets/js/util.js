@@ -16,6 +16,17 @@ asg.util = {
 		}
 	},
 
+	arrayContains(haystack, needle) {
+		if (haystack.constructor === Array) {
+			for (var i = 0; i < haystack.length; i++) {
+				if (_.isEqual(haystack[i], needle)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	},
+
 	clearSelect: function (objSelect) {
 		if (objSelect != null && objSelect.options != null && objSelect.options.length > 0) {
 			while (objSelect.options[0]) {
@@ -361,6 +372,8 @@ asg.util = {
 		asg.ui.showMsg(objError.name, 'error', objError.name, objError.message);
 	},
 
+
+
 	parseHashFromURL: function (strURL) {
 		var strHash = strURL.slice(strURL.indexOf('#') + 2, strURL.length);
 		if (strHash.indexOf('?') >= 0) {
@@ -378,6 +391,18 @@ asg.util = {
 			}
 		}
 		objEl.setAttribute('class', arrClasses.join(' '));
+	},
+
+	removeFromArray: function (haystack, needle) {
+		var _retArray = [];
+		if (haystack.constructor === Array) {
+			for (var i = 0; i < haystack.length; i++) {
+				if (!_.isEqual(haystack[i], needle)) {
+					_retArray.push(haystack[i]);
+				}
+			}
+		}
+		return _retArray;
 	},
 
 	strReplace: function (strHaystack, arrNeedles) {

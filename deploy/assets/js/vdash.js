@@ -56,38 +56,57 @@ asg.data.system.vdash = {
 
 	menu_data: [
 		{
+			id: 'issues',
+			label: 'Issues...',
+			menu_data: [
+				{
+					id: 'vuln_new',
+					label: 'Log New Issue...',
+					icon: 'fas fa-file-alt',
+					link: '#!/vuln/new'
+                },
+				{
+					id: 'vuln_view_new',
+					label: 'New Issues...',
+					icon: 'fas fa-copy',
+					link: '#!/vuln/view/new'
+                },
+				{
+					id: 'vuln_view_all',
+					label: 'All Issues...',
+					icon: 'fas fa-copy',
+					link: '#!/vuln/view/all'
+                },
+				{
+					id: 'vuln_search',
+					label: 'Search Issues...',
+					icon: 'fas fa-binoculars',
+					link: '#!/vuln/search'
+                }
+            ]
+
+        },
+		{
 			id: 'reports',
 			label: 'Reports...',
 			menu_data: [
 				{
-					id: 'home',
-					label: 'Home',
-					icon: 'fas fa-home',
-					link: '#!/'
-                },
-				{
-					id: 'sdl',
-					label: 'Secure Development Life Cycle',
-					icon: 'fab fa-connectdevelop',
-					link: '#!/sdl'
-                },
-				{
-					id: 'vuln',
-					label: 'Vulnerability &amp; Patching Portal',
-					icon: 'fas fa-bug',
+					id: 'rept1',
+					label: 'Report 1',
+					icon: 'fas fa-file-alt',
 					link: '#!/vuln'
                 },
 				{
-					id: 'dba',
-					label: 'Database Administration',
-					icon: 'fas fa-database',
-					link: '#!/test'
+					id: 'rept2',
+					label: 'Report 2',
+					icon: 'fas fa-file-alt',
+					link: '#!/vuln'
                 },
 				{
-					id: 'test',
-					label: 'Settings',
-					icon: 'fas fa-cogs',
-					link: '#!/test'
+					id: 'rept3',
+					label: 'Report 3',
+					icon: 'fas fa-file-alt',
+					link: '#!/vuln'
                 }
             ]
 
@@ -305,6 +324,133 @@ asg.data.system.vdash = {
             }
         ]
 	},
+
+	current_vulnerability: {},
+
+	new_vuln_form: {
+		ui: {
+			components: [
+				'asg_vuln_new_application',
+				'asg_vuln_new_tech',
+				'asg_vuln_new_repdate',
+				'asg_vuln_new_issue_src',
+				'asg_vuln_new_issue_src_details',
+				'asg_vuln_new_source_url',
+				'asg_vuln_new_issue_title',
+				'asg_vuln_new_issue_type',
+				'asg_vuln_new_issue_severity',
+				'asg_vuln_new_issue_desc',
+				'asg_vuln_new_jira_ref',
+				'asg_vuln_new_iriis_ref',
+				'asg_vuln_new_remediation',
+				'asg_vuln_new_gen_email',
+				'asg_vuln_new_gen_follow',
+				'asg_vuln_new_gen_iriis'
+			],
+			asg_vuln_new_application: {
+				type: 'select',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'application',
+				datasource: null
+			},
+			asg_vuln_new_tech: {
+				type: 'select',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'technology',
+				datasource: 'technology'
+			},
+			asg_vuln_new_repdate: {
+				type: 'date',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'reported_date',
+
+			},
+			asg_vuln_new_issue_src: {
+				type: 'select',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_source',
+				datasource: 'source'
+			},
+			asg_vuln_new_issue_src_details: {
+				type: 'text',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_source_details'
+			},
+			asg_vuln_new_source_url: {
+				type: 'text',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'source_url'
+			},
+			asg_vuln_new_issue_title: {
+				type: 'text',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_title'
+			},
+			asg_vuln_new_issue_type: {
+				type: 'select',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_type',
+				datasource: 'type'
+			},
+			asg_vuln_new_issue_severity: {
+				type: 'select',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_severity',
+				datasource: 'severity'
+			},
+			asg_vuln_new_issue_desc: {
+				type: 'textarea',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'issue_description'
+			},
+			asg_vuln_new_jira_ref: {
+				type: 'text',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'jira_ref'
+			},
+			asg_vuln_new_iriis_ref: {
+				type: 'text',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'iriis_ref'
+			},
+			asg_vuln_new_remediation: {
+				type: 'textarea',
+				attribute: 'value',
+				trigger: 'change',
+				target: 'remediation'
+			},
+			asg_vuln_new_gen_email: {
+				type: 'button',
+				attribute: 'value',
+				trigger: 'click',
+				target: 'gen_email'
+			},
+			asg_vuln_new_gen_follow: {
+				type: 'button',
+				attribute: 'value',
+				trigger: 'click',
+				target: 'gen_follow'
+			},
+			asg_vuln_new_gen_iriis: {
+				type: 'button',
+				attribute: 'value',
+				trigger: 'click',
+				target: 'gen_iriis'
+			},
+		}
+	},
 };
 
 asg.__etc.dbModals = [
@@ -328,29 +474,158 @@ for (var i = 0; i < asg.__etc.dbModals.length; i++) {
 
 // Add Templates
 asg.data.templates.html.vdash = {
+	new_vulnerability: [
+		'<div class="asg_vulnerability_form" id="asg_new_vulnerability_form">',
+		'	<h2>New Vulnerability</h2>',
+		'	<h3>Issue Details:</h3>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_application">Application:</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_tech">Technology:</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_repdate">Date Reported:</legend>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<select id="asg_vuln_new_application"></select>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<select id="asg_vuln_new_tech"></select>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'			<div id="asg_vuln_new_repdate"></div>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_issue_src">Source of Issue:</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_issue_src_details">&nbsp;</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_source_url">Source URL:</legend>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<select id="asg_vuln_new_issue_src"></select>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<input type="text" id="asg_vuln_new_issue_src_details" name="asg_vuln_new_issue_src_details" />',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<input type="text" id="asg_vuln_new_source_url" name="asg_vuln_new_source_url" />',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_issue_title">Issue Title:</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_issue_type">Issue Type:</legend>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<legend for="asg_vuln_new_issue_severity">Issue Severity:</legend>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-4">',
+		'				<input type="text" id="asg_vuln_new_issue_title" name="asg_vuln_new_issue_title" />',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<select id="asg_vuln_new_issue_type"></select>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<select id="asg_vuln_new_issue_severity"></select>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-12">',
+		'				<legend for="asg_vuln_new_issue_desc">Issue Description:</legend>',
+		'		</div>',
+		'		<div class="col-xs-12">',
+		'					<textarea id="asg_vuln_new_issue_desc" name="asg_vuln_new_issue_desc"></textarea>',
+		'		</div>',
+		'	</div>',
+		'	<h3>Remediation:</h3>',
+		'	<div class="row">',
+		'		<div class="col-xs-8">',
+		'			<div class="row">',
+		'				<div class="col-xs-6">',
+		'					<legend for="asg_vuln_new_jira_ref">Jira Card #:</legend>',
+		'				</div>',
+		'				<div class="col-xs-6">',
+		'					<legend for="asg_vuln_new_iriis_ref">IRIIS Risk #:</legend>',
+		'				</div>',
+		'			</div>',
+		'			<div class="row">',
+		'				<div class="col-xs-6">',
+		'					<input type="text" id="asg_vuln_new_jira_ref" name="asg_vuln_new_jira_ref" />',
+		'				</div>',
+		'				<div class="col-xs-6">',
+		'					<input type="text" id="asg_vuln_new_iriis_ref" name="asg_vuln_new_iriis_ref" />',
+		'				</div>',
+		'			</div>',
+		'			<div class="row">',
+		'				<div class="col-xs-12">',
+		'					<legend for="asg_vuln_new_remediation">Remediation:</legend>',
+		'				</div>',
+		'				<div class="col-xs-12">',
+		'					<textarea id="asg_vuln_new_remediation" name="asg_vuln_new_remediation"></textarea>',
+		'				</div>',
+		'			</div>',
+		'		</div>',
+		'		<div class="col-xs-4">',
+		'				<div id="asg_vuln_new_action_panel">',
+		'				<a class="sg-Btn" href="" id="asg_vuln_new_gen_email"><i class="fas fa-paper-plane"></i> Generate Email to Owner</a>',
+		'				<a class="sg-Btn" href="" id="asg_vuln_new_gen_follow"><i class="fas fa-paper-plane"></i> Generate Followup Email</a>',
+		'				<a class="sg-Btn" href="" id="asg_vuln_new_gen_iriis"><i class="fas fa-paper-plane"></i> Generate IRIIS Email</a>',
+		'				</div>',
+		'		</div>',
+		'	</div>',
+		'	<div class="row">',
+		'		<div class="col-xs-12">',
+		'			<div class="button-bar" id="asg_vuln_new_button_bar">',
+		'				<a class="sg-Btn sg-Btn--warning sg-Btn--iconLeftLarge" href="" id="asg_vuln_new_gen_email"><i class="fas fa-times-circle"></i> Discard</a>',
+		'				<a class="sg-Btn sg-Btn--secondary sg-Btn--iconLeftLarge" href="" id="asg_vuln_new_gen_email"><i class="fas fa-save"></i> Save</a>',
+		'			</div>',
+		'		</div>',
+		'	</div>',
+		'</div>'].join(''),
+
 	dialogs: {
+		addVulnerability: {
+
+		},
+
 		addDataListItem: {
-			content: '<fieldset>' +
-				'<input type="hidden" id="dlg_datalist_id" />' +
-				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>' +
-				'<legend id="dlg_legend"></legend>' +
-				'<div class="row">' +
-				'   <div class="col-xs-12 col-sm-5">' +
-				'       <label for="dlg_dataitem_id"></label>' +
-				'   </div>' +
-				'   <div class="col-xs-12 col-sm-7">' +
-				'      <div id="dlg_dataitem_id_display"></div>' +
-				'   </div>' +
-				'</div>' +
-				'<div class="row">' +
-				'   <div class="col-xs-12 col-sm-5">' +
-				'       <label for="dlg_dataitem_label"></label>' +
-				'   </div>' +
-				'   <div class="col-xs-12 col-sm-7">' +
-				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label"  data-accessor="Name" />' +
-				'   </div>' +
-				'</div>' +
-				'</fieldset>',
+			content: ['<fieldset>',
+				'<input type="hidden" id="dlg_datalist_id" />',
+				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>',
+				'<legend id="dlg_legend"></legend>',
+				'<div class="row">',
+				'   <div class="col-xs-12 col-sm-5">',
+				'       <label for="dlg_dataitem_id"></label>',
+				'   </div>',
+				'   <div class="col-xs-12 col-sm-7">',
+				'      <div id="dlg_dataitem_id_display"></div>',
+				'   </div>',
+				'</div>',
+				'<div class="row">',
+				'   <div class="col-xs-12 col-sm-5">',
+				'       <label for="dlg_dataitem_label"></label>',
+				'   </div>',
+				'   <div class="col-xs-12 col-sm-7">',
+				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label"  data-accessor="Name" />',
+				'   </div>',
+				'</div>',
+				'</fieldset>'].join(''),
+
 			buttons: [
 				{
 					class: 'secondary',
@@ -432,6 +707,25 @@ asg.data.templates.html.vdash = {
 	},
 };
 
+asg.data.templates.json.vdash = {
+	vulnerability: {
+		application: '',
+		technology: '',
+		reported_date: '',
+		issue_source: '',
+		issue_source_details: '',
+		source_url: '',
+		issue_title: '',
+		issue_type: '',
+		issue_severity: '',
+		issue_description: '',
+		jira_ref: '',
+		iriis_ref: '',
+		remediation: ''
+	}
+
+}
+
 // Copy in configuration items
 asg.__etc.conf = {
 	conf: {
@@ -444,41 +738,42 @@ asg.__etc.conf = {
 			vdash_teams: 'asg_vdash_top_teams',
 			vdash_iiris: 'asg_vdash_iiris',
 			vdash_lists: 'asg_vdash_lists',
+			vdash_new_issue: 'asg_vdash_vuln_new',
 		},
 		endpoints: {
 			DEV: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
-				get_teams_issues_list: '/site/assets/ws/mocks/get_open_issues_by_team.json',
-				get_iiris_issues_list: '/site/assets/ws/mocks/get_iiris_issues.json',
-				get_data_list_severity: '/site/assets/ws/mocks/get_data_list_severity.json',
-				get_data_list_source: '/site/assets/ws/mocks/get_data_list_source.json',
-				get_data_list_tech: '/site/assets/ws/mocks/get_data_list_tech.json',
-				get_data_list_type: '/site/assets/ws/mocks/get_data_list_type.json',
-				add_data_list_severity: '/site/assets/ws/mocks/get_data_list_severity.json',
-				add_data_list_source: '/site/assets/ws/mocks/get_data_list_source.json',
-				add_data_list_tech: '/site/assets/ws/mocks/get_data_list_tech.json',
-				add_data_list_type: '/site/assets/ws/mocks/get_data_list_type.json',
-				upd_data_list_severity: '/site/assets/ws/mocks/get_data_list_severity.json',
-				upd_data_list_source: '/site/assets/ws/mocks/get_data_list_source.json',
-				upd_data_list_tech: '/site/assets/ws/mocks/get_data_list_tech.json',
-				upd_data_list_type: '/site/assets/ws/mocks/get_data_list_type.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
+				get_teams_issues_list: '~/site/assets/ws/mocks/get_open_issues_by_team.json',
+				get_iiris_issues_list: '~/site/assets/ws/mocks/get_iiris_issues.json',
+				get_data_list_severity: '~/site/assets/ws/mocks/get_data_list_severity.json',
+				get_data_list_source: '~/site/assets/ws/mocks/get_data_list_source.json',
+				get_data_list_tech: '~/site/assets/ws/mocks/get_data_list_tech.json',
+				get_data_list_type: '~/site/assets/ws/mocks/get_data_list_type.json',
+				add_data_list_severity: '~/site/assets/ws/mocks/get_data_list_severity.json',
+				add_data_list_source: '~/site/assets/ws/mocks/get_data_list_source.json',
+				add_data_list_tech: '~/site/assets/ws/mocks/get_data_list_tech.json',
+				add_data_list_type: '~/site/assets/ws/mocks/get_data_list_type.json',
+				upd_data_list_severity: '~/site/assets/ws/mocks/get_data_list_severity.json',
+				upd_data_list_source: '~/site/assets/ws/mocks/get_data_list_source.json',
+				upd_data_list_tech: '~/site/assets/ws/mocks/get_data_list_tech.json',
+				upd_data_list_type: '~/site/assets/ws/mocks/get_data_list_type.json',
 			},
 			TEST: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
-				get_teams_issues_list: '/site/assets/ws/mocks/get_open_issues_by_team.json',
-				get_iiris_issues_list: '/site/assets/ws/mocks/get_iiris_issues.json',
-				get_data_list_severity: '/site/assets/ws/mocks/get_data_list_severity.json',
-				get_data_list_source: 'http://localhost:57373/api/Source/GetSource',
-				get_data_list_tech: 'http://localhost:57373/api/Source/GetTechnology',
-				get_data_list_type: 'http://localhost:57373/api/Source/GetIssueType',
-				add_data_list_severity: 'http://localhost:57373/api/Source/GetSeverity',
-				add_data_list_source: '/site/assets/ws/mocks/get_data_list_source.json',
-				add_data_list_tech: '/site/assets/ws/mocks/get_data_list_tech.json',
-				add_data_list_type: '/site/assets/ws/mocks/get_data_list_type.json',
-				upd_data_list_severity: '/site/assets/ws/mocks/get_data_list_severity.json',
-				upd_data_list_source: '/site/assets/ws/mocks/get_data_list_source.json',
-				upd_data_list_tech: '/site/assets/ws/mocks/get_data_list_tech.json',
-				upd_data_list_type: '/site/assets/ws/mocks/get_data_list_type.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
+				get_teams_issues_list: '~/site/assets/ws/mocks/get_open_issues_by_team.json',
+				get_iiris_issues_list: '~/site/assets/ws/mocks/get_iiris_issues.json',
+				get_data_list_severity: '~/site/assets/ws/mocks/get_data_list_severity.json',
+				get_data_list_source: '/api/Source/GetSource',
+				get_data_list_tech: '/api/Source/GetTechnology',
+				get_data_list_type: '/api/GetIssueType',
+				add_data_list_severity: '/api//Source/GetSeverity',
+				add_data_list_source: '~/site/assets/ws/mocks/get_data_list_source.json',
+				add_data_list_tech: '~/site/assets/ws/mocks/get_data_list_tech.json',
+				add_data_list_type: '~/site/assets/ws/mocks/get_data_list_type.json',
+				upd_data_list_severity: '~/site/assets/ws/mocks/get_data_list_severity.json',
+				upd_data_list_source: '~/site/assets/ws/mocks/get_data_list_source.json',
+				upd_data_list_tech: '~/site/assets/ws/mocks/get_data_list_tech.json',
+				upd_data_list_type: '~/site/assets/ws/mocks/get_data_list_type.json',
 			}
 		}
 	}
@@ -486,8 +781,11 @@ asg.__etc.conf = {
 for (var confidID in asg.__etc.conf.conf.ids) {
 	asg.conf.ids[confidID] = asg.__etc.conf.conf.ids[confidID];
 };
-for (var confEP in asg.__etc.conf.conf.endpoints) {
-	asg.conf.endpoints[confEP] = asg.__etc.conf.conf.endpoints[confEP];
+for (var confEP in asg.__etc.conf.conf.endpoints.DEV) {
+	asg.conf.endpoints.DEV[confEP] = asg.__etc.conf.conf.endpoints.DEV[confEP];
+};
+for (var confEP in asg.__etc.conf.conf.endpoints.TEST) {
+	asg.conf.endpoints.TEST[confEP] = asg.__etc.conf.conf.endpoints.TEST[confEP];
 };
 
 // Add StringTable Entries
@@ -830,6 +1128,45 @@ asg.util.vdash = {
 		_dash.getIIRISIssuesData();
 	},
 
+	getDatasetAsOptions: function (objOptions) {
+		/**
+		objOptions = {
+			list: 'Data List Name',
+			attributes: [
+				{
+					'id': 'select id',
+					'class': 'select_class'
+				}
+			],
+			valueId: 'Name of property holding option value',
+			labelId: 'Name of property holding option label',
+			defaultValue: 'What it says on the can'
+		}
+		**/
+		let _v = asg.util.vdash;
+		let _ref = asg.data.system.vdash.lists.lookupTables;
+		var _list = _v.getListById(objOptions.list);
+		let _data = _list.data;
+		let _tempSelect = document.createElement('select');
+		for (var i = 0; i < objOptions.attributes.length; i++) {
+			var _att = objOptions.attributes[i];
+			_tempSelect.setAttribute(_att.name, _att.value);
+		}
+		if (_data != null) {
+			for (let i = 0; i < _data.length; i++) {
+				let _opt = _data[i];
+				let _newOpt = document.createElement('option');
+				_newOpt.value = _opt[objOptions.valueId];
+				_newOpt.text = _opt[objOptions.labelId];
+				if (_opt.value == objOptions.defaultValue) {
+					_newOpt.selected = true;
+				}
+				_tempSelect.options.add(_newOpt);
+			}
+		}
+		return _tempSelect;
+	},
+
 	getDataListData: function (strlist, strTarget) {
 		var _self = this;
 		var _endpointBase = asg.conf.endpoints[asg.app.fn.mode()];
@@ -972,6 +1309,11 @@ asg.util.vdash = {
 			}
 		}
 		objList.data = arrNew;
+	},
+
+	removeNewVulnForm: function () {
+		let _container = document.getElementById(asg.conf.ids.vdash_new_issue);
+		_container.innerHTML = '';
 	},
 
 	showAddDataListItemDlg: function (objEvt) {
@@ -1168,6 +1510,99 @@ asg.util.vdash = {
 				}
 			});
 		}
+	},
+
+	showNewVulnForm: function () {
+		let _u = asg.util;
+		let _v = asg.util.vdash;
+		let _d = asg.data.system.vdash;
+		let _t = asg.data.templates.html.vdash;
+
+		let _container = document.getElementById(asg.conf.ids.vdash_new_issue);
+		_container.innerHTML = '';
+
+		let _newForm = _u.createFromFragment(_t.new_vulnerability);
+
+		_container.appendChild(_newForm);
+
+		var _meta = _d.new_vuln_form;
+		_d.current_vulnerability = Object.assign({}, asg.data.templates.json.vdash.vulnerability);
+
+		for (var i = 0; i < _meta.ui.components.length; i++) {
+			var _id = _meta.ui.components[i];
+			var _c = _meta.ui[_id];
+
+			var _updateFromDatePicker = function (_picker) {
+				var _c = this;
+				var model = asg.data.system.vdash.current_vulnerability;
+				model[_c.target] = _picker.value;
+			}
+
+			var _updateVulnModel = function () {
+				var model = asg.data.system.vdash.current_vulnerability;
+				model[this.target] = this.ui[this.attribute];
+			}
+
+			switch (_c.type) {
+				case "select":
+					{
+						if (_c.datasource != null) {
+							var oldSelect = document.getElementById(_id);
+							var newSelect = _v.getDatasetAsOptions({
+								list: _c.datasource,
+								attributes: [
+									{
+										'name': 'id',
+										'value': _id
+									}
+								],
+								valueId: 'id',
+								labelId: 'label',
+								defaultValue: ''
+							});
+							var parent = oldSelect.parentElement;
+							parent.removeChild(oldSelect);
+							parent.appendChild(newSelect);
+							_c.ui = newSelect;
+							_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+						}
+						break;
+					}
+
+				case "date":
+					{
+						var _placeholder = document.getElementById(_id);
+						var parent = _placeholder.parentElement;
+						parent.removeChild(_placeholder);
+						_c.ui = new asg.DatePicker({
+							id: _id,
+							target: parent,
+							value: new Date(),
+							onvaluechange: _updateFromDatePicker.bind(_c)
+						})
+						break;
+					}
+
+				case "text":
+				case "textarea":
+					{
+						_c.ui = document.getElementById(_id);
+						_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+						break;
+					}
+				case "button":
+					{
+						_c.ui = document.getElementById(_id);
+						break;
+					}
+				default:
+					{
+						//	alert(_c.type);
+						break;
+					}
+			}
+		}
+
 	},
 
 	updateDataListData: function (evt, data) {

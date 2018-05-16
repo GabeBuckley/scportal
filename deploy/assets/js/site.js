@@ -27,13 +27,18 @@ var asg = {};
 
 asg.conf = {
 	hosts: {
-		dev: ['localhost', '127\.0\.0\.1', '.+\.dev'],
-		test: ['10\.75\.17\.43', '.+\.test'],
+		dev: ['\:8080', 'localhost', '127\.0\.0\.1', '.+\.dev'],
+		test: ['\:57373', '10\.75\.17\.43', '.+\.test'],
 		prod: []
 	},
 
 	endpoints: {
-
+		DEV: {
+			get_current_user_data: '~/site/assets/ws/mocks/GetUserInfo.json',
+		},
+		TEST: {
+			get_current_user_data: '/api/Account/GetUserInfo'
+		}
 	},
 
 	ids: {
@@ -79,7 +84,7 @@ asg.app = {
 		},
 
 		devMode: function () {
-			var strHost = window.location.host;
+			var strHost = window.location;
 			var _hosts = asg.conf.hosts.dev;
 			for (let i = 0; i < _hosts.length; i++) {
 				var reHost = new RegExp(_hosts[i], 'gi');
@@ -255,7 +260,6 @@ asg.app = {
 		},
 
 		initialise: function () {
-
 			asg.app.fn.loadSiteModules();
 
 			var doLoad = function () {
@@ -284,7 +288,9 @@ asg.app = {
 		},
 
 		load: function () {
-			asg.app.fn.loadPages();
+			asg.app.fn.siteData.fetch({
+				on_complete: asg.app.fn.loadPages()
+			});
 		},
 
 		loadPages: function () {
@@ -531,7 +537,7 @@ asg.app = {
 								strCrumbHTML = '<li><a class="breadcrumb-link" href="#!/" title="' + currCrumb.label + '"><i class="Icon-home--secondary Icon--small"></i></a></li>';
 							} else {
 								if (currCrumb.id == page.id) {
-									strCrumbHTML = '<li><span>' + currCrumb.label + '</span></li>';
+									strCrumbHTML = '<li><span> ' + currCrumb.label + '</span></li>';
 								} else {
 									strCrumbHTML = '<li><a class="breadcrumb-link" href="#!' + currCrumb.route + '"><span>' + currCrumb.label + '</span></a></li>';
 								}
@@ -585,7 +591,7 @@ asg.app = {
 						newScript.onload = notify;
 						document.head.appendChild(newScript);
 
-						newScript.src = "/site/assets/js/" + strModule + ".js";
+						newScript.src = "~/site/assets/js/" + strModule + ".js";
 					}
 
 				}
@@ -611,6 +617,87 @@ asg.app = {
 
 		setSiteTitle: function (strTitle) {
 			window.document.title = strTitle;
+		},
+
+		siteData: {
+			complete: function (strFn, strEndpoint, objData) {
+				var _reqs = asg.app.fn.siteData.requests;
+				for (var i = 0; i < _reqs.length; i++) {
+					var _req = _reqs[i];
+					if (_req.name == strFn && !_req.completed) {
+						_req.endpoint = strEndpoint;
+						_req.responseData = objData;
+					}
+				}
+			},
+
+			fetch: function () {
+				asg.app.fn.siteData.request(
+					asg.app.fn.siteData.getCurrUserInfo
+				);
+			},
+
+			getCurrUserInfo: function () {
+				var _fnName = this.name;
+				var _endPoint = asg.conf.endpoints[asg.app.fn.mode()].get_current_user_data;
+
+				asg.app.fn.siteData.handleRequest(
+					'asg.data.system.current_user',
+					asg.conf.endpoints[asg.app.fn.mode()].get_current_user_data,
+					this.name,
+					'current_user'
+				);
+			},
+
+			handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap) {
+				var _fnName = strFn;
+				var _endPoint = strEndpoint;
+				var _strTypeMap = strTypeMap;
+				var _strTarget = strTarget;
+
+				asg.app.fn.ws.fetch(_endPoint, {
+					on_result: function () {
+						let _this = this;
+						let _data = _this.result;
+
+						var _typeMap = asg.app.fn.ws.type_maps[_strTypeMap];
+
+						var _processed = asg.app.fn.ws.mapObjectToType(_data, _typeMap);
+
+						var arrTargetPath = this.options.target.split('.');
+
+						var strPath = arrTargetPath.shift();
+
+						var objTarget = eval(strPath);
+
+						while (arrTargetPath.length > 1) {
+							strPath = arrTargetPath.shift();
+							objTarget = objTarget[strPath];
+						}
+
+						strPath = arrTargetPath.shift();
+						objTarget[strPath] = _processed;
+
+						asg.app.fn.siteData.complete(_fnName, _endPoint, this.result);
+					},
+					target: _strTarget
+				});
+			},
+
+			request: function (fnRequest) {
+				var _objReq = {
+					name: fnRequest.name,
+					requested: true,
+					completed: false,
+					endpoint: '',
+					responseData: '',
+					run: fnRequest
+				};
+				asg.app.fn.siteData.requests.push(_objReq);
+				_objReq.run();
+			},
+
+			requests: [],
 		},
 
 		showFirstPage: function () {
@@ -777,6 +864,14 @@ asg.app = {
 				*/
 			},
 
+			mapObjectToType: function (objSource, objTypeMap) {
+				var _obj = {};
+				for (var _key in objTypeMap) {
+					_obj[_key] = objSource[objTypeMap[_key]];
+				}
+				return _obj;
+			},
+
 			processResponse: function (objResult, objOptions) {
 				let objResponse = {
 					result: objResult,
@@ -785,6 +880,14 @@ asg.app = {
 
 				if (objOptions.on_result != null) {
 					objOptions.on_result.apply(objResponse, objOptions);
+				}
+			},
+
+			type_maps: {
+				current_user: {
+					id: 'Username',
+					name: 'DisplayName',
+					email: 'Email'
 				}
 			}
 		}
@@ -1450,7 +1553,7 @@ asg.app = {
 							asg.app.fn.menu.load(asg.data.system.sdl.menu_data);
 							asg.util.sdl.initialise();
 
-							asg.util.sdl.showElementList()();
+							asg.util.sdl.showElementList();
 						} else {
 							window.setTimeout(doInit, 20);
 						}
@@ -1576,6 +1679,37 @@ asg.app = {
 					asg.app.fn.menu.unload(['reports', 'repdata']);
 					var doUnload = function () {
 
+					}
+					window.setTimeout(doUnload, 2);
+					return true;
+				}
+            },
+ // Log new Vulnerability
+			{
+				id: "page_vuln_new",
+				ui: null,
+				default: false,
+				route: "/vuln/new",
+				label: "New Vulnerability",
+				oninitialise: function (evt, objPage) {
+					asg.app.fn.require(['vdash', 'components']);
+				},
+				onshow: function (evt, objPage) {
+					var doInit = function () {
+						if (asg.app.model.ready()) {
+							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
+							asg.util.vdash.showNewVulnForm();
+						} else {
+							window.setTimeout(doInit, 200);
+						}
+					};
+
+					doInit();
+				},
+				onhide: function (evt, objPage) {
+					asg.app.fn.menu.unload(['reports', 'repdata']);
+					var doUnload = function () {
+						asg.u.vdash.removeNewVulnForm();
 					}
 					window.setTimeout(doUnload, 2);
 					return true;

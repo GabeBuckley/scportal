@@ -121,10 +121,10 @@ asg.__etc.conf = {
 		},
 		endpoints: {
 			DEV: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
 			},
 			TEST: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
 			}
 		}
 	}
@@ -133,8 +133,11 @@ asg.__etc.conf = {
 for (var confidID in asg.__etc.conf.conf.ids) {
 	asg.conf.ids[confidID] = asg.__etc.conf.conf.ids[confidID];
 };
-for (var confEP in asg.__etc.conf.conf.endpoints) {
-	asg.conf.endpoints[confEP] = asg.__etc.conf.conf.endpoints[confEP];
+for (var confEP in asg.__etc.conf.conf.endpoints.DEV) {
+	asg.conf.endpoints.DEV[confEP] = asg.__etc.conf.conf.endpoints.DEV[confEP];
+};
+for (var confEP in asg.__etc.conf.conf.endpoints.TEST) {
+	asg.conf.endpoints.TEST[confEP] = asg.__etc.conf.conf.endpoints.TEST[confEP];
 };
 
 // Add StringTable Entries

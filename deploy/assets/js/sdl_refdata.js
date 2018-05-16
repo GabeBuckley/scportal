@@ -489,18 +489,18 @@ asg.__etc.SDL_DATA = {
 					text: "Static code analysis - internal Fortify review before delivery",
 					required: true,
 					done: false,
-					threshold: '((asg.data.system.sdl.workbook.srp.severity_rating.value > 0) && ' +
-						'(asg.data.system.sdl.workbook.srp.change_type != "commercial_product") && ' +
-						'(asg.data.system.sdl.workbook.srp.change_type != "software"))'
+					threshold: ['((asg.data.system.sdl.workbook.srp.severity_rating.value > 0) && ',
+						'(asg.data.system.sdl.workbook.srp.change_type != "commercial_product") && ',
+						'(asg.data.system.sdl.workbook.srp.change_type != "software"))'].join('')
 				},
 				{
 					id: "213",
 					text: "Manual code review - internal manual code review before delivery",
 					required: true,
 					done: false,
-					threshold: '((asg.data.system.sdl.workbook.srp.severity_rating.value > 0) && ' +
-						'(asg.data.system.sdl.workbook.srp.change_type != "commercial_product") && ' +
-						'(asg.data.system.sdl.workbook.srp.change_type != "software"))'
+					threshold: ['((asg.data.system.sdl.workbook.srp.severity_rating.value > 0) && ',
+						'(asg.data.system.sdl.workbook.srp.change_type != "commercial_product") && ',
+						'(asg.data.system.sdl.workbook.srp.change_type != "software"))'].join('')
 				}
 			],
 			security_testing: [

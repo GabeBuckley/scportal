@@ -19,225 +19,215 @@ asg.data.system.sdl = {
 				label: 'Instructions',
 				icon: 'fas fa-info-circle',
 				link: '#!/test',
-				template: '<div id="sdl_process_flow">' +
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-green">Version Control<i class="fas fa-code-branch"></i><i class="fas fa-code-branch"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Complete the Version Control information for your project or enhancement.</li><li>' +
-					'Provide a brief description of the purpose of the project.' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-pink">System Risk Profile<i class="fas fa-exclamation-triangle"></i><i class="fas fa-exclamation-triangle"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Evaluate your project using the System Risk Profile to identify its criticality and determine which steps of the SDL need to be performed.</li><li>' +
-					'Consider whether your system adheres to our Security Architechture Principals, found here: <a href="http://go/secprinciples" target="_new">http://go/secprinciples</a>' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-orange">Security Controls Assessment<i class="fas fa-lock"></i><i class="fas fa-lock"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Complete the Security Controls Assessment for each of your project components including the Infrastructure, Platform, Middleware and Application.</li><li>' +
-					'For each component identify the standard Suncorp Security Controls in use. </li><li>' +
-					'Where a non-standard custom control is being used overwrite the drop down box with details of the control. Provide a full description and reason for the custom control within the Comments box provided.' +
-					'</li></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-blue">Data Flow Diagram<i class="fas fa-pencil-alt"></i><i class="fas fa-pencil-alt"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Using the Microsoft Threat Modelling tool, create a level 1 Data Flow Diagram for you System.</li><li>' +
-					'Name and number each element.' +
-					'</li></ol></div>' +
-					'</div>' +
+				template: ['<div id="sdl_process_flow">',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-green">Version Control<i class="fas fa-code-branch"></i><i class="fas fa-code-branch"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Complete the Version Control information for your project or enhancement.</li><li>',
+					'Provide a brief description of the purpose of the project.',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-pink">System Risk Profile<i class="fas fa-exclamation-triangle"></i><i class="fas fa-exclamation-triangle"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Evaluate your project using the System Risk Profile to identify its criticality and determine which steps of the SDL need to be performed.</li><li>',
+					'Consider whether your system adheres to our Security Architechture Principals, found here: <a href="http://go/secprinciples" target="_new">http://go/secprinciples</a>',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-orange">Security Controls Assessment<i class="fas fa-lock"></i><i class="fas fa-lock"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Complete the Security Controls Assessment for each of your project components including the Infrastructure, Platform, Middleware and Application.</li><li>',
+					'For each component identify the standard Suncorp Security Controls in use. </li><li>',
+					'Where a non-standard custom control is being used overwrite the drop down box with details of the control. Provide a full description and reason for the custom control within the Comments box provided.',
+					'</li></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-blue">Data Flow Diagram<i class="fas fa-pencil-alt"></i><i class="fas fa-pencil-alt"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Using the Microsoft Threat Modelling tool, create a level 1 Data Flow Diagram for you System.</li><li>',
+					'Name and number each element.',
+					'</li></ol></div>',
+					'</div>',
 
 
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-red">Element List<i class="far fa-list-alt"></i><i class="far fa-list-alt"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'List each Element from the Data Flow Diagram. </li><li>' +
-					'Do not include elements that are not in scope such as underlying platform technologies that provide supporting services (e.g.. Firewalls, API Gateways etc.).' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-purple">Assumptions<i class="far fa-comment"></i><i class="far fa-comment"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Document any assumptions that have been such has all including reliance on supporting services and technology.<br/>Example Assumptions:<ol type="a"><li>' +
-					'F5 WAF Boundary firewalls will filter all Internet requests</li><li>' +
-					'User access management is provided by Active Directory</li><li>' +
-					'Data flows within AWS are secure and are not subject to Information Disclosure or Tampering threats' +
-					'</li></ol></li></ol></div>' +
-					'</div>' +
-
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-brown">Threat List<i class="fas fa-user-secret"></i><i class="fas fa-user-secret"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Identify Threats using STRIDE per Element for each element within scope within your Data Flow Diagram.</li><li>' +
-					'Only include threats that are NOT controlled by Suncorp standard security controls outlined within the SCA tab. </li><li>' +
-					'Document the Priority of all uncontrolled threats using  High, Medium and Low. </li><li>' +
-					'Identify a Residual Risk for each Threat using the Corporate Risk Matrix.</li><li>' +
-					'For all uncontrolled threats identify a residual risk and proposed further actions within the comments box.' +
-					'</li></div>' +
-					'</div>' +
-
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-black">Recommendations<i class="fas fa-check"></i><i class="fas fa-check"></i></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Document all threats which are pending further action including their Jira card reference</li><li>' +
-					'For all uncontrolled threats where no further action is available to control the threat, consult with your Security Consulting and your CRO Risk Representative to escalate the threat within an Initiative Risk Profile (IRP) for review by the Business Owner.' +
-					'</li></ol></div>' +
-					'</div>' +
-
-
-					'</div>'
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-red">Element List<i class="far fa-list-alt"></i><i class="far fa-list-alt"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'List each Element from the Data Flow Diagram. </li><li>',
+					'Do not include elements that are not in scope such as underlying platform technologies that provide supporting services (e.g.. Firewalls, API Gateways etc.).',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-purple">Assumptions<i class="far fa-comment"></i><i class="far fa-comment"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Document any assumptions that have been such has all including reliance on supporting services and technology.<br/>Example Assumptions:<ol type="a"><li>',
+					'F5 WAF Boundary firewalls will filter all Internet requests</li><li>',
+					'User access management is provided by Active Directory</li><li>',
+					'Data flows within AWS are secure and are not subject to Information Disclosure or Tampering threats',
+					'</li></ol></li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-brown">Threat List<i class="fas fa-user-secret"></i><i class="fas fa-user-secret"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Identify Threats using STRIDE per Element for each element within scope within your Data Flow Diagram.</li><li>',
+					'Only include threats that are NOT controlled by Suncorp standard security controls outlined within the SCA tab. </li><li>',
+					'Document the Priority of all uncontrolled threats using  High, Medium and Low. </li><li>',
+					'Identify a Residual Risk for each Threat using the Corporate Risk Matrix.</li><li>',
+					'For all uncontrolled threats identify a residual risk and proposed further actions within the comments box.',
+					'</li></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-black">Recommendations<i class="fas fa-check"></i><i class="fas fa-check"></i></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Document all threats which are pending further action including their Jira card reference</li><li>',
+					'For all uncontrolled threats where no further action is available to control the threat, consult with your Security Consulting and your CRO Risk Representative to escalate the threat within an Initiative Risk Profile (IRP) for review by the Business Owner.',
+					'</li></ol></div>',
+					'</div>',
+					'</div>'].join('')
             },
 			{
 				id: 'version',
 				label: 'Version Control',
 				icon: 'fas fa-code-branch',
 				link: '#!/sdl/version',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Version Control</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to give your project a title and description. You will also be able to review who has edited this workbook.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/version">Go to Version Control</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Version Control</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to give your project a title and description. You will also be able to review who has edited this workbook.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/version">Go to Version Control</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'srp',
 				label: 'System Risk Profile',
 				icon: 'fas fa-exclamation-triangle',
 				link: '#!/sdl/srp',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'This section comprises a short survey to identify the security controls and activities applicable to your project' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/srp">Go to System Risk Profile</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'This section comprises a short survey to identify the security controls and activities applicable to your project',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/srp">Go to System Risk Profile</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'sca',
 				label: 'Security Controls Assessment',
 				icon: 'fas fa-lock',
 				link: '#!/sdl/sca',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Security Controls Assessment</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'For each component of your project, determine which controls will be used to ameliorate the risks posed by the potential threats identified.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/sca">Go to Security Controls Assessment</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Security Controls Assessment</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'For each component of your project, determine which controls will be used to ameliorate the risks posed by the potential threats identified.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/sca">Go to Security Controls Assessment</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'dfd',
 				label: 'Data Flow Diagram',
 				icon: 'fas fa-pencil-alt',
 				link: '#!/sdl/dfd',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Data Flow Diagram</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'This tool allows you to create a high-level data flow diagram of your project showing both inbound and outbound data flows.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/dfd">Go to Data Flow Diagram</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Data Flow Diagram</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'This tool allows you to create a high-level data flow diagram of your project showing both inbound and outbound data flows.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/dfd">Go to Data Flow Diagram</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'list',
 				label: 'Element List',
 				icon: 'far fa-list-alt',
 				link: '#!/sdl/list',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Element List</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'The system elements identified in the Data Flow Diagram are listed here. Use STRIDE to evaluate the risks associated with each element.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/list">Go to Element List</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Element List</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'The system elements identified in the Data Flow Diagram are listed here. Use STRIDE to evaluate the risks associated with each element.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/list">Go to Element List</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'assumptions',
 				label: 'Assumptions',
 				icon: 'far fa-comment',
 				link: '#!/sdl/assumptions',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Assumptions</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to detail any assumptions and/or dependencies for your project.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/assumptions">Go to Assumptions</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Assumptions</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to detail any assumptions and/or dependencies for your project.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/assumptions">Go to Assumptions</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'threats',
 				label: 'Threat List',
 				icon: 'fas fa-user-secret',
 				link: '#!/threats',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Threat List</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'For threats that are not controlled by Suncorp standard security controls, document the priority of the threat, identify a residual risk and detail proposed further actions in this section .' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/threats">Go to Threat List</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Threat List</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'For threats that are not controlled by Suncorp standard security controls, document the priority of the threat, identify a residual risk and detail proposed further actions in this section .',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/threats">Go to Threat List</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'recommendations',
 				label: 'Recommendations',
 				icon: 'fas fa-check',
 				link: '#!/recommendations',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Recommendations</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to document any threats which remain uncontrolled or are pending further action, including Jira ticket numbers.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/recommendations">Go to Recommendations</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Recommendations</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to document any threats which remain uncontrolled or are pending further action, including Jira ticket numbers.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/recommendations">Go to Recommendations</a>',
+					'</div></div>',
+					'</div>'].join('')
             }
 		],
 		version: {
@@ -259,11 +249,13 @@ asg.data.system.sdl = {
 				}
 			]
 		},
-		ins: {},
-		vn: {},
 		srp: {
 			completionDate: null,
-			iterationManager: null,
+			iterationManager: [{
+				id: "u345203",
+				name: "NERK, Fred",
+				type: "user"
+			}],
 			accessControl: 'no',
 			accessibility: 'internal_only',
 			activities: {},
@@ -279,8 +271,31 @@ asg.data.system.sdl = {
 
 
 		},
+		elementList: [
+			{
+				"id": "S0001",
+				"related": [],
+				"comments": "",
+				"stride": {
+					"s": "S",
+					"t": "T",
+					"r": "R",
+					"i": "I",
+					"d": "D",
+					"e": "E"
+				},
+				"label": "",
+				"type": "system"
+			}
+		],
+		assumptions: {
+			assumptions: [],
+			dependencies: []
+		},
+		recommendations: [],
+		ins: {},
+		vn: {},
 		sca: {},
-
 	},
 
 	menu_data: [
@@ -334,13 +349,13 @@ asg.data.system.sdl = {
 					id: 'threats',
 					label: 'Threat List',
 					icon: 'fas fa-user-secret',
-					link: '#!/threats'
+					link: '#!/sdl/threats'
                 },
 				{
 					id: 'recommendations',
 					label: 'Recommendations',
 					icon: 'fas fa-check',
-					link: '#!/recommendations'
+					link: '#!/sdl/recommendations'
                 }
             ]
 
@@ -402,50 +417,185 @@ for (var i = 0; i < asg.__etc.dbModals.length; i++) {
 
 // Add Templates
 asg.data.templates.html.sdl = {
-	workbook: '<div class="sdl-workbook">' +
-		'<div class="sdl-workbook-tabs"></div>' +
-		'<div class="sdl-workbook-main"></div>' +
+	assumptions: [
+		'<div class="asg-sdl-assumptions-page">',
+		' <div class="asg-assumptions-header">',
+		'  <h3>Assumptions for: <span id="asg_assumptions_title"></span></h3>',
+		' </div>',
+		' <div class="asg-assumptions-body">',
+		'  <div class="asg-assumptions-table">',
+		'   <table>',
+		'    <thead>',
+		'     <tr><th>&nbsp;</th><th>Assumptions</th><th>',
+		'      <div id="asg_add_ass" class="asg-add-button" data-list="assumptions" title="Click to add...">',
+		'		<i class="fas fa-plus-circle"></i>',
+		'	   </div>',
+		'     </th></tr>',
+		'    </thead>',
+		'    <tbody id="asg_assumptions_table"></tbody>',
+		'   </table>',
+		'  </div>',
+		'  <div class="asg-dependencies-table">',
+		'   <table>',
+		'    <thead>',
+		'     <tr><th>&nbsp;</th><th>Dependencies</th><th>',
+		'      <div id="asg_add_dep" class="asg-add-button" data-list="dependencies" title="Click to add...">',
+		'		<i class="fas fa-plus-circle"></i>',
+		'	   </div>',
+		'     </th></tr>',
+		'    </thead>',
+		'    <tbody id="asg_dependencies_table"></tbody>',
+		'   </table>',
+		'  </div>',
+		' </div>',
+		' <div class="button-bar">',
+		'  <a href="#!/sdl/list" class="sg-Btn sg-Btn--prev">Back to Element List</a>',
+		'  <a href="#!/sdl/threats" class="sg-Btn sg-Btn--next">Threat List</a>',
+		' </div>',
+		'</div>'
+	].join(''),
+
+	elementList: [
+		'<div class="asg-sdl-element-list">',
+		' <div class="row">',
+		'  <div class="col-xs-12">',
+		'   <h3 class="asg-element-list-head">Element List For: <span id="sdl_element_list_project_name"></span></h3>',
+		'  </div>',
+		' </div>',
+		' <div class="row">',
+		'  <div class="col-xs-12">',
+		'   <table>',
+		'    <thead>',
+		'     <tr>',
+		'      <th>Element ID</th>',
+		'      <th>Element Type</th>',
+		'      <th>Element Name</th>',
+		'      <th>Related Elements <span>(If Applicable)</span></th>',
+		'      <th>S</th>',
+		'      <th>T</th>',
+		'      <th>R</th>',
+		'      <th>I</th>',
+		'      <th>D</th>',
+		'      <th>E</th>',
+		'      <th>Comments</th>',
+		'     </tr>',
+		'    </thead>',
+		'    <tbody id="asg-sdl-el-list-view"></tbody>',
+		'   </table>',
+		'  </div>',
+		' </div>',
+		'<div class="button-bar"><a href="#!/sdl/dfd" class="sg-Btn sg-Btn--prev">Back to Diagram</a><a href="#!/sdl/assumptions" class="sg-Btn sg-Btn--next">Assumptions</a></div>',
+		'</div>'
+	].join(''),
+
+	elementListRow: [
+		'<tr><td>%1%</td><td>%2%</td><td>%3%</td><td><span title="Click to select...">%4%</span></td><td>%5%</td><td>%6%</td>',
+		'<td>%7%</td><td>%8%</td><td>%9%</td><td>%10%</td><td><p>%11%</p></td></tr>',
+	].join(''),
+
+	recommendations: [
+		'<div class="asg-sdl-recommendations-page">',
+		' <div class="asg-recommendations-header">',
+		'  <h3>Recommendations for: <span id="asg_recommendations_title"></span></h3>',
+		' </div>',
+		' <div class="asg-recommendations-body">',
+		'  <div class="asg-recommendations-table">',
+		'   <table>',
+		'    <thead>',
+		'     <tr><th>&nbsp;</th><th>Recommendations</th><th>',
+		'      <div id="asg_add_rec" class="asg-add-button" data-list="recommendations" title="Click to add...">',
+		'		<i class="fas fa-plus-circle"></i>',
+		'	   </div>',
+		'     </th></tr>',
+		'    </thead>',
+		'    <tbody id="asg_recommendations_table"></tbody>',
+		'   </table>',
+		'  </div>',
+		' <div class="button-bar">',
+		'  <a href="#!/sdl/threats" class="sg-Btn sg-Btn--prev">Back to Threat List</a>',
+		'  <a href="#!/sdl" class="sg-Btn sg-Btn--next">Done</a>',
+		' </div>',
+		'</div>'
+	].join(''),
+
+	relatedElementPicker: [
+		'<div id="asg_related_element_picker" class="asg-element-picker">',
+		' <div class="asg-element-picker-body">',
+		' </div>',
 		'</div>',
+	].join(''),
 
-	workbookTab: '<div id="%1%" class="sdl-workbook-tab arrow_box">' +
-		'<i class="%2%"></i><' +
-		'span>%3%</span>' +
+	relatedElementPickerRow: [
+		'<div class="asg-element-picker-row"',
+		'			 data-parent-id="%5%"',
+		'			 data-element-selected="%4%"',
+		'            data-element-id="%1%">',
+		' <i class="%2%"></i> %3%',
+		'</div>'
+	].join(''),
+
+	commentEntry: [
+		'<div id="asg_comment_picker" class="asg-comment-picker">',
+		' <div class="asg-comment-picker-body">',
+		'  <textarea>%1%</textarea>',
+		' </div>',
+		' <div class="asg-comment-picker-buttons">',
+		'  <div class="asg-comment-button asg-comment-button-cancel">',
+		'   <i class="fas fa-times-circle"></i> Cancel',
+		'  </div>',
+		'  <div class="asg-comment-button asg-comment-button-ok">',
+		'   <i class="fas fa-check-circle"></i> Update',
+		'  </div>',
+		' </div>',
 		'</div>',
+	].join(''),
 
-	versionControl: '<div id="asg_sdl_version_control">' +
-		'<div class="row"><div class="col-xs-7"><h3 id="asg_sdl_project_name_disp"></h3></div>' +
-		'<div class="col-xs-5"><label for="asg_sdl_project_status">Project Status:</label> <span class="status-display" id="asg_sdl_project_status"></span></div></div>' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_project_name">Project Name:</label></div></div>' +
-		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_project_name" name="asg_sdl_project_name" placeholder="Enter the project name..." /></div></div>' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_project_desc">Project Description:</label></div></div>' +
-		'<div class="row"><div class="col-xs-12"><textarea id="asg_sdl_project_desc" name="asg_sdl_project_desc"></textarea></div></div>' +
-		'<div id="asg_sdl_rev_table"></div>' +
-		'<div class="button-bar"><a href="#!/sdl" class="sg-Btn sg-Btn--prev">Back to Workbook</a><a href="#!/sdl/srp" class="sg-Btn sg-Btn--next">System Risk Profile</a></div>' +
-		'</div>',
+	workbook: ['<div class="sdl-workbook">',
+		'<div class="sdl-workbook-tabs"></div>',
+		'<div class="sdl-workbook-main"></div>',
+		'</div>'].join(''),
 
-	systemRiskProfile: '<div>' +
-		'<div class="row"><div class="col-xs-9">' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_project_name">Project or Enhancement Name:</label></div></div>' +
-		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_project_name" name="asg_sdl_srp_project_name" placeholder="Enter the project name..." /></div></div>' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_iteration_mgr">Iteration Manager(s):</label></div></div>' +
-		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_iteration_mgr"></div></div>' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_completion_date">Completion Date:</label></div></div>' +
-		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_completion_date"></div></div>' +
-		'</div><div class="col-xs-3"><h4 class="security-rating">Security Rating</h4><div id="asg_sdl_security_rating">L</div></div></div>' +
-		'<div class="row"><div class="col-xs-9">' +
-		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_change_type">This system risk profile applies to a:</label></div></div>' +
-		'</div><div class="col-xs-3" id="asg_sdl_srp_change_type"></div></div>' +
-		'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>' +
-		'<div class="row"><div class="col-xs-12"><div id="asg_sdl_srp_qns"> </div></div></div>' +
-		'<div class="row"><div class="col-xs-12"><div id="asg_sdl_srp_activites"> </div></div></div>' +
-		'<div class="button-bar"><a href="#!/sdl/version" class="sg-Btn sg-Btn--prev">Back to Version Control</a><a href="#!/sdl/sca" class="sg-Btn sg-Btn--next">Security Controls Assessment</a></div>' +
-		'</div>',
+	workbookTab: ['<div id="%1%" class="sdl-workbook-tab arrow_box">',
+		'<i class="%2%"></i>',
+		'<span>%3%</span>',
+		'</div>'].join(''),
 
+	versionControl: ['<div id="asg_sdl_version_control">',
+		'<div class="row"><div class="col-xs-7"><h3 id="asg_sdl_project_name_disp"></h3></div>',
+		'<div class="col-xs-5"><label for="asg_sdl_project_status">Project Status:</label> <span class="status-display" id="asg_sdl_project_status"></span></div></div>',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_project_name">Project Name:</label></div></div>',
+		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_project_name" name="asg_sdl_project_name" placeholder="Enter the project name..." /></div></div>',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_project_desc">Project Description:</label></div></div>',
+		'<div class="row"><div class="col-xs-12"><textarea id="asg_sdl_project_desc" name="asg_sdl_project_desc"></textarea></div></div>',
+		'<div id="asg_sdl_rev_table"></div>',
+		'<div class="button-bar"><a href="#!/sdl" class="sg-Btn sg-Btn--prev">Back to Workbook</a><a href="#!/sdl/srp" class="sg-Btn sg-Btn--next">System Risk Profile</a></div>',
+		'</div>'].join(''),
 
-	revisionTable: '<table id="asg_sdl_revision_table">' +
-		'<thead><tr><th>&nbsp;</th><th><h3>Date</h3></th><th><h3>Version</h3></th><th><h3>Description</h3></th><th><h3>Author</h3></th></tr></thead><tbody></tbody></table>',
+	systemRiskProfile: ['<div>',
+		'<div class="row"><div class="col-xs-9">',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_project_name">Project or Enhancement Name:</label></div></div>',
+		'<div class="row"><div class="col-xs-12"><input type="text" id="asg_sdl_srp_project_name" name="asg_sdl_srp_project_name" placeholder="Enter the project name..." /></div></div>',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_iteration_mgr">Iteration Manager(s):</label></div></div>',
+		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_iteration_mgr"></div></div>',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_completion_date">Completion Date:</label></div></div>',
+		'<div class="row"><div class="col-xs-12" id="asg_sdl_srp_completion_date"></div></div>',
+		'</div><div class="col-xs-3"><h4 class="security-rating">Security Rating</h4><div id="asg_sdl_security_rating">L</div></div></div>',
+		'<div class="row"><div class="col-xs-9">',
+		'<div class="row"><div class="col-xs-12"><label for="asg_sdl_srp_change_type">This system risk profile applies to a:</label></div></div>',
+		'</div><div class="col-xs-3" id="asg_sdl_srp_change_type"></div></div>',
+		'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>',
+		'<div class="row"><div class="col-xs-12"><div id="asg_sdl_srp_qns"> </div></div></div>',
+		'<div class="row"><div class="col-xs-12"><div id="asg_sdl_srp_activites"> </div></div></div>',
+		'<div class="button-bar"><a href="#!/sdl/version" class="sg-Btn sg-Btn--prev">Back to Version Control</a><a href="#!/sdl/sca" class="sg-Btn sg-Btn--next">Security Controls Assessment</a></div>',
+		'</div>'].join(''),
 
-	revisionRow: '<tr><td>%1%</td><td>%2%</td><td>%3%</td><td>%4%</td><td>%5%</td></tr>',
+	revisionTable: [
+		'<table id="asg_sdl_revision_table">',
+		'<thead><tr><th>&nbsp;</th><th><h3>Date</h3></th>',
+		'<th><h3>Version</h3></th><th><h3>Description</h3></th>',
+		'<th><h3>Author</h3></th></tr></thead><tbody></tbody></table>'].join(''),
+
+	revisionRow: ['<tr><td>%1%</td><td>%2%</td><td>%3%</td><td>%4%</td><td>%5%</td></tr>'].join(''),
 
 	dialogs: {
 		dialoghandle: {
@@ -485,10 +635,10 @@ asg.__etc.conf = {
 		},
 		endpoints: {
 			DEV: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
 			},
 			TEST: {
-				get_support_teams_list: '/site/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: '~/site/assets/ws/mocks/get_support_teams_list.json',
 			}
 		}
 	}
@@ -496,10 +646,12 @@ asg.__etc.conf = {
 for (var confidID in asg.__etc.conf.conf.ids) {
 	asg.conf.ids[confidID] = asg.__etc.conf.conf.ids[confidID];
 };
-for (var confEP in asg.__etc.conf.conf.endpoints) {
-	asg.conf.endpoints[confEP] = asg.__etc.conf.conf.endpoints[confEP];
+for (var confEP in asg.__etc.conf.conf.endpoints.DEV) {
+	asg.conf.endpoints.DEV[confEP] = asg.__etc.conf.conf.endpoints.DEV[confEP];
 };
-
+for (var confEP in asg.__etc.conf.conf.endpoints.TEST) {
+	asg.conf.endpoints.TEST[confEP] = asg.__etc.conf.conf.endpoints.TEST[confEP];
+};
 // Add StringTable Entries
 asg.__etc.sdl = {
 	stringTable: {
@@ -670,6 +822,654 @@ asg.util.sdl = {
 		_init();
 	},
 
+	refreshAssumptions: function () {
+		let _sdl = asg.u.sdl;
+		let _util = asg.util;
+		let _ids = asg.conf.ids;
+		let _data = asg.data.system.sdl;
+		let _templates = asg.data.templates.html.sdl;
+		let _app = asg.app.fn;
+
+		let _assData = _data.workbook.assumptions;
+
+		var _assMain = _sdl.view.assumptions;
+
+		var _removeRow = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _sdl = asg.u.sdl;
+			var _target = evt.currentTarget;
+			var _index = parseInt(_target.getAttribute('data-index'), 10);
+			var _tbody = _target.parentElement.parentElement.parentElement;
+			var _list = _data.workbook.assumptions.dependencies;
+			if (_tbody.id == 'asg_assumptions_table') {
+				_list = _data.workbook.assumptions.assumptions;
+			}
+			var _newArray = [];
+			for (var i = 0; i < _list.length; i++) {
+				if (i != _index) {
+					_newArray.push(_list[i]);
+				}
+			}
+			if (_tbody.id == 'asg_assumptions_table') {
+				_data.workbook.assumptions.assumptions = _newArray;
+			} else {
+				_data.workbook.assumptions.dependencies = _newArray;
+			}
+			_sdl.refreshAssumptions();
+		};
+
+		var _handleCommentBoxClick = function (evt) {
+			evt.stopPropagation();
+		}
+
+		var _handleCellClick = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _templates = asg.data.templates.html.sdl;
+			document.body.click();
+			evt.stopPropagation();
+			var _target = evt.currentTarget;
+			var _row = _target.parentElement;
+			var _idCell = _row.firstElementChild;
+			var _strRowIndex = parseInt(_idCell.innerText, 10) - 1;
+			var _textData = _target.innerHTML;
+
+			var _picker = asg.u.createFromFragment(
+				asg.u.strReplace(
+					_templates.commentEntry, [_textData]
+				)
+			);
+
+			_picker.addEventListener('click', _handleCommentBoxClick);
+
+			var pickerCloser = {
+				target: _target,
+				picker: _picker,
+			};
+
+			var closeFn = function (evt) {
+				this.target.removeChild(this.picker);
+				document.body.removeEventListener('click', this.close);
+			};
+
+			pickerCloser.close = closeFn.bind(pickerCloser);
+
+			document.body.addEventListener('click', pickerCloser.close);
+
+			var _okBtn = _picker.lastElementChild.lastElementChild;
+			var _doUpdate = function (evt) {
+				evt.stopPropagation();
+				let _data = asg.data.system.sdl;
+				let _sdl = asg.u.sdl;
+				var _target = evt.currentTarget;
+				var _picker = _target.parentElement.parentElement;
+				var _text = _picker.firstElementChild.firstElementChild;
+				var _cell = _picker.parentElement;
+				var _row = _cell.parentElement;
+				var _tbody = _row.parentElement;
+				var _idCell = _row.firstElementChild;
+				var _index = parseInt(_idCell.innerText, 10) - 1;
+
+				var _list = _data.workbook.assumptions.dependencies;
+				if (_tbody.id == 'asg_assumptions_table') {
+					_list = _data.workbook.assumptions.assumptions;
+				}
+				_list[_index] = _text.value;
+				_sdl.refreshAssumptions();
+			}
+			_okBtn.addEventListener('click', _doUpdate.bind(this));
+
+			var _cancelBtn = _okBtn.previousElementSibling;
+			_cancelBtn.addEventListener('click', pickerCloser.close);
+
+			_target.appendChild(_picker);
+			var _text = _picker.firstElementChild.firstElementChild;
+			_text.onkeydown = function (evt) {
+				evt = evt || window.event;
+				if (evt.keyCode == 13) {
+					// Enter key pressed
+					_okBtn.click();
+				}
+			}
+			_text.focus();
+		};
+
+		if (_assMain != null) {
+			var _assHead = document.getElementById('asg_assumptions_title');
+			if (_data.workbook != null && _data.workbook.version != null) {
+				_assHead.innerHTML = _data.workbook.version.project_name;
+			}
+
+			var _assTable = document.getElementById('asg_assumptions_table');
+			_assTable.innerHTML = '';
+			for (var i = 0; i < _assData.assumptions.length; i++) {
+				var _del = _util.strReplace(
+							[
+							'<div class="asg-delete-button" data-index="%1%" title="Click to remove...">',
+							'<i class="fas fa-times-circle"></i>',
+							'</div>'
+							].join(''), [i]
+				);
+
+				var _row = _util.createFromFragment(
+					_util.strReplace(
+						'<tr><td>%1%</td><td title="Click to edit..." >%2%</td><td>%3%</td</tr>', [(i + 1), _assData.assumptions[i], _del]
+					)
+				);
+
+				var _del = _row.lastElementChild.lastElementChild;
+				_del.addEventListener('click', _removeRow.bind(this));
+
+				var _cell = _del.parentElement.previousElementSibling;
+				_cell.addEventListener('click', _handleCellClick.bind(this));
+
+				_assTable.appendChild(_row);
+			}
+
+			var _depTable = document.getElementById('asg_dependencies_table');
+			_depTable.innerHTML = '';
+			for (var i = 0; i < _assData.dependencies.length; i++) {
+				var _del = _util.strReplace(
+							[
+							'<div class="asg-delete-button" data-index="%1%" title="Click to remove...">',
+							'<i class="fas fa-times-circle"></i>',
+							'</div>'
+							].join(''), [i]
+				);
+
+
+				var _row = _util.createFromFragment(
+					_util.strReplace(
+						'<tr><td>%1%</td><td>%2%</td><td>%3%</td</tr>', [(i + 1), _assData.dependencies[i], _del]
+					)
+				);
+				var _del = _row.lastElementChild.lastElementChild;
+				_del.addEventListener('click', _removeRow.bind(this));
+
+				var _cell = _del.parentElement.previousElementSibling;
+				_cell.addEventListener('click', _handleCellClick.bind(this));
+
+				_depTable.appendChild(_row);
+			}
+		}
+	},
+
+	refreshDiagram: function () {
+		let _sdl = asg.u.sdl;
+		let _util = asg.util;
+		let _ids = asg.conf.ids;
+		let _data = asg.data.system.sdl;
+		let _templates = asg.data.templates.html.sdl;
+		let _app = asg.app.fn;
+
+		let _dia = _util.diagram;
+		if (_dia != null) {
+			let _diaData = asg.data.system.diagram;
+			if (_diaData != null && _diaData.model != null && _diaData.model.shapes != null) {
+				let _shapes = _diaData.model.shapes;
+				for (var i = 0; i < _shapes.length; i++) {
+					var _s = _shapes[i];
+					if (_s.type == "system") {
+						if (_data.workbook != null && _data.workbook.version != null) {
+							_s.label = _data.workbook.version.project_name;
+							if (asg.data.system.diagram.initialised) {
+								_dia.redraw();
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+
+	refreshElementList: function () {
+		let _sdl = asg.u.sdl;
+		let _util = asg.util;
+		let _ids = asg.conf.ids;
+		let _data = asg.data.system.sdl;
+		let _templates = asg.data.templates.html.sdl;
+		let _app = asg.app.fn;
+		let _diagram = asg.data.system.diagram.model;
+
+		var container = document.getElementById(_ids.el_list);
+		var _tbody = document.getElementById("asg-sdl-el-list-view");
+		if (_tbody != null) {
+			var _nameDisplay = document.getElementById("sdl_element_list_project_name");
+			_nameDisplay.innerHTML = _data.workbook.version.project_name;
+
+			var currElList = _data.workbook.elementList;
+
+			var _handleCommentBoxClick = function (evt) {
+				evt.stopPropagation();
+			}
+
+			var getListData = function (strId) {
+				var currElList = _data.workbook.elementList;
+				for (var i = 0; i < currElList.length; i++) {
+					var curEl = currElList[i];
+					if (curEl.id == strId) {
+						return curEl;
+					}
+				}
+				return null;
+			};
+
+			var _handleCommentClick = function (evt) {
+				let _data = asg.data.system.sdl;
+				let _templates = asg.data.templates.html.sdl;
+
+				evt.stopPropagation();
+				var _target = evt.currentTarget;
+				var _row = _target.parentElement;
+				var _idCell = _row.firstElementChild;
+				var _strRowId = _idCell.innerText;
+				var _thisListData = getListData(_strRowId);
+				var _para = _target.firstElementChild;
+
+				var _picker = asg.u.createFromFragment(
+					asg.u.strReplace(
+						_templates.commentEntry, [_para.innerHTML]
+					)
+				);
+
+				_picker.addEventListener('click', _handleCommentBoxClick);
+
+				var pickerCloser = {
+					target: _target,
+					picker: _picker,
+				}
+
+				var closeFn = function (evt) {
+					this.target.removeChild(this.picker);
+					document.body.removeEventListener('click', this.close);
+				}
+
+				pickerCloser.close = closeFn.bind(pickerCloser);
+
+				document.body.addEventListener('click', pickerCloser.close);
+
+				var _okBtn = _picker.lastElementChild.lastElementChild;
+				var _doUpdate = function (evt) {
+					evt.stopPropagation();
+					var _target = evt.currentTarget;
+					var _picker = _target.parentElement.parentElement;
+					var _text = _picker.firstElementChild.firstElementChild;
+					var _cell = _picker.parentElement;
+					var _para = _cell.firstElementChild;
+					var _row = _cell.parentElement;
+					var _idCell = _row.firstElementChild;
+					var _elId = _idCell.innerText;
+
+					var _elData = getListData(_elId);
+					_elData.comments = _text.value;
+					_para.innerHTML = _elData.comments;
+					pickerCloser.close();
+				}
+				_okBtn.addEventListener('click', _doUpdate.bind(this));
+
+				var _cancelBtn = _okBtn.previousElementSibling;
+				_cancelBtn.addEventListener('click', pickerCloser.close);
+
+				_target.appendChild(_picker);
+				var _text = _picker.firstElementChild.firstElementChild;
+				_text.onkeydown = function (evt) {
+					evt = evt || window.event;
+					if (evt.keyCode == 13) {
+						// Enter key pressed
+						_okBtn.click();
+					}
+				}
+				_text.focus();
+			};
+
+			var _handleSelectRow = function (evt) {
+				evt.stopPropagation();
+				var _target = evt.currentTarget;
+				var _id = _target.getAttribute('data-element-id');
+				var _parentId = _target.getAttribute('data-parent-id');
+
+				var _picker = _target.parentElement.parentElement;
+				var _disp = _picker.parentElement.firstElementChild;
+
+				var _icon = _target.firstElementChild;
+				var _listData = getListData(_parentId);
+
+				var _isSelected = eval(_target.getAttribute('data-element-selected'));
+				if (_isSelected) {
+					_target.setAttribute('data-element-selected', 'false');
+					_icon.setAttribute('class', 'far fa-square');
+					_listData.related = asg.util.removeFromArray(_listData.related, _id);
+				} else {
+					_target.setAttribute('data-element-selected', 'true');
+					_icon.setAttribute('class', 'fas fa-check-square');
+					_listData.related.push(_id);
+				}
+
+				_disp.innerHTML = _listData.related.join(', ');
+			};
+
+			var _handleRelatedClick = function (evt) {
+				evt.stopPropagation();
+				let _data = asg.data.system.sdl;
+				let _templates = asg.data.templates.html.sdl;
+
+				var _target = evt.currentTarget;
+				var _picker = asg.u.createFromFragment(
+					_templates.relatedElementPicker,
+				);
+				var _pickerBody = _picker.firstElementChild;
+				let _els = _data.workbook.elementList
+				var _row = _target.parentElement;
+				var _idCell = _row.firstElementChild;
+				var _strRowId = _idCell.innerText;
+				var _thisListData = getListData(_strRowId);
+
+				for (var i = 0; i < _els.length; i++) {
+					var _el = _els[i];
+					if (_el.id != _thisListData.id) {
+						// Current Element can't be related to itself
+						var strIClass = 'far fa-square';
+						var isSelected = 'false';
+						if (asg.util.arrayContains(_thisListData.related, _el.id)) {
+							strIClass = 'fas fa-check-square';
+							isSelected = 'true';
+						}
+						var _elrow = asg.u.createFromFragment(
+							asg.u.strReplace(
+								_templates.relatedElementPickerRow, [
+								_el.id,
+								strIClass,
+								_el.id + ': ' + _el.label,
+								isSelected,
+								_thisListData.id
+							]
+							)
+						);
+						_elrow.addEventListener('click', _handleSelectRow.bind(this))
+						_pickerBody.appendChild(_elrow);
+					}
+				}
+
+				var pickerCloser = {
+					target: _target,
+					picker: _picker,
+				}
+
+				var closeFn = function (evt) {
+					this.target.removeChild(this.picker);
+					document.body.removeEventListener('click', this.close);
+				}
+
+				pickerCloser.close = closeFn.bind(pickerCloser);
+
+				document.body.addEventListener('click', pickerCloser.close);
+
+				_target.appendChild(_picker);
+			};
+
+			var validateStride = function (objEl, objElData) {
+				if (objEl.type == 'system') {
+					objElData.stride = {
+						s: 'S',
+						t: 'T',
+						r: 'R',
+						i: 'I',
+						d: 'D',
+						e: 'E'
+					};
+				}
+
+				if (objEl.type == 'external_system') {
+					objElData.stride = {
+						s: 'S',
+						t: 'T',
+						r: 'R',
+						i: 'I',
+						d: 'D',
+						e: 'E'
+					};
+				}
+
+				if (objEl.type == 'data_flow') {
+					objElData.stride = {
+						s: '',
+						t: 'T',
+						r: '',
+						i: 'I',
+						d: 'D',
+						e: ''
+					};
+				}
+
+				if (objEl.type == 'data_store') {
+					objElData.stride = {
+						s: '',
+						t: 'T',
+						r: '?',
+						i: 'I',
+						d: 'D',
+						e: ''
+					};
+				}
+
+				return objElData;
+			};
+
+			var _shapesList = _diagram.shapes.slice(0);
+
+			_shapesList.sort(function (a, b) {
+				var aId = parseInt(a.id.slice(-4, a.id.length), 10);
+				var bId = parseInt(b.id.slice(-4, b.id.length), 10);
+
+				if (a.type == b.type) {
+					return (aId - bId);
+				}
+				if (a.type == 'system') {
+					return -1;
+				}
+				if (a.type == 'external_system' && (b.type == 'data_flow' || b.type == 'data_store')) {
+					return -1;
+				} else {
+					return 1;
+				}
+				if (a.type == 'data_flow' && b.type == 'data_store') {
+					return -1;
+				} else {
+					return 1;
+				}
+				if (a.type == 'data_store') {
+					return 1;
+				}
+			});
+
+			for (var i = 0; i < _shapesList.length; i++) {
+				var _el = _shapesList[i];
+				var _elData = getListData(_el.id);
+				if (_elData == null) {
+					_elData = {
+						id: _el.id,
+						related: [],
+						comments: '',
+						stride: {
+							s: 'S',
+							t: 'T',
+							r: 'R',
+							i: 'I',
+							d: 'D',
+							e: 'E'
+						}
+					}
+					_data.workbook.elementList.push(_elData);
+				}
+				_elData.label = _el.label;
+				_elData.type = _el.type;
+				_elData = validateStride(_el, _elData);
+
+				var _row = asg.u.createFromFragment(
+					asg.u.strReplace(
+						_templates.elementListRow, [
+						_elData.id,
+						_elData.type,
+						_elData.label,
+						_elData.related,
+						_elData.stride.s,
+						_elData.stride.t,
+						_elData.stride.r,
+						_elData.stride.i,
+						_elData.stride.d,
+						_elData.stride.e,
+						_elData.comments
+					]
+					)
+				);
+
+				var _relCell = _row.children[3];
+				_relCell.addEventListener('click', _handleRelatedClick.bind(this));
+
+				var _comCell = _row.children[10];
+				_comCell.addEventListener('click', _handleCommentClick.bind(this));
+
+				_tbody.appendChild(_row);
+			};
+		}
+	},
+
+	refreshRecommendations: function () {
+		let _sdl = asg.u.sdl;
+		let _util = asg.util;
+		let _ids = asg.conf.ids;
+		let _data = asg.data.system.sdl;
+		let _templates = asg.data.templates.html.sdl;
+		let _app = asg.app.fn;
+
+		let _recData = _data.workbook.recommendations;
+
+		var _recMain = _sdl.view.recommendations;
+
+		var _removeRow = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _sdl = asg.u.sdl;
+			var _target = evt.currentTarget;
+			var _index = parseInt(_target.getAttribute('data-index'), 10);
+			var _tbody = _target.parentElement.parentElement.parentElement;
+			var _list = _data.workbook.recommendations;
+
+			var _newArray = [];
+			for (var i = 0; i < _list.length; i++) {
+				if (i != _index) {
+					_newArray.push(_list[i]);
+				}
+			}
+
+			_data.workbook.recommendations = _newArray;
+
+			_sdl.refreshRecommendations();
+		};
+
+		var _handleCommentBoxClick = function (evt) {
+			evt.stopPropagation();
+		}
+
+		var _handleCellClick = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _templates = asg.data.templates.html.sdl;
+			document.body.click();
+			evt.stopPropagation();
+			var _target = evt.currentTarget;
+			var _row = _target.parentElement;
+			var _idCell = _row.firstElementChild;
+			var _strRowIndex = parseInt(_idCell.innerText, 10) - 1;
+			var _textData = _target.innerHTML;
+
+			var _picker = asg.u.createFromFragment(
+				asg.u.strReplace(
+					_templates.commentEntry, [_textData]
+				)
+			);
+
+			_picker.addEventListener('click', _handleCommentBoxClick);
+
+			var pickerCloser = {
+				target: _target,
+				picker: _picker,
+			};
+
+			var closeFn = function (evt) {
+				this.target.removeChild(this.picker);
+				document.body.removeEventListener('click', this.close);
+			};
+
+			pickerCloser.close = closeFn.bind(pickerCloser);
+
+			document.body.addEventListener('click', pickerCloser.close);
+
+			var _okBtn = _picker.lastElementChild.lastElementChild;
+			var _doUpdate = function (evt) {
+				evt.stopPropagation();
+				let _data = asg.data.system.sdl;
+				let _sdl = asg.u.sdl;
+				var _target = evt.currentTarget;
+				var _picker = _target.parentElement.parentElement;
+				var _text = _picker.firstElementChild.firstElementChild;
+				var _cell = _picker.parentElement;
+				var _row = _cell.parentElement;
+				var _tbody = _row.parentElement;
+				var _idCell = _row.firstElementChild;
+				var _index = parseInt(_idCell.innerText, 10) - 1;
+
+				var _list = _data.workbook.recommendations;
+
+				_list[_index] = _text.value;
+				_sdl.refreshRecommendations();
+			}
+			_okBtn.addEventListener('click', _doUpdate.bind(this));
+
+			var _cancelBtn = _okBtn.previousElementSibling;
+			_cancelBtn.addEventListener('click', pickerCloser.close);
+
+			_target.appendChild(_picker);
+			var _text = _picker.firstElementChild.firstElementChild;
+			_text.onkeydown = function (evt) {
+				evt = evt || window.event;
+				if (evt.keyCode == 13) {
+					// Enter key pressed
+					_okBtn.click();
+				}
+			}
+			_text.focus();
+		};
+
+		if (_recMain != null) {
+			var _recHead = document.getElementById('asg_recommendations_title');
+			_recHead.innerHTML = _data.workbook.version.project_name;
+
+			var _recTable = document.getElementById('asg_recommendations_table');
+			_recTable.innerHTML = '';
+			for (var i = 0; i < _recData.length; i++) {
+				var _del = _util.strReplace(
+							[
+							'<div class="asg-delete-button" data-index="%1%" title="Click to remove...">',
+							'<i class="fas fa-times-circle"></i>',
+							'</div>'
+							].join(''), [i]
+				);
+
+				var _row = _util.createFromFragment(
+					_util.strReplace(
+						'<tr><td>%1%</td><td title="Click to edit..." >%2%</td><td>%3%</td</tr>', [(i + 1), _recData[i], _del]
+					)
+				);
+
+				var _del = _row.lastElementChild.lastElementChild;
+				_del.addEventListener('click', _removeRow.bind(this));
+
+				var _cell = _del.parentElement.previousElementSibling;
+				_cell.addEventListener('click', _handleCellClick.bind(this));
+
+				_recTable.appendChild(_row);
+			}
+		}
+	},
+
 	refreshSRP: function () {
 		let _sdl = asg.u.sdl;
 		let _util = asg.util;
@@ -705,6 +1505,9 @@ asg.util.sdl = {
 				id: 'asg_wb_it_mgr',
 				target: _itMgrContainer,
 				value: _data.workbook.srp.iterationManager,
+				userTree: asg.data.user_data,
+				idField: ['id'],
+				displayField: ['name', 'label'],
 				onvaluechange: function (objUserPicker) {
 					asg.u.sdl.updateModel('srp.iterationManager', objUserPicker.value);
 				},
@@ -780,6 +1583,10 @@ asg.util.sdl = {
 		let _d1 = new Date();
 		_sdl.refreshVersionControl();
 		_sdl.refreshSRP();
+		_sdl.refreshDiagram();
+		_sdl.refreshElementList();
+		_sdl.refreshAssumptions();
+		_sdl.refreshRecommendations();
 		let _d2 = new Date();
 		return {
 			success: true,
@@ -918,6 +1725,13 @@ asg.util.sdl = {
 		let _app = asg.app.fn;
 
 		let container = document.getElementById(_ids.el_list);
+		container.innerHTML = '';
+
+		_sdl.view.elementList = _util.createFromFragment(_templates.elementList);
+		container.appendChild(_sdl.view.elementList);
+
+
+		_sdl.refreshUI();
 	},
 
 	showAssumptions: function () {
@@ -929,6 +1743,36 @@ asg.util.sdl = {
 		let _app = asg.app.fn;
 
 		let container = document.getElementById(_ids.assumptions);
+
+		container.innerHTML = '';
+
+		_sdl.view.assumptions = _util.createFromFragment(_templates.assumptions);
+		container.appendChild(_sdl.view.assumptions);
+
+		var _addRow = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _sdl = asg.u.sdl;
+			var _target = evt.currentTarget;
+			var _list = _target.getAttribute("data-list");
+			var _dataList = _data.workbook.assumptions[_list];
+			_dataList.push('');
+			_sdl.refreshAssumptions();
+
+			var _tbody = _target.parentElement.parentElement.parentElement.nextElementSibling;
+			var _cell = _tbody.lastElementChild.firstElementChild.nextElementSibling;
+			var _clickMe = function () {
+				this.click();
+			};
+			var _clickFn = _clickMe.bind(_cell);
+			window.setTimeout(_clickFn, 50);
+		};
+
+		var _addAssBtn = document.getElementById('asg_add_ass')
+		_addAssBtn.addEventListener('click', _addRow.bind(this));
+		var _addDepBtn = document.getElementById('asg_add_dep')
+		_addDepBtn.addEventListener('click', _addRow.bind(this));
+
+		_sdl.refreshUI();
 	},
 
 	showThreatList: function () {
@@ -951,6 +1795,34 @@ asg.util.sdl = {
 		let _app = asg.app.fn;
 
 		let container = document.getElementById(_ids.recommendations);
+
+		container.innerHTML = '';
+
+		_sdl.view.recommendations = _util.createFromFragment(_templates.recommendations);
+		container.appendChild(_sdl.view.recommendations);
+
+		var _addRow = function (evt) {
+			let _data = asg.data.system.sdl;
+			let _sdl = asg.u.sdl;
+			var _target = evt.currentTarget;
+			var _list = _target.getAttribute("data-list");
+			var _dataList = _data.workbook[_list];
+			_dataList.push('');
+			_sdl.refreshRecommendations();
+
+			var _tbody = _target.parentElement.parentElement.parentElement.nextElementSibling;
+			var _cell = _tbody.lastElementChild.firstElementChild.nextElementSibling;
+			var _clickMe = function () {
+				this.click();
+			};
+			var _clickFn = _clickMe.bind(_cell);
+			window.setTimeout(_clickFn, 50);
+		};
+
+		var _addRecBtn = document.getElementById('asg_add_rec')
+		_addRecBtn.addEventListener('click', _addRow.bind(this));
+
+		_sdl.refreshUI();
 	},
 
 	updateModel: function (strPath, value) {

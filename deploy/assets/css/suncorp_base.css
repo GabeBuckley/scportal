@@ -1438,7 +1438,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 }
 
 .Icon-arrowBottom--primary {
-	background-image: url("/site/assets/img/Icon-arrowBottom--primary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowBottom--primary.svg");
 	background-repeat: no-repeat
 }
 
@@ -3185,7 +3185,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-Btn.sg-Btn--prev:after {
 	content: "";
 	left: 8px;
-	background-image: url("/site/assets/img/Icon-arrowLeft--secondary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowLeft--secondary.svg");
 	background-repeat: no-repeat;
 }
 
@@ -3196,7 +3196,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-Btn.sg-Btn--next:after {
 	content: "";
 	right: 8px;
-	background-image: url("/site/assets/img/Icon-arrowRight--secondary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowRight--secondary.svg");
 	background-repeat: no-repeat;
 }
 
@@ -3207,7 +3207,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-Btn.sg-Btn--callToAction:after {
 	content: "";
 	right: 8px;
-	background-image: url("/site/assets/img/Icon-arrowRight--text.svg");
+	background-image: url("~/site/assets/img/Icon-arrowRight--text.svg");
 	background-repeat: no-repeat;
 }
 
@@ -3404,7 +3404,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 }
 
 .sg-List-breadcrumb>li:after {
-	content: "\276D";
+	content: "\276D\2003";
 	vertical-align: top;
 	margin-right: .35em;
 	margin-left: .7em;
@@ -9562,14 +9562,14 @@ hr {
 
 @font-face {
 	font-family: "AtlasGrotesk";
-	src: url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Light.woff2') format('woff2'), url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Light.woff') format('woff');
+	src: url('./fonts/AtlasGrotesk-Light.woff') format('woff');
 	font-weight: normal;
 	font-style: normal
 }
 
 @font-face {
 	font-family: "AtlasGrotesk";
-	src: url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Medium.woff2') format('woff2'), url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Medium.woff') format('woff');
+	src: url('./fonts/AtlasGrotesk-Medium.woff') format('woff');
 	font-weight: bold;
 	font-style: normal
 }
@@ -16467,7 +16467,7 @@ all and (max-width:320px) and (-ms-high-contrast:none) {
 }
 
 .sg-Menu--bar.sg-Menu--secondary>.sg-Menu-item>.sg-Menu-link[aria-haspopup="true"]:after {
-	background-image: url("/site/assets/img/Icon-arrowBottom--primary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowBottom--primary.svg");
 	background-repeat: no-repeat;
 }
 
@@ -16477,7 +16477,7 @@ all and (max-width:320px) and (-ms-high-contrast:none) {
 }
 
 .sg-Menu--bar.sg-Menu--secondary>.sg-Menu-item>.sg-Menu-link[aria-haspopup="true"].sg-Menu-link--current:after {
-	background-image: url("/site/assets/img/Icon-arrowBottom--primary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowBottom--primary.svg");
 	background-repeat: no-repeat
 }
 
@@ -19584,7 +19584,7 @@ html.no-flexbox .sg-Footer-content {
 }
 
 .Icon-arrowBottom--primary {
-	background-image: url("/site/assets/img/Icon-arrowBottom--primary.svg");
+	background-image: url("~/site/assets/img/Icon-arrowBottom--primary.svg");
 	background-repeat: no-repeat
 }
 
@@ -26039,7 +26039,7 @@ html.no-flexbox .sg-Footer-content {
 }
 
 .Icon-home--secondary {
-	background-image: url("/site/assets/img/Icon-home--secondary.svg");
+	background-image: url("~/site/assets/img/Icon-home--secondary.svg");
 	background-repeat: no-repeat
 }
 
@@ -27859,7 +27859,7 @@ html.no-flexbox .sg-Footer-content {
 }
 
 .Icon-lock--default {
-	background-image: url("/site/assets/img/Icon-lock--default.svg");
+	background-image: url("~/site/assets/img/Icon-lock--default.svg");
 	background-repeat: no-repeat
 }
 
