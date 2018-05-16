@@ -153,28 +153,29 @@ asg.data = {
 			site: {
 				dialogs: {
 					doLogin: {
-						content: '<fieldset>' +
-							'<input type="hidden" name="asg_on_success_route" id="asg_on_success_route" />' +
-							'<input type="hidden" name="asg_on_fail_route" id="asg_on_fail_route" />' +
-							'<legend>Log In</legend>' +
-							'<div class="asg-login-message-display" id="asg_login_message"></div>' +
-							'<div class="row">' +
-							'<div class="col-xs-12 col-sm-5">' +
-							'<label for="asg_site_login_username">User ID (u#):</label>' +
-							'</div>' +
-							'<div class="col-xs-12 col-sm-7">' +
-							'<input name="asg_site_login_username" id="asg_site_login_username" type="text" />' +
-							'</div>' +
-							'</div>' +
-							'<div class="row">' +
-							'<div class="col-xs-12 col-sm-5">' +
-							'<label for="asg_site_login_password">Password:</label>' +
-							'</div>' +
-							'<div class="col-xs-12 col-sm-7">' +
-							'<input type="password" id="asg_site_login_password" name="asg_site_login_password" />' +
-							'</div>' +
-							'</div>' +
-							'</fieldset>',
+						content: ['<fieldset>',
+							'<input type="hidden" name="asg_on_success_route" id="asg_on_success_route" />',
+							'<input type="hidden" name="asg_on_fail_route" id="asg_on_fail_route" />',
+							'<legend>Log In</legend>',
+							'<div class="asg-login-message-display" id="asg_login_message"></div>',
+							'<div class="row">',
+							'<div class="col-xs-12 col-sm-5">',
+							'<label for="asg_site_login_username">User ID (u#):</label>',
+							'</div>',
+							'<div class="col-xs-12 col-sm-7">',
+							'<input name="asg_site_login_username" id="asg_site_login_username" type="text" />',
+							'</div>',
+							'</div>',
+							'<div class="row">',
+							'<div class="col-xs-12 col-sm-5">',
+							'<label for="asg_site_login_password">Password:</label>',
+							'</div>',
+							'<div class="col-xs-12 col-sm-7">',
+							'<input type="password" id="asg_site_login_password" name="asg_site_login_password" />',
+							'</div>',
+							'</div>',
+							'</fieldset>'].join(''),
+
 						buttons: [
 							{
 								class: 'secondary',

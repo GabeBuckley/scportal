@@ -604,27 +604,28 @@ asg.data.templates.html.vdash = {
 		},
 
 		addDataListItem: {
-			content: '<fieldset>' +
-				'<input type="hidden" id="dlg_datalist_id" />' +
-				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>' +
-				'<legend id="dlg_legend"></legend>' +
-				'<div class="row">' +
-				'   <div class="col-xs-12 col-sm-5">' +
-				'       <label for="dlg_dataitem_id"></label>' +
-				'   </div>' +
-				'   <div class="col-xs-12 col-sm-7">' +
-				'      <div id="dlg_dataitem_id_display"></div>' +
-				'   </div>' +
-				'</div>' +
-				'<div class="row">' +
-				'   <div class="col-xs-12 col-sm-5">' +
-				'       <label for="dlg_dataitem_label"></label>' +
-				'   </div>' +
-				'   <div class="col-xs-12 col-sm-7">' +
-				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label"  data-accessor="Name" />' +
-				'   </div>' +
-				'</div>' +
-				'</fieldset>',
+			content: ['<fieldset>',
+				'<input type="hidden" id="dlg_datalist_id" />',
+				'<input type="hidden" id="dlg_dataitem_id" data-accessor="Id"/>',
+				'<legend id="dlg_legend"></legend>',
+				'<div class="row">',
+				'   <div class="col-xs-12 col-sm-5">',
+				'       <label for="dlg_dataitem_id"></label>',
+				'   </div>',
+				'   <div class="col-xs-12 col-sm-7">',
+				'      <div id="dlg_dataitem_id_display"></div>',
+				'   </div>',
+				'</div>',
+				'<div class="row">',
+				'   <div class="col-xs-12 col-sm-5">',
+				'       <label for="dlg_dataitem_label"></label>',
+				'   </div>',
+				'   <div class="col-xs-12 col-sm-7">',
+				'       <input type="text" placeholder="Enter label" id="dlg_dataitem_label"  data-accessor="Name" />',
+				'   </div>',
+				'</div>',
+				'</fieldset>'].join(''),
+
 			buttons: [
 				{
 					class: 'secondary',

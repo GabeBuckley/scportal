@@ -19,225 +19,215 @@ asg.data.system.sdl = {
 				label: 'Instructions',
 				icon: 'fas fa-info-circle',
 				link: '#!/test',
-				template: '<div id="sdl_process_flow">' +
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-green">Version Control<i class="fas fa-code-branch"></i><i class="fas fa-code-branch"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Complete the Version Control information for your project or enhancement.</li><li>' +
-					'Provide a brief description of the purpose of the project.' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-pink">System Risk Profile<i class="fas fa-exclamation-triangle"></i><i class="fas fa-exclamation-triangle"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Evaluate your project using the System Risk Profile to identify its criticality and determine which steps of the SDL need to be performed.</li><li>' +
-					'Consider whether your system adheres to our Security Architechture Principals, found here: <a href="http://go/secprinciples" target="_new">http://go/secprinciples</a>' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-orange">Security Controls Assessment<i class="fas fa-lock"></i><i class="fas fa-lock"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Complete the Security Controls Assessment for each of your project components including the Infrastructure, Platform, Middleware and Application.</li><li>' +
-					'For each component identify the standard Suncorp Security Controls in use. </li><li>' +
-					'Where a non-standard custom control is being used overwrite the drop down box with details of the control. Provide a full description and reason for the custom control within the Comments box provided.' +
-					'</li></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-blue">Data Flow Diagram<i class="fas fa-pencil-alt"></i><i class="fas fa-pencil-alt"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Using the Microsoft Threat Modelling tool, create a level 1 Data Flow Diagram for you System.</li><li>' +
-					'Name and number each element.' +
-					'</li></ol></div>' +
-					'</div>' +
+				template: ['<div id="sdl_process_flow">',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-green">Version Control<i class="fas fa-code-branch"></i><i class="fas fa-code-branch"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Complete the Version Control information for your project or enhancement.</li><li>',
+					'Provide a brief description of the purpose of the project.',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-pink">System Risk Profile<i class="fas fa-exclamation-triangle"></i><i class="fas fa-exclamation-triangle"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Evaluate your project using the System Risk Profile to identify its criticality and determine which steps of the SDL need to be performed.</li><li>',
+					'Consider whether your system adheres to our Security Architechture Principals, found here: <a href="http://go/secprinciples" target="_new">http://go/secprinciples</a>',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-orange">Security Controls Assessment<i class="fas fa-lock"></i><i class="fas fa-lock"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Complete the Security Controls Assessment for each of your project components including the Infrastructure, Platform, Middleware and Application.</li><li>',
+					'For each component identify the standard Suncorp Security Controls in use. </li><li>',
+					'Where a non-standard custom control is being used overwrite the drop down box with details of the control. Provide a full description and reason for the custom control within the Comments box provided.',
+					'</li></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-blue">Data Flow Diagram<i class="fas fa-pencil-alt"></i><i class="fas fa-pencil-alt"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Using the Microsoft Threat Modelling tool, create a level 1 Data Flow Diagram for you System.</li><li>',
+					'Name and number each element.',
+					'</li></ol></div>',
+					'</div>',
 
 
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-red">Element List<i class="far fa-list-alt"></i><i class="far fa-list-alt"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'List each Element from the Data Flow Diagram. </li><li>' +
-					'Do not include elements that are not in scope such as underlying platform technologies that provide supporting services (e.g.. Firewalls, API Gateways etc.).' +
-					'</li></ol></div>' +
-					'</div>' +
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-purple">Assumptions<i class="far fa-comment"></i><i class="far fa-comment"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Document any assumptions that have been such has all including reliance on supporting services and technology.<br/>Example Assumptions:<ol type="a"><li>' +
-					'F5 WAF Boundary firewalls will filter all Internet requests</li><li>' +
-					'User access management is provided by Active Directory</li><li>' +
-					'Data flows within AWS are secure and are not subject to Information Disclosure or Tampering threats' +
-					'</li></ol></li></ol></div>' +
-					'</div>' +
-
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-brown">Threat List<i class="fas fa-user-secret"></i><i class="fas fa-user-secret"></i></div>' +
-					'<div class="orange_arrow_down"></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Identify Threats using STRIDE per Element for each element within scope within your Data Flow Diagram.</li><li>' +
-					'Only include threats that are NOT controlled by Suncorp standard security controls outlined within the SCA tab. </li><li>' +
-					'Document the Priority of all uncontrolled threats using  High, Medium and Low. </li><li>' +
-					'Identify a Residual Risk for each Threat using the Corporate Risk Matrix.</li><li>' +
-					'For all uncontrolled threats identify a residual risk and proposed further actions within the comments box.' +
-					'</li></div>' +
-					'</div>' +
-
-
-					'<div class="row">' +
-					'<div class="col-xs-3">' +
-					'<div class="sdl-process-box sdl-process-box-black">Recommendations<i class="fas fa-check"></i><i class="fas fa-check"></i></div>' +
-					'</div>' +
-					'<div class="col-xs-9"><ol><li>' +
-					'Document all threats which are pending further action including their Jira card reference</li><li>' +
-					'For all uncontrolled threats where no further action is available to control the threat, consult with your Security Consulting and your CRO Risk Representative to escalate the threat within an Initiative Risk Profile (IRP) for review by the Business Owner.' +
-					'</li></ol></div>' +
-					'</div>' +
-
-
-					'</div>'
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-red">Element List<i class="far fa-list-alt"></i><i class="far fa-list-alt"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'List each Element from the Data Flow Diagram. </li><li>',
+					'Do not include elements that are not in scope such as underlying platform technologies that provide supporting services (e.g.. Firewalls, API Gateways etc.).',
+					'</li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-purple">Assumptions<i class="far fa-comment"></i><i class="far fa-comment"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Document any assumptions that have been such has all including reliance on supporting services and technology.<br/>Example Assumptions:<ol type="a"><li>',
+					'F5 WAF Boundary firewalls will filter all Internet requests</li><li>',
+					'User access management is provided by Active Directory</li><li>',
+					'Data flows within AWS are secure and are not subject to Information Disclosure or Tampering threats',
+					'</li></ol></li></ol></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-brown">Threat List<i class="fas fa-user-secret"></i><i class="fas fa-user-secret"></i></div>',
+					'<div class="orange_arrow_down"></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Identify Threats using STRIDE per Element for each element within scope within your Data Flow Diagram.</li><li>',
+					'Only include threats that are NOT controlled by Suncorp standard security controls outlined within the SCA tab. </li><li>',
+					'Document the Priority of all uncontrolled threats using  High, Medium and Low. </li><li>',
+					'Identify a Residual Risk for each Threat using the Corporate Risk Matrix.</li><li>',
+					'For all uncontrolled threats identify a residual risk and proposed further actions within the comments box.',
+					'</li></div>',
+					'</div>',
+					'<div class="row">',
+					'<div class="col-xs-3">',
+					'<div class="sdl-process-box sdl-process-box-black">Recommendations<i class="fas fa-check"></i><i class="fas fa-check"></i></div>',
+					'</div>',
+					'<div class="col-xs-9"><ol><li>',
+					'Document all threats which are pending further action including their Jira card reference</li><li>',
+					'For all uncontrolled threats where no further action is available to control the threat, consult with your Security Consulting and your CRO Risk Representative to escalate the threat within an Initiative Risk Profile (IRP) for review by the Business Owner.',
+					'</li></ol></div>',
+					'</div>',
+					'</div>'].join('')
             },
 			{
 				id: 'version',
 				label: 'Version Control',
 				icon: 'fas fa-code-branch',
 				link: '#!/sdl/version',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Version Control</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to give your project a title and description. You will also be able to review who has edited this workbook.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/version">Go to Version Control</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Version Control</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to give your project a title and description. You will also be able to review who has edited this workbook.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/version">Go to Version Control</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'srp',
 				label: 'System Risk Profile',
 				icon: 'fas fa-exclamation-triangle',
 				link: '#!/sdl/srp',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'This section comprises a short survey to identify the security controls and activities applicable to your project' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/srp">Go to System Risk Profile</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>System Risk Profile</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'This section comprises a short survey to identify the security controls and activities applicable to your project',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/srp">Go to System Risk Profile</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'sca',
 				label: 'Security Controls Assessment',
 				icon: 'fas fa-lock',
 				link: '#!/sdl/sca',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Security Controls Assessment</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'For each component of your project, determine which controls will be used to ameliorate the risks posed by the potential threats identified.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/sca">Go to Security Controls Assessment</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Security Controls Assessment</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'For each component of your project, determine which controls will be used to ameliorate the risks posed by the potential threats identified.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/sca">Go to Security Controls Assessment</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'dfd',
 				label: 'Data Flow Diagram',
 				icon: 'fas fa-pencil-alt',
 				link: '#!/sdl/dfd',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Data Flow Diagram</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'This tool allows you to create a high-level data flow diagram of your project showing both inbound and outbound data flows.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/dfd">Go to Data Flow Diagram</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Data Flow Diagram</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'This tool allows you to create a high-level data flow diagram of your project showing both inbound and outbound data flows.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/dfd">Go to Data Flow Diagram</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'list',
 				label: 'Element List',
 				icon: 'far fa-list-alt',
 				link: '#!/sdl/list',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Element List</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'The system elements identified in the Data Flow Diagram are listed here. Use STRIDE to evaluate the risks associated with each element.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/list">Go to Element List</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Element List</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'The system elements identified in the Data Flow Diagram are listed here. Use STRIDE to evaluate the risks associated with each element.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/list">Go to Element List</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'assumptions',
 				label: 'Assumptions',
 				icon: 'far fa-comment',
 				link: '#!/sdl/assumptions',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Assumptions</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to detail any assumptions and/or dependencies for your project.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/assumptions">Go to Assumptions</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Assumptions</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to detail any assumptions and/or dependencies for your project.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/assumptions">Go to Assumptions</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'threats',
 				label: 'Threat List',
 				icon: 'fas fa-user-secret',
 				link: '#!/threats',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Threat List</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'For threats that are not controlled by Suncorp standard security controls, document the priority of the threat, identify a residual risk and detail proposed further actions in this section .' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/threats">Go to Threat List</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Threat List</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'For threats that are not controlled by Suncorp standard security controls, document the priority of the threat, identify a residual risk and detail proposed further actions in this section .',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/threats">Go to Threat List</a>',
+					'</div></div>',
+					'</div>'].join('')
             },
 			{
 				id: 'recommendations',
 				label: 'Recommendations',
 				icon: 'fas fa-check',
 				link: '#!/recommendations',
-				template: '<div>' +
-					'<div class="row"><div class="col-xs-12"><h3>Recommendations</h3></div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'Use this section to document any threats which remain uncontrolled or are pending further action, including Jira ticket numbers.' +
-					'</div></div>' +
-					'<div class="row"><div class="col-xs-12">' +
-					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/recommendations">Go to Recommendations</a>' +
-					'</div></div>' +
-					'</div>'
+				template: ['<div>',
+					'<div class="row"><div class="col-xs-12"><h3>Recommendations</h3></div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'Use this section to document any threats which remain uncontrolled or are pending further action, including Jira ticket numbers.',
+					'</div></div>',
+					'<div class="row"><div class="col-xs-12">',
+					'<a class="sg-Btn sg-Btn--next" href="#!/sdl/recommendations">Go to Recommendations</a>',
+					'</div></div>',
+					'</div>'].join('')
             }
 		],
 		version: {
