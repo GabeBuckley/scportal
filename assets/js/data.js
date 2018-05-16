@@ -4,6 +4,7 @@ asg.data = {
 			{
 				id: 'anonymous',
 				name: 'Unknown User',
+				systemUser: true,
 				email: 'secportaladmin@suncorp.com.au',
 				roles: []
 			},

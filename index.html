@@ -213,15 +213,13 @@
 									<div class="asg-control-surface-header">
 										<div class="asg-control-surface-header-text">Tools</div>
 									</div>
-									<div class="asg-control-surface-panel" id="asg_tools_panel">
-
-									</div>
+									<div class="asg-control-surface-panel" id="asg_tools_panel"></div>
 								</div>
 							</div>
 							<div class="col-xs-7">
 								<div class="asg-control-surface">
 									<div class="asg-control-surface-header">
-										<div class="asg-control-surface-header-text">Diagram</div>
+										<div class="asg-control-surface-header-text">System Data Flow Diagram</div>
 									</div>
 									<div class="asg-control-surface-panel">
 										<div id="dfd_container"></div>
@@ -237,14 +235,19 @@
 										<div id="properties_form"></div>
 										<div id="properties_buttons"></div>
 									</div>
+
+								</div>
+								<div class="button-bar" style="position:absolute;bottom:0;">
+									<a href="#!/sdl/sca" class="sg-Btn sg-Btn--prev">Back to SCA</a>
+									<a href="#!/sdl/list" class="sg-Btn sg-Btn--next">Element List</a>
 								</div>
 							</div>
 						</div>
 					</section>
 					<section class="asg_app_page" id="page_sdl_list">
 						<div class="row">
-							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
-							<div class="col-xs-12 col-lg-8">
+							<div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-10">
 								<div class="asg-control-surface">
 									<div class="asg-control-surface-header">
 										<div class="asg-control-surface-header-text">Element List</div>
@@ -256,7 +259,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-lg-1 hidden-xs hidden-sm hidden-md"></div>
 						</div>
 					</section>
 					<section class="asg_app_page" id="page_sdl_assumptions">
@@ -364,7 +367,23 @@
 						</div>
 					</section>
 
-					<!-- View / Add / Edit Vulerabnility -->
+					<!-- New Vulerabnility -->
+					<section class="asg_app_page" id="page_vuln_new">
+						<div class="row">
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+							<div class="col-xs-12 col-lg-8">
+								<div class="asg-control-surface">
+									<div class="asg-control-surface-header">
+										<div class="asg-control-surface-header-text" id="vuln_title">Vulnerability Portal - Log New Vulnerability</div>
+									</div>
+									<div class="asg-control-surface-panel">
+										<div class="asg-view-container" id="asg_vdash_vuln_new" />
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>
+						</div>
+					</section>
 					<section class="asg_app_page" id="page_vuln_view">
 						<div class="row">
 							<div class="col-lg-2 hidden-xs hidden-sm hidden-md"></div>

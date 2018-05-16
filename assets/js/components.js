@@ -361,11 +361,11 @@ asg.DatePicker = class extends asg.HTMLComponent {
 
 	styles() {
 		return [
-            '.asg-date-picker {display:inline-block; height: 36px; width: 300px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
+            '.asg-date-picker {display:inline-block; height: 36px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
             '.asg-date-picker.disabled {background: #f3f3f3; border-color: #999999;}',
 			'.asg-date-picker .asg-date-picker-body {display: inline-block;cursor:pointer;}',
 			'.asg-date-picker.disabled .asg-date-picker-body {cursor:default;}',
-			'.asg-date-picker .asg-date-display {display: inline-block; width: 255px; color: #006f66; text-align: center;}',
+			'.asg-date-picker .asg-date-display {display: inline-block; color: #006f66; text-align: center;}',
 			'.asg-date-picker.disabled .asg-date-display {color: #999999; font-style: italic;}',
 			'.asg-date-picker .asg-date-button {display: inline-block; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
 			'.asg-date-picker.disabled .asg-date-button, .asg-date-picker.disabled .asg-date-button:hover {border-color:#999999;background: #f3f3f3;color: #999999;}',
@@ -770,7 +770,7 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 					var newCell = asg.u.createFromFragment('<td class="selector" />');
 					clumpHeaderRow.appendChild(newCell);
 				}
-				clumpHeaderRow.style.display = "table-row";
+				clumpHeaderRow.style.display = "inline-block";
 				clumpHeaderRow.addEventListener('click', this._handleRowClick.bind(this));
 				clumpHeaderRow.onclick = this._handleRowClick;
 				var clumpHeaderCell = document.createElement('td');
@@ -1160,8 +1160,6 @@ asg.UserPicker = class extends asg.HTMLComponent {
 		value: Object || null,
 		onvaluechange: function,
 		disabled: true || false
-		
-		
 	}
 	**/
 
@@ -1188,6 +1186,24 @@ asg.UserPicker = class extends asg.HTMLComponent {
 		} else {
 			return false;
 		}
+	}
+
+	get displayValue() {
+		var _myValues = this.value.slice(0);
+		if (_myValues.length == 0) {
+			return "Click to select...";
+		}
+		var _displayValue = [];
+		for (var i = 0; i < _myValues.length; i++) {
+			var _val = _myValues[i];
+			_displayValue.push(_val[this._displayField[0]]);
+		}
+		var _displayText = _displayValue.join(', ');
+		if (_displayText.length >= 25 && _displayValue.length >= 2) {
+			_displayText = _displayValue[0] + ', ' + _displayValue[1];
+			_displayText = _displayText.slice(0, 20) + '... (' + (_displayValue.length - 2) + ' more)';
+		}
+		return _displayText;
 	}
 
 	fragments() {
@@ -1239,6 +1255,16 @@ asg.UserPicker = class extends asg.HTMLComponent {
 		_cal.setAttribute('style', 'display: none;');
 	}
 
+	isSelected(strId) {
+		var _vals = this.value.slice(0);
+		for (var i = 0; i < _vals.length; i++) {
+			var _val = _vals[i];
+			if (_val[this._idField[0]] == strId) {
+				return true;
+			}
+		}
+	}
+
 	on_init() {
 		var _view = this.ui();
 		var _body = _view.firstElementChild;
@@ -1249,17 +1275,35 @@ asg.UserPicker = class extends asg.HTMLComponent {
 
 		this._frags = this.fragments();
 
+		this._selectedUsers = [];
+
+		let _cal = _view.lastElementChild;
+		let _header = _cal.firstElementChild;
+		let _okBtn = _header.lastElementChild;
+
+		this._uhead = _cal.lastElementChild.firstElementChild.firstElementChild;
+		this._ghead = _cal.lastElementChild.lastElementChild.firstElementChild;
+
+		this._uhead.addEventListener('click', this._toggleGroup.bind(this));
+		this._ghead.addEventListener('click', this._toggleGroup.bind(this));
+
+
+		this._udisp = _cal.lastElementChild.firstElementChild.lastElementChild;
+		this._gdisp = _cal.lastElementChild.lastElementChild.lastElementChild;
+
+
+		_okBtn.addEventListener('click', this._updateFunction.bind(this));
+
 		_body.addEventListener('click', this._showFunction);
 
 		if (this._value == null) {
-			this._currentDate = _dt.now();
-		} else {
-			this._currentDate = new Date(this._value);
+			this._value = [];
 		}
-
 		if (this._disabled != null) {
 			this.disabled = this._disabled;
 		}
+
+		this._updateView();
 	}
 
 	showPicker(evt) {
@@ -1272,23 +1316,162 @@ asg.UserPicker = class extends asg.HTMLComponent {
 			document.body.addEventListener('click', this._hideFunction);
 
 			_cal.setAttribute('style', 'display: block;');
+
+			var _t = this._userTree;
+
+			this._udisp.innerHTML = '';
+			this._gdisp.innerHTML = '';
+
+			var _sortKey = this._displayField[0];
+			var _sortFn = function (a, b) {
+				if (a[_sortKey] > b[_sortKey]) {
+					return 1;
+				}
+				if (a[_sortKey] > b[_sortKey]) {
+					return 1;
+				}
+				return 0;
+			};
+			_t.users.sort(_sortFn);
+			_t.groups.sort(_sortFn);
+
+			for (var i = 0; i < _t.users.length; i++) {
+				var _u = _t.users[i];
+				if (_u.systemUser != true) {
+					var arrIdFields = this._idField.slice(0);
+					var idField = arrIdFields.shift();
+					while (arrIdFields.length > 0 && !_u.hasOwnProperty(idField)) {
+						idField = arrIdFields.shift();
+					}
+
+					var arrLabelFields = this._displayField.slice(0);
+					var labelField = arrLabelFields.shift();
+					while (arrLabelFields.length > 0 && !_u.hasOwnProperty(labelField)) {
+						labelField = arrLabelFields.shift();
+					}
+					var _selectedText = '' + this.isSelected(_u[idField]);
+					var row = asg.u.createFromFragment(
+						asg.u.strReplace(
+							'<div class="user-row" data-selected="%3%" data-user-id="%1%"><i class="fas asg-selecto"></i>%2%</div>', [
+							_u[idField],
+							_u[labelField],
+							_selectedText
+						]
+						)
+					);
+					row.addEventListener('click', this._selectRow.bind(this));
+					this._udisp.appendChild(row);
+				}
+			}
+
+			for (var i = 0; i < _t.groups.length; i++) {
+				var _g = _t.groups[i];
+				var arrIdFields = this._idField.slice(0);
+				var idField = arrIdFields.shift();
+				while (arrIdFields.length > 0 && !_g.hasOwnProperty(idField)) {
+					idField = arrIdFields.shift();
+				}
+
+				var arrLabelFields = this._displayField.slice(0);
+				var labelField = arrLabelFields.shift();
+				while (arrLabelFields.length > 0 && !_g.hasOwnProperty(labelField)) {
+					labelField = arrLabelFields.shift();
+				}
+				var _selectedText = '' + this.isSelected(_g[idField]);
+				var row = asg.u.createFromFragment(
+					asg.u.strReplace(
+						'<div class="group-row" data-selected="%3%" data-group-id="%1%"><i class="fas asg-selecto"></i>%2%</div>', [
+							_g[idField],
+							_g[labelField],
+							_selectedText
+						]
+					)
+				);
+				row.addEventListener('click', this._selectRow.bind(this));
+				this._gdisp.appendChild(row);
+			}
 		}
 	}
 
 
 	styles() {
 		return [
-            '.asg-user-picker {display:inline-block; height: 36px; width: 300px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
+            '.asg-user-picker {display:inline-block; height: 36px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
             '.asg-user-picker.disabled {background: #f3f3f3; border-color: #999999;}',
 			'.asg-user-picker .asg-user-picker-body {display: inline-block;cursor:pointer;}',
 			'.asg-user-picker.disabled .asg-user-picker-body {cursor:default;}',
-			'.asg-user-picker .asg-user-display {display: inline-block; width: 255px; color: #006f66; text-align: center;}',
+			'.asg-user-picker .asg-user-display {display: inline-block; font-size: 0.85em;width: 235px; color: #006f66; text-align: center; white-space:nowrap; overflow:hidden;}',
 			'.asg-user-picker.disabled .asg-user-display {color: #999999; font-style: italic;}',
-			'.asg-user-picker .asg-user-button {display: inline-block; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
+			'.asg-user-picker .asg-user-button {display: inline-block; vertical-align: top; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
 			'.asg-user-picker.disabled .asg-user-button, .asg-user-picker.disabled .asg-user-button:hover {border-color:#999999;background: #f3f3f3;color: #999999;}',
 			'.asg-user-picker .asg-user-button:hover {background: #7fb7b2; color: #fff;}',
 			'.asg-user-picker .asg-user-browser {display: none; position:absolute; z-index: 9000; width: 450px; height: 350px;border: 2px solid #006f66; border-radius: 10px; background: #fff; -webkit-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);-moz-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);}',
-			'.asg-user-picker .asg-user-browser-head {height: 30px;border-bottom: 2px outset #bfdbd9; border-top-left-radius: 10px;border-top-right-radius: 10px; background: #bfdbd9; }',
+			'.asg-user-picker .asg-user-browser-head {height: 30px;border-bottom: 2px outset #bfdbd9; border-top-left-radius: 10px;border-top-right-radius: 10px; background: #bfdbd9; text-align: right; padding-right: 5px;}',
+			'.asg-user-picker .asg-user-browser-body {height: 315px; overflow-y: auto; font-size: 0.8em; color: #006f66;}',
+			'.asg-user-picker .asg-user-browser-body .asg-user-list {margin-bottom: 0.5em; margin-left: 0.25em;}',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list { margin-left: 0.25em;}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-head,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-head {font-weight: bold; margin-left: 0.25em;}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-head i.fas.asg-expando:before,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-head i.fas.asg-expando:before {',
+			'  content: "\\f0d7";',
+			'}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-head[data-collapsed="true"] i.fas.asg-expando:before,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-head[data-collapsed="true"] i.fas.asg-expando:before {',
+			'  content: "\\f0da";',
+			'}',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-body { padding-left: 0.25em;}',
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-body { padding-left: 0.25em;padding-right: 0.25em;}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-head[data-collapsed="true"] + .asg-user-list-body,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-head[data-collapsed="true"] + .asg-group-list-body {',
+			'  display:none;',
+			'}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-body .group-row:nth-child(odd),',
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-body .user-row:nth-child(odd) {',
+			'	background: #f0f0f0;',
+			'}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .asg-group-list-body .group-row[data-selected="true"],',
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .asg-user-list-body .user-row[data-selected="true"] {',
+			'	background: #e8fee8;',
+			'}',
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .user-row i.fas.asg-selecto,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .group-row i.fas.asg-selecto {',
+			'  margin-left: 3px;',
+			'  margin-right: 1.5em;',
+			'  width: 12px;',
+			'}',
+
+
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .user-row i.fas.asg-selecto:before,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .group-row i.fas.asg-selecto:before {',
+			'  content: "";',
+			'}',
+			'.asg-user-picker .asg-user-browser-body .asg-user-list .user-row[data-selected="true"] i.fas.asg-selecto:before,',
+			'.asg-user-picker .asg-user-browser-body .asg-group-list .group-row[data-selected="true"] i.fas.asg-selecto:before {',
+			'  content: "\\f14a";',
+			'}',
+			'.asg-user-picker .asg-user-browser-head .asg-button {',
+			'  display: inline-block; border-radius: 3px; margin: 2px; cursor: pointer;',
+			' color: #fff; padding: 2px 5px; margin-left: 0px; font-size: 0.8em;',
+			'-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4); -moz-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4); box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4);',
+			'}',
+			'.asg-user-picker .asg-user-browser-head .asg-button:active {',
+			'margin-left:2px; margin-top:2px;',
+			'-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0); -moz-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0); box-shadow: 2px 2px 2px 1px rgba(0,0,0,0);',
+			'}',
+			'.asg-user-picker .asg-user-browser-head .asg-close-button {background-color: #B00020;}',
+			'.asg-user-picker .asg-user-browser-head .asg-close-button:hover {background-color: #E53935;}',
+			'.asg-user-picker .asg-user-browser-head .asg-ok-button {background-color: #018786;}',
+			'.asg-user-picker .asg-user-browser-head .asg-ok-button:hover {background-color: #26A69A;}',
+
+
 
 		].join('');
 	}
@@ -1303,8 +1486,26 @@ asg.UserPicker = class extends asg.HTMLComponent {
 			'    </div>',
 			'  </div>',
 			'  <div class="asg-user-browser">',
-			'    <div class="asg-user-browser-head"></div>',
-			'    <div class="asg-user-browser-body"></div>',
+			'    <div class="asg-user-browser-head">',
+			'		<div class="asg-button asg-close-button"><i class="fas fa-times-circle"></i></div>',
+			'		<div class="asg-button asg-ok-button"><i class="fas fa-check-circle"></i></div>',
+			'    </div>',
+			'    <div class="asg-user-browser-body">',
+			'		<div class="asg-user-list">',
+			'		  <div class="asg-user-list-head" data-collapsed="false">',
+			'			<i class="fas asg-expando"></i> <i class="fas fa-user"></i> Users',
+			'		  </div>',
+			'		  <div class="asg-user-list-body">',
+			'		  </div>',
+			'		</div>',
+			'		<div class="asg-group-list">',
+			'		  <div class="asg-group-list-head" data-collapsed="false">',
+			'			<i class="fas asg-expando"></i> <i class="fas fa-users"></i> Groups',
+			'		  </div>',
+			'		  <div class="asg-group-list-body">',
+			'		  </div>',
+			'		</div>',
+			'	 </div>',
 			'  </div',
             '</div>'].join('');
 	}
@@ -1315,13 +1516,74 @@ asg.UserPicker = class extends asg.HTMLComponent {
         ];
 	}
 
-	set value(objDate) {
-		this._value = objDate;
+	set value(arrUsers) {
+		this._value = arrUsers;
 	}
 
 	get value() {
 		return this._value;
 	}
+
+	_updateFunction() {
+		var arrUsers = [];
+		var userRows = this._udisp.children;
+		for (var i = 0; i < userRows.length; i++) {
+			var _r = userRows[i];
+			if (eval(_r.getAttribute('data-selected'))) {
+				var newUser = {};
+				newUser[this._idField[0]] = _r.getAttribute('data-user-id');
+				newUser[this._displayField[0]] = _r.innerText;
+				newUser.type = "user";
+				arrUsers.push(newUser);
+			}
+		}
+		var userRows = this._gdisp.children;
+		for (var i = 0; i < userRows.length; i++) {
+			var _r = userRows[i];
+			if (eval(_r.getAttribute('data-selected'))) {
+				var newUser = {};
+				newUser[this._idField[0]] = _r.getAttribute('data-group-id');
+				newUser[this._displayField[0]] = _r.innerText;
+				newUser.type = "group";
+				arrUsers.push(newUser);
+			}
+		}
+		this.value = arrUsers;
+		this._onvaluechange(this);
+		this._updateView();
+	}
+
+	_updateView() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+		var _display = _body.firstElementChild;
+		_display.innerHTML = this.displayValue;
+	}
+
+	_selectRow(evt) {
+		evt.stopPropagation();
+		var _this = this;
+		var _target = evt.currentTarget;
+		var isSelected = eval(_target.getAttribute("data-selected"));
+		if (isSelected) {
+			_target.setAttribute("data-selected", "false");
+		} else {
+			_target.setAttribute("data-selected", "true");
+		}
+	};
+
+	_toggleGroup(evt) {
+		evt.stopPropagation();
+		var _this = this;
+		var _target = evt.currentTarget;
+		var isCollapsed = eval(_target.getAttribute("data-collapsed"));
+		if (isCollapsed) {
+			_target.setAttribute("data-collapsed", "false");
+		} else {
+			_target.setAttribute("data-collapsed", "true");
+		}
+	};
+
 }
 
 

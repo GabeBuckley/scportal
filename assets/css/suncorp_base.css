@@ -3404,7 +3404,7 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 }
 
 .sg-List-breadcrumb>li:after {
-	content: "\276D";
+	content: "\276D\2003";
 	vertical-align: top;
 	margin-right: .35em;
 	margin-left: .7em;
@@ -9562,14 +9562,14 @@ hr {
 
 @font-face {
 	font-family: "AtlasGrotesk";
-	src: url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Light.woff2') format('woff2'), url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Light.woff') format('woff');
+	src: url('./fonts/AtlasGrotesk-Light.woff') format('woff');
 	font-weight: normal;
 	font-style: normal
 }
 
 @font-face {
 	font-family: "AtlasGrotesk";
-	src: url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Medium.woff2') format('woff2'), url('https://www.suncorp.com.au/etc/designs/suncorp/sunins/clientlib_sg_sunins/assets/css/styleguide/bower_components/sg-component-typography/src/suncorpnew/fonts/AtlasGrotesk/AtlasGrotesk-Medium.woff') format('woff');
+	src: url('./fonts/AtlasGrotesk-Medium.woff') format('woff');
 	font-weight: bold;
 	font-style: normal
 }
