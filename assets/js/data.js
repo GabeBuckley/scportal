@@ -9,9 +9,9 @@ asg.data = {
 				roles: []
 			},
 			{
-				id: 'u206803',
-				name: 'BUCKLEY, Gabe',
-				email: 'gabe.buckley@suncorp.com.au',
+				id: "U206803",
+				name: "BUCKLEY, Gabe",
+				email: "Gabe.BUCKLEY@suncorp.com.au",
 				roles: []
 			},
 			{
@@ -45,7 +45,7 @@ asg.data = {
 				id: 'administrators',
 				label: 'Administrators',
 				members: [
-					'u206803',
+					'U206803',
 					'u435003'
 					],
 				roles: [

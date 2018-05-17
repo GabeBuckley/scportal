@@ -1,43 +1,38 @@
-{
-    "response": {
-        "status": 200,
-        "response_type": "get_support_teams_list_response",
-        "response_data": [{
-                "id": "00b26bfedbdf66406d3973e9bf961909",
-                "label": "BI Cloud Platform"
+[
+	{
+		"id": "00b26bfedbdf66406d3973e9bf961909",
+		"TeamName": "BI Cloud Platform"
 			},
-            {
-                "id": "000262c8dbe37e006d3973e9bf9619d8",
-                "label": "Business Support"
+	{
+		"id": "000262c8dbe37e006d3973e9bf9619d8",
+		"TeamName": "Business Support"
 			},
-            {
-                "id": "05c68d19db5ddb4c49a3384f7c96195d",
-                "label": "Consulting & Design"
+	{
+		"id": "05c68d19db5ddb4c49a3384f7c96195d",
+		"TeamName": "Consulting & Design"
 			},
-            {
-                "id": "02b3bb346f5e610039e8a5c5eb3ee4d8",
-                "label": "Data Services"
+	{
+		"id": "02b3bb346f5e610039e8a5c5eb3ee4d8",
+		"TeamName": "Data Services"
 			},
-            {
-                "id": "01c1d27c6f88220039e8a5c5eb3ee44d",
-                "label": "Digital - Bank - Banking"
+	{
+		"id": "01c1d27c6f88220039e8a5c5eb3ee44d",
+		"TeamName": "Digital - Bank - Banking"
 			},
-            {
-                "id": "02b3bb346f5e610039e8a5c5eb3ee4d9",
-                "label": "Finance Systems Support"
+	{
+		"id": "02b3bb346f5e610039e8a5c5eb3ee4d9",
+		"TeamName": "Finance Systems Support"
 			},
-            {
-                "id": "0293bb346f5e610039e8a5c5eb3ee405",
-                "label": "Operational Compliance"
+	{
+		"id": "0293bb346f5e610039e8a5c5eb3ee405",
+		"TeamName": "Operational Compliance"
 			},
-            {
-                "id": "00c07eb76f23f940c5cc29309d3ee4a4",
-                "label": "Suncorp API Gateway Support"
+	{
+		"id": "00c07eb76f23f940c5cc29309d3ee4a4",
+		"TeamName": "Suncorp API Gateway Support"
 			},
-            {
-                "id": "04282bc1db7c8b00f3d7342f7c96191d",
-                "label": "Treasury & Risk"
-			}
-		]
-    }
-}
+	{
+		"id": "04282bc1db7c8b00f3d7342f7c96191d",
+		"TeamName": "Treasury & Risk"
+	}
+]

@@ -117,7 +117,7 @@ asg.data.lists.diagram = {
 					"text": "E0002\n\rSplunk Log"
 				},
 				"image": {
-					"xlink:href": "~/site/assets/img/database.png"
+					"xlink:href": "./site/assets/img/database.png"
 				}
 			}
 		},
@@ -139,7 +139,7 @@ asg.data.lists.diagram = {
 					"text": "DS0001\n\rLog File"
 				},
 				"image": {
-					"xlink:href": "~/site/assets/img/database.png"
+					"xlink:href": "./site/assets/img/database.png"
 				}
 			}
 		},
@@ -162,7 +162,7 @@ asg.data.lists.diagram = {
 					"text": "E0002\n\rSplunk Log"
 				},
 				"image": {
-					"xlink:href": "~/site/assets/img/database.png"
+					"xlink:href": "./site/assets/img/database.png"
 				}
 			}
 		},
@@ -1251,7 +1251,7 @@ asg.util.diagram = {
 						var strLabel = objShape.label;
 						var strIcon = objShape.icon;
 						objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
-						objShape.attrs.image['xlink:href'] = '~/site/assets/img/' + strIcon + '.png'
+						objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
 						var shape = new joint.shapes.basic.ExternalSystem(objShape);
 						shape.on('change', function (shape, data) {
 							if (shape.changed.position != null) {
@@ -1269,7 +1269,7 @@ asg.util.diagram = {
 						var strLabel = objShape.label;
 						var strIcon = objShape.icon;
 						objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
-						objShape.attrs.image['xlink:href'] = '~/site/assets/img/' + strIcon + '.png'
+						objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
 						var shape = new joint.shapes.basic.ExternalSystem(objShape);
 						shape.on('change', function (shape, data) {
 							if (shape.changed.position != null) {
@@ -2361,7 +2361,7 @@ asg.util.diagram = {
 			var imgField = document.getElementById('asg_shape_type_image');
 			imgField.innerHTML = "";
 			var objImg = document.createElement('img');
-			objImg.src = '~/site/assets/img/' + currEl.icon + '.png';
+			objImg.src = './site/assets/img/' + currEl.icon + '.png';
 			imgField.appendChild(objImg);
 
 			labelField.focus();

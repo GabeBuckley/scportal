@@ -15,9 +15,9 @@ var app = {
 }
 
 var reSiteBase_1 = /(\'|\'\.)\/assets\//gi;
-var csSiteBase_1 = "'~/site/assets/";
+var csSiteBase_1 = "'./site/assets/";
 var reSiteBase_2 = /(\"|\"\.)\/assets\//gi;
-var csSiteBase_2 = '"~/site/assets/';
+var csSiteBase_2 = '"./site/assets/';
 
 gulp.task('default', ['tidy'], function () {
 	console.log('Done');

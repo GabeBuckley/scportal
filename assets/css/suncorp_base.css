@@ -3756,8 +3756,8 @@ html.no-flexbox .sg-Grid-row--positionBottom>[class^='sg-Grid-col'] {
 .sg-List-breadcrumb>li:after {
 	color: #cdcbc3;
 	content: "/";
-	margin-right: .1em;
-	margin-left: .5em
+	margin-right: .5em;
+	margin-left: .5em;
 }
 
 .sg-List-tick>li:before,

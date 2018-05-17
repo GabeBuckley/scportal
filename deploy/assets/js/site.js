@@ -34,7 +34,7 @@ asg.conf = {
 
 	endpoints: {
 		DEV: {
-			get_current_user_data: '~/site/assets/ws/mocks/GetUserInfo.json',
+			get_current_user_data: './site/assets/ws/mocks/GetUserInfo.json',
 		},
 		TEST: {
 			get_current_user_data: '/api/Account/GetUserInfo'
@@ -591,7 +591,7 @@ asg.app = {
 						newScript.onload = notify;
 						document.head.appendChild(newScript);
 
-						newScript.src = "~/site/assets/js/" + strModule + ".js";
+						newScript.src = "./site/assets/js/" + strModule + ".js";
 					}
 
 				}
