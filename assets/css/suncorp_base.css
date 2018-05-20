@@ -9262,7 +9262,8 @@ h6 a:hover,
 .sg-Type--heading a:hover,
 .sg-Type--helpLink:hover,
 .sg-Type--helpLinkLight:hover {
-	color: #33a8a1
+	color: #33a8a1;
+	/* font-size:  10px; */
 }
 
 .sg-Type--link:active,

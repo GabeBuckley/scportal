@@ -7,6 +7,19 @@ asg.util = {
 		objEl.setAttribute('class', arrClasses.join(' '));
 	},
 
+	insertOption: function (objSelect, objOptionDetails, intIndex) {
+		var _newOpt = document.createElement('option');
+		for (_prop in objOptionDetails) {
+			_newOpt[_prop] = objOptionDetails[_prop];
+		}
+		if (intIndex != null && !isNaN(intIndex) && intIndex >= 0) {
+			objSelect.options.add(_newOpt, intIndex);
+			objSelect.selectedIndex = intIndex;
+		} else {
+			objSelect.options.add(_newOpt);
+		}
+	},
+
 	AppError: function (name, message) {
 		this.name = name;
 		this.message = message;

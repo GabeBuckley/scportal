@@ -21,6 +21,46 @@ Dev:
 Done
 ---------------------------------
 
+
+Endpoints that need to be created:
+------------------------------------------
+GetSupportTeamsList: 
+  	Return an array of SupportTeam objects referenced in GetIssueReport
+
+	eg 	[
+			{
+				Id: "STRING",
+				TeamName: "STRING"
+			},
+			{
+				Id: "STRING",
+				TeamName: "STRING"
+			}
+		]
+	
+GetOpenIssuesByTeam:
+	Return an array of Issues that are open (ie have no DateResolved value) 
+	along with the Support Team that manages the application that the ussue
+	relates to
+	
+	eg:	[
+			{
+				Id: "STRING",
+				Title: "STRING"
+				SupportTeam: {
+					Id: "STRING",
+					TeamName: "STRING"
+				}
+			},
+			{
+				Id: "STRING",
+				Title: "STRING"
+				SupportTeam: {
+					Id: "STRING",
+					TeamName: "STRING"
+				}
+			}
+		]
 */
 
 var asg = {};
@@ -56,7 +96,15 @@ asg.conf = {
 			result: true,
 			msg: 'Unable to find role for user'
 		},
-	]
+	],
+
+	type_maps: {
+		current_user: {
+			id: 'Username',
+			name: 'DisplayName',
+			email: 'Email'
+		}
+	}
 };
 
 asg.app = {
@@ -81,6 +129,27 @@ asg.app = {
 				}
 			}
 			window.onhashchange = handleHashChange;
+		},
+
+		deepClone: function (objSource) {
+			var newObj = new Object();
+			for (var _prop in objSource) {
+				var _propVal = objSource[_prop];
+				if (_propVal.constructor === Array) {
+					var newArray = [];
+					for (var i = 0; i < _propVal.length; i++) {
+						var _member = _propVal[i];
+						var newMember = asg.app.fn.deepClone(_member);
+						newArray.push(newMember);
+					}
+					newObj[_prop] = newArray;
+				} else if (_propVal.constructor === Object) {
+					newObj[_prop] = asg.app.fn.deepClone(_propVal);
+				} else {
+					newObj[_prop] = _propVal;
+				}
+			}
+			return newObj;
 		},
 
 		devMode: function () {
@@ -620,13 +689,18 @@ asg.app = {
 		},
 
 		siteData: {
-			complete: function (strFn, strEndpoint, objData) {
+			complete: function (strFn, strEndpoint, objData, strOnComplete) {
 				var _reqs = asg.app.fn.siteData.requests;
 				for (var i = 0; i < _reqs.length; i++) {
 					var _req = _reqs[i];
 					if (_req.name == strFn && !_req.completed) {
 						_req.endpoint = strEndpoint;
 						_req.responseData = objData;
+
+						var _doOnComplete = eval(strOnComplete);
+						if (_doOnComplete != null) {
+							_doOnComplete();
+						}
 					}
 				}
 			},
@@ -638,9 +712,6 @@ asg.app = {
 			},
 
 			getCurrUserInfo: function () {
-				var _fnName = this.name;
-				var _endPoint = asg.conf.endpoints[asg.app.fn.mode()].get_current_user_data;
-
 				asg.app.fn.siteData.handleRequest(
 					'asg.data.system.current_user',
 					asg.conf.endpoints[asg.app.fn.mode()].get_current_user_data,
@@ -649,20 +720,19 @@ asg.app = {
 				);
 			},
 
-			handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap) {
+			handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap, strOnComplete) {
 				var _fnName = strFn;
 				var _endPoint = strEndpoint;
 				var _strTypeMap = strTypeMap;
 				var _strTarget = strTarget;
+				var _onComplete = strOnComplete;
 
 				asg.app.fn.ws.fetch(_endPoint, {
 					on_result: function () {
 						let _this = this;
 						let _data = _this.result;
 
-						var _typeMap = asg.app.fn.ws.type_maps[_strTypeMap];
-
-						var _processed = asg.app.fn.ws.mapObjectToType(_data, _typeMap);
+						var _processed = asg.app.fn.ws.mapObjectToType(_data, _strTypeMap);
 
 						var arrTargetPath = this.options.target.split('.');
 
@@ -678,7 +748,7 @@ asg.app = {
 						strPath = arrTargetPath.shift();
 						objTarget[strPath] = _processed;
 
-						asg.app.fn.siteData.complete(_fnName, _endPoint, this.result);
+						asg.app.fn.siteData.complete(_fnName, _endPoint, this.result, _onComplete);
 					},
 					target: _strTarget
 				});
@@ -809,6 +879,7 @@ asg.app = {
 			queue: {
 
 			},
+
 			request: {
 				factory: function (strEndPoint, objOptions) {
 					this.objRet = {
@@ -846,30 +917,62 @@ asg.app = {
 			fetch: function (strEndPoint, objOptions) {
 				var oRequest = new asg.app.fn.ws.request.factory(strEndPoint, objOptions);
 				oRequest.send();
-				/*
-				                let _myOptions = {};
-				                for (var opt in objOptions) {
-				                    _myOptions[opt] = objOptions[opt];
-				                }
-
-				                xmlhttp.onreadystatechange = function () {
-				                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				                        let response = JSON.parse(xmlhttp.responseText);
-				                        asg.app.fn.ws.processResponse(response, _myOptions);
-				                    }
-				                }
-
-				                xmlhttp.open("GET", strEndPoint, true);
-				                xmlhttp.send();
-				*/
 			},
 
-			mapObjectToType: function (objSource, objTypeMap) {
-				var _obj = {};
-				for (var _key in objTypeMap) {
-					_obj[_key] = objSource[objTypeMap[_key]];
+			resolveTypeMap: function (objTarget, objSource) {
+				for (var _key in objTarget) {
+					if (objTarget[_key].constructor === Array) {
+						for (var i = 0; i < objTarget[_key].length; i++) {
+							if (objTarget[_key][i].constructor === Object) {
+								_target = asg.app.fn.deepClone(objTarget[_key][i]);
+								objTarget[_key][i] = asg.app.fn.ws.resolveTypeMap(_target, objSource);
+							} else {
+								objTarget[_key][i] = asg.app.fn.ws.resolveTypeMap(objTarget[_key][i], objSource);
+							}
+						}
+					} else if (objTarget[_key].constructor === Object) {
+						_target = asg.app.fn.deepClone(objTarget[_key]);
+						objTarget[_key] = asg.app.fn.ws.resolveTypeMap(_target, objSource);
+					} else {
+						var strKey = objTarget[_key];
+						var arrKeyParts = strKey.split('.');
+						var strKeyPart = arrKeyParts.shift();
+						var objKeyPart = objSource[strKeyPart];
+						while (arrKeyParts.length > 0) {
+							strKeyPart = arrKeyParts.shift();
+							objKeyPart = objKeyPart[strKeyPart];
+						}
+
+						objTarget[_key] = objKeyPart;
+					}
 				}
-				return _obj;
+
+				return objTarget;
+			},
+
+			mapObjectToType: function (objSource, _strTypeMap) {
+				var _typeTemplate = asg.conf.type_maps[_strTypeMap];
+				var _typeMap = asg.app.fn.deepClone(_typeTemplate);
+
+				// Check if we're dealing with an object or an array of objects
+				if (objSource.constructor === Array) {
+					var _arr = [];
+					for (var i = 0; i < objSource.length; i++) {
+						var _src = objSource[i];
+						var _map = asg.app.fn.deepClone(_typeMap);
+
+						_obj = asg.app.fn.ws.resolveTypeMap(_map, _src);
+
+						_arr.push(_obj);
+					}
+					return _arr;
+				} else {
+					var _obj = {};
+					for (var _key in _typeMap) {
+						_obj[_key] = objSource[_typeMap[_key]];
+					}
+					return _obj;
+				}
 			},
 
 			processResponse: function (objResult, objOptions) {
@@ -883,13 +986,7 @@ asg.app = {
 				}
 			},
 
-			type_maps: {
-				current_user: {
-					id: 'Username',
-					name: 'DisplayName',
-					email: 'Email'
-				}
-			}
+
 		}
 	},
 
@@ -1395,6 +1492,8 @@ asg.app = {
 					return true;
 				}
             },
+
+			/**** SDL ****/
 			{
 				id: "page_sdl",
 				ui: null,
@@ -1650,7 +1749,6 @@ asg.app = {
 					return true;
 				}
             },
-
 			// END SDL Block 
 
             /**** Vulnerabilities ****/
@@ -1676,7 +1774,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1707,7 +1805,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 						asg.u.vdash.removeNewVulnForm();
 					}
@@ -1738,7 +1836,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1769,7 +1867,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1801,7 +1899,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1833,7 +1931,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1865,7 +1963,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1897,7 +1995,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}
@@ -1929,7 +2027,7 @@ asg.app = {
 					doInit();
 				},
 				onhide: function (evt, objPage) {
-					asg.app.fn.menu.unload(['reports', 'repdata']);
+					asg.app.fn.menu.unload(['reports', 'repdata', 'issues']);
 					var doUnload = function () {
 
 					}

@@ -406,9 +406,14 @@ asg.data.system.sdl = {
 
 asg.__etc.dbModals = [
 	{
-		id: "",
-		title: "",
-		template: "asg.data.templates.html.vdash.dialogs.addDataListItem"
+		id: "custom_control_details",
+		title: "Custom Control Details",
+		template: "asg.data.templates.html.sdl.dialogs.scaCustomControl"
+    },
+	{
+		id: "control_comments",
+		title: "Comments",
+		template: "asg.data.templates.html.sdl.dialogs.scaSecReviewerComment"
     }
 ];
 for (var i = 0; i < asg.__etc.dbModals.length; i++) {
@@ -597,23 +602,107 @@ asg.data.templates.html.sdl = {
 
 	revisionRow: ['<tr><td>%1%</td><td>%2%</td><td>%3%</td><td>%4%</td><td>%5%</td></tr>'].join(''),
 
+	sca_component_selector: [
+			'<div class="asg-sca-component-selector" data-component-id="%1%">',
+			'	<legend><input type="checkbox" id="cb_%1%" /> %2%</legend>',
+			'</div>'].join(''),
+
+	sca_table_display: [
+			'<div class="asg-sca-table-display">',
+			'<div class="row">',
+			'<div class="col-xs-12">',
+			'<h3>Security Controls Assessment For: <span id="asg_sca_app_name">%1%</span></h3>',
+			'<h4>Please select a System Component for each of the components within your system:</h4>',
+			'<div class="asg-sca-component-select" id="asg_sca_component_select">%2%</div>',
+			'<table class="asg-sca-table" id="asg_sca_table_component_1">%3%</table>',
+			'<table class="asg-sca-table" id="asg_sca_table_component_2">%4%</table>',
+			'<table class="asg-sca-table" id="asg_sca_table_component_3">%5%</table>',
+			'<table class="asg-sca-table" id="asg_sca_table_component_4">%6%</table>',
+			'</div>',
+			'</div>',
+			'</div>'].join(''),
+
+	sca_table_head: [
+			'<thead>',
+			'<tr>',
+			'<th colspan="2">System Component %1%</th>',
+			'<th>%2%</th>',
+			'<th>&nbsp;</th>',
+			'<th>%3%</th>',
+			'</tr>',
+			'</thead>'].join(''),
+
+	sca_table_body: [
+			'<tbody>',
+			'<tr>',
+			'<th colspan="2">%1%</th>',
+			'<th>Select Standard or Custom Control</th>',
+			'<th>TSS Ref</th>',
+			'<th>Comments by Security Reviewer</th>',
+			'</tr>',
+			'%2%',
+			'</tbody>'].join(''),
+
+	sca_table_row: [
+			'<tr>',
+			'<td>%1%</td>',
+			'<td>%2%</td>',
+			'<td>%3%</td>',
+			'<td>%4%</td>',
+			'<td title="Click to enter comments...">%5%</td>',
+			'</tr>'].join(''),
+
+	sca_table_select: '<select data-qn-id="%1%" data-comp-abbr="%2%">%3%</select>',
+	sca_table_option: '<option data-ans-id="%1%" data-qn-id="%2%" data-tss-ref="%3%">%4%</option>',
+
 	dialogs: {
-		dialoghandle: {
-			content: '<html>',
+		scaCustomControl: {
+			content: [
+				'<div class="asg-custom-control-dialog">',
+				'<input type="hidden" id="asg_sca_select_ref" />',
+				'<div class="asg-instructions">Please enter the details of the custom control:</div>',
+				'<textarea id="asg_custom_control_text"></textarea>',
+				'</div>'].join(''),
+
 			buttons: [
+
+				{
+					class: 'secondary',
+					label: 'Cancel',
+					handler: 'asg.util.sdl.sca.revertCustomControl'
+                },
+				{
+					class: '',
+					label: 'Update',
+					handler: 'asg.util.sdl.sca.updateCustomControl'
+                }
+            ]
+		},
+
+		scaSecReviewerComment: {
+			content: [
+				'<div class="asg-security-reviewer-dialog">',
+				'<input type="hidden" id="asg_sca_select_ref" />',
+				'<div class="asg-instructions">Please enter your comments:</div>',
+				'<textarea id="asg_sec_review_text"></textarea>',
+				'</div>'].join(''),
+
+			buttons: [
+
 				{
 					class: 'secondary',
 					label: 'Cancel',
 					handler: 'asg.ui.closeDialog'
                 },
 				{
-					class: 'warning',
-					label: 'Delete',
-					handler: 'asg.util.vdash.deleteDataListItems'
+					class: '',
+					label: 'Update',
+					handler: 'asg.util.sdl.sca.updateComments'
                 }
             ]
 		},
 	},
+
 	sys: {
 		dl_button: '<button class="sg-Btn sg-Btn--iconLeftLarge sg-Btn--huge sg-Btn--next" data-href="%1%"><i class="sg-Btn-icon %2%"></i> %3%</button>',
 	},
@@ -885,9 +974,11 @@ asg.util.sdl = {
 				target: _target,
 				picker: _picker,
 			};
+			asg.ui.showDialogScreen();
 
 			var closeFn = function (evt) {
 				this.target.removeChild(this.picker);
+				asg.ui.hideDialogScreen();
 				document.body.removeEventListener('click', this.close);
 			};
 
@@ -915,6 +1006,7 @@ asg.util.sdl = {
 				}
 				_list[_index] = _text.value;
 				_sdl.refreshAssumptions();
+				asg.ui.hideDialogScreen();
 			}
 			_okBtn.addEventListener('click', _doUpdate.bind(this));
 
@@ -1077,9 +1169,10 @@ asg.util.sdl = {
 					target: _target,
 					picker: _picker,
 				}
-
+				asg.ui.showDialogScreen();
 				var closeFn = function (evt) {
 					this.target.removeChild(this.picker);
+					asg.ui.hideDialogScreen();
 					document.body.removeEventListener('click', this.close);
 				}
 
@@ -1151,7 +1244,7 @@ asg.util.sdl = {
 				evt.stopPropagation();
 				let _data = asg.data.system.sdl;
 				let _templates = asg.data.templates.html.sdl;
-
+				asg.ui.showDialogScreen();
 				var _target = evt.currentTarget;
 				var _picker = asg.u.createFromFragment(
 					_templates.relatedElementPicker,
@@ -1196,6 +1289,7 @@ asg.util.sdl = {
 
 				var closeFn = function (evt) {
 					this.target.removeChild(this.picker);
+					asg.ui.hideDialogScreen();
 					document.body.removeEventListener('click', this.close);
 				}
 
@@ -1386,6 +1480,8 @@ asg.util.sdl = {
 				)
 			);
 
+			asg.ui.showDialogScreen();
+
 			_picker.addEventListener('click', _handleCommentBoxClick);
 
 			var pickerCloser = {
@@ -1394,6 +1490,7 @@ asg.util.sdl = {
 			};
 
 			var closeFn = function (evt) {
+				asg.ui.hideDialogScreen();
 				this.target.removeChild(this.picker);
 				document.body.removeEventListener('click', this.close);
 			};
@@ -1705,6 +1802,274 @@ asg.util.sdl = {
 		_sdl.refreshUI();
 	},
 
+	sca: {
+
+		collateAnswers: function (_abbr, _qn, _ans) {
+			let _u = asg.u;
+			let _sdl = asg.u.sdl;
+			let _templates = asg.data.templates.html.sdl;
+
+			var _matched = [];
+			for (var i = 0; i < _ans.length; i++) {
+				var _an = _ans[i];
+				if (_an.qn_ref == _qn.id) {
+					if (_an.applicable.indexOf(_abbr) >= 0) {
+						var _formattedAnswer = _u.strReplace(
+							_templates.sca_table_option, [
+								_an.id,
+								_an.qn_ref,
+								_an.tss_ref,
+								_an.label
+							]
+						);
+
+						_matched.push(_formattedAnswer);
+					}
+				}
+			}
+
+			var _select = _u.strReplace(
+				_templates.sca_table_select, [
+					_qn.id,
+					_abbr,
+					_matched.join('')
+				]
+			);
+
+			return _select;
+		},
+
+		compileSCATable: function (_qn, _ans) {
+			let _u = asg.u;
+			let _sdl = asg.u.sdl;
+			let _templates = asg.data.templates.html.sdl;
+			var _cats = _qn.categories;
+			var _bs = [];
+			for (var i = 0; i < _cats.length; i++) {
+				var _cat = _cats[i];
+				var _b = _sdl.sca.compileSCATableBody(_qn.abbr, _cat, _ans);
+				_bs.push(_b);
+			}
+
+			var _head = _u.strReplace(
+				_templates.sca_table_head, [
+					_qn.id,
+					_qn.label,
+					'DESCRIPTION'
+				]
+			);
+
+			return _head + _bs.join('');
+		},
+
+		compileSCATableBody: function (_abbr, _cat, _ans) {
+			let _u = asg.u;
+			let _sdl = asg.u.sdl;
+			let _templates = asg.data.templates.html.sdl;
+			let _qns = _cat.questions;
+			var _qs = [];
+			for (var i = 0; i < _qns.length; i++) {
+				var _qn = _qns[i];
+				var _answers = _sdl.sca.collateAnswers(_abbr, _qn, _ans);
+				var _q = _u.strReplace(
+					_templates.sca_table_row, [
+						_qn.id,
+						_qn.label,
+						_answers,
+						'',
+						''
+					]
+				);
+
+				_qs.push(_q);
+			}
+
+			var _body = _u.strReplace(
+				_templates.sca_table_body, [
+					_cat.label,
+					_qs.join('')
+				]
+			);
+
+			return _body;
+		},
+
+		setSelectorEvents: function () {
+			var toggleTable = function (evt) {
+				var componentNum = this.getAttribute('data-component-id');
+				var componentTable = document.getElementById('asg_sca_table_component_' + componentNum);
+				var _cb = this.firstElementChild.firstElementChild;
+				var shown = _cb.checked;
+				if (shown) {
+					componentTable.style.display = "table";
+				} else {
+					componentTable.style.display = "none";
+				}
+
+			}
+
+			var display = document.getElementById('asg_sca_component_select');
+			var selectors = display.children;
+			for (var i = 0; i < selectors.length; i++) {
+				var selector = selectors[i];
+				var cb = selector.firstElementChild.firstElementChild;
+				cb.addEventListener('change', toggleTable.bind(selector));
+			}
+		},
+
+		setAnswerEvents: function () {
+			let _ids = asg.conf.ids;
+
+			var _handleSelectChange = function (evt) {
+				var selectedOpt = this.options[this.selectedIndex];
+				if (selectedOpt.hasAttribute('data-tss-ref')) {
+					// Standard Control Selected
+					var _myCell = this.parentElement;
+					var tssCell = _myCell.nextElementSibling;
+					tssCell.innerHTML = selectedOpt.getAttribute('data-tss-ref');
+
+					if (this.nextElementSibling != null) {
+						this.parentElement.removeChild(this.nextElementSibling);
+					}
+				} else {
+					if (selectedOpt.innerHTML == '-- Custom Control --') {
+						asg.ui.showDialog('custom_control_details', {
+							size: 'medium',
+						});
+						var idField = document.getElementById('asg_sca_select_ref');
+						idField.value = this.getAttribute('data-comp-abbr') +
+							'_' + this.getAttribute('data-qn-id');
+						idField.nextElementSibling.nextElementSibling.focus();
+					} else {
+						if (this.nextElementSibling != null) {
+							this.parentElement.removeChild(this.nextElementSibling);
+						}
+					}
+					var _myCell = this.parentElement;
+					var tssCell = _myCell.nextElementSibling;
+					tssCell.innerHTML = '';
+				}
+			}
+
+			var _handleCommentClick = function (evt) {
+				var _sel = this.previousElementSibling.previousElementSibling.firstElementChild;
+
+				asg.ui.showDialog('control_comments', {
+					size: 'medium',
+				});
+
+				var idField = document.getElementById('asg_sca_select_ref');
+				idField.value = _sel.getAttribute('data-comp-abbr') +
+					'_' + _sel.getAttribute('data-qn-id');
+				var _tarea = idField.nextElementSibling.nextElementSibling;
+				_tarea.value = this.innerText;
+				_tarea.focus();
+			}
+
+			var disp = document.getElementById(_ids.sca);
+			var answerFields = disp.getElementsByTagName('select');
+			for (var i = 0; i < answerFields.length; i++) {
+				var _sel = answerFields[i];
+				asg.util.insertOption(
+					_sel, {
+						innerHTML: '-- Please Select --'
+					}, 0
+				);
+				asg.util.insertOption(
+					_sel, {
+						innerHTML: '-- Custom Control --'
+					}
+				);
+
+				_sel.addEventListener('change', _handleSelectChange.bind(_sel));
+				var _com = _sel.parentElement.nextElementSibling.nextElementSibling;
+				_com.addEventListener('click', _handleCommentClick.bind(_com));
+			}
+		},
+
+		revertCustomControl: function () {
+			let _ids = asg.conf.ids;
+
+			var idField = document.getElementById('asg_sca_select_ref');
+			var arrId = idField.value.split('_');
+			if (arrId.length > 1) {
+				var compAbbr = arrId[0];
+				var qndId = arrId[1];
+				var disp = document.getElementById(_ids.sca);
+				var answerFields = disp.getElementsByTagName('select');
+				for (var i = 0; i < answerFields.length; i++) {
+					var _sel = answerFields[i];
+					if ((_sel.getAttribute('data-comp-abbr') == compAbbr) &&
+						(_sel.getAttribute('data-qn-id') == qndId)) {
+						_sel.selectedIndex = 0;
+						if (_sel.nextElementSibling != null) {
+							_sel.parentElement.removeChild(_sel.nextElementSibling);
+						}
+						break;
+					}
+				}
+				asg.ui.closeDialog();
+			}
+		},
+
+		updateCustomControl: function () {
+			let _ids = asg.conf.ids;
+
+			var idField = document.getElementById('asg_sca_select_ref');
+			var arrId = idField.value.split('_');
+			if (arrId.length > 1) {
+				var compAbbr = arrId[0];
+				var qndId = arrId[1];
+				var disp = document.getElementById(_ids.sca);
+				var answerFields = disp.getElementsByTagName('select');
+				for (var i = 0; i < answerFields.length; i++) {
+					var _sel = answerFields[i];
+					if ((_sel.getAttribute('data-comp-abbr') == compAbbr) &&
+						(_sel.getAttribute('data-qn-id') == qndId)) {
+						if (_sel.nextElementSibling != null) {
+							_sel.parentElement.removeChild(_sel.nextElementSibling);
+						}
+						var _details = document.createElement('div');
+						var _text = idField.nextElementSibling.nextElementSibling.value;
+						_details.innerText = _text;
+						_sel.parentElement.appendChild(_details);
+						break;
+					}
+				}
+				asg.ui.closeDialog();
+			}
+		},
+
+		updateComments: function () {
+			let _ids = asg.conf.ids;
+
+			var idField = document.getElementById('asg_sca_select_ref');
+			var arrId = idField.value.split('_');
+			if (arrId.length > 1) {
+				var compAbbr = arrId[0];
+				var qndId = arrId[1];
+				var disp = document.getElementById(_ids.sca);
+				var answerFields = disp.getElementsByTagName('select');
+				for (var i = 0; i < answerFields.length; i++) {
+					var _sel = answerFields[i];
+					if ((_sel.getAttribute('data-comp-abbr') == compAbbr) &&
+						(_sel.getAttribute('data-qn-id') == qndId)) {
+
+						var _cell = _sel.parentElement.nextElementSibling.nextElementSibling;
+						_cell.innerHTML = '';
+						var _details = document.createElement('div');
+						var _text = idField.nextElementSibling.nextElementSibling.value;
+						_details.innerText = _text;
+						_cell.appendChild(_details);
+						break;
+					}
+				}
+				asg.ui.closeDialog();
+			}
+		}
+
+	},
+
 	showSCA: function () {
 		let _sdl = asg.u.sdl;
 		let _util = asg.util;
@@ -1712,8 +2077,51 @@ asg.util.sdl = {
 		let _data = asg.data.system.sdl;
 		let _templates = asg.data.templates.html.sdl;
 		let _app = asg.app.fn;
+		let _ref = _data.ref;
 
 		let container = document.getElementById(_ids.sca);
+		container.innerHTML = '';
+
+		let _qns = _ref.sca.tss_controls.qns;
+		let _ans = _ref.sca.tss_controls.ans;
+
+		var _cs = [];
+		for (var i = 0; i < _qns.length; i++) {
+			var _qn = _qns[i];
+			_c = _util.strReplace(
+				_templates.sca_component_selector, [
+					_qn.id,
+					_qn.label
+				]
+			);
+			_cs.push(_c);
+		}
+
+		var _ts = [];
+
+		for (var i = 0; i < _qns.length; i++) {
+			var _qn = _qns[i];
+			var _t = _sdl.sca.compileSCATable(_qn, _ans);
+			_ts.push(_t);
+		}
+
+		var _tableDisp = _util.createFromFragment(
+			_util.strReplace(
+				_templates.sca_table_display, [
+					_data.workbook.version.project_name,
+					_cs.join(''),
+					(_ts[0] != null ? _ts[0] : ''),
+					(_ts[1] != null ? _ts[1] : ''),
+					(_ts[2] != null ? _ts[2] : ''),
+					(_ts[3] != null ? _ts[3] : '')
+				]
+			)
+		);
+
+		container.appendChild(_tableDisp);
+		_sdl.sca.setSelectorEvents();
+		_sdl.sca.setAnswerEvents();
+
 	},
 
 	showElementList: function () {

@@ -249,7 +249,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 }
 
 #home_page_buttons {
-	width: 40%;
+	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -259,8 +259,8 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 	display: block;
 	width: 300px;
 	height: 300px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 2em;
+	margin-right: 2em;
 	margin-bottom: 2.5em;
 	border: 3px solid #004346;
 	border-radius: 10px;
@@ -441,7 +441,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 		max-height: 200px;
 	}
 	.asg-quickstats-panel h1 {
-		font-size: 4.5em;
+		font-size: 3.5em;
 		color: inherit;
 	}
 	.asg-quickstats-panel h1 sub {

@@ -728,6 +728,27 @@ asg.data.templates.json.vdash = {
 
 // Copy in configuration items
 asg.__etc.conf = {
+	type_maps: {
+		support_team: {
+			id: 'id',
+			label: 'TeamName'
+		},
+
+		support_team_issue: {
+			id: "Id",
+			label: "Title",
+			support_group: {
+				id: "SupportTeam.Id",
+				label: "SupportTeam.TeamName"
+			}
+		},
+
+		iriis_issue: {
+			id: 'Id',
+			label: 'Title'
+		}
+	},
+
 	conf: {
 		ids: {
 			// Vulnerability & Patching Dashboard Regions
@@ -736,7 +757,7 @@ asg.__etc.conf = {
 			vdash_chart: 'asg_vdash_chart',
 			vdash_obd: 'asg_vdash_openbydays',
 			vdash_teams: 'asg_vdash_top_teams',
-			vdash_iiris: 'asg_vdash_iiris',
+			vdash_iriis: 'asg_vdash_iriis',
 			vdash_lists: 'asg_vdash_lists',
 			vdash_new_issue: 'asg_vdash_vuln_new',
 		},
@@ -744,7 +765,7 @@ asg.__etc.conf = {
 			DEV: {
 				get_support_teams_list: './site/assets/ws/mocks/get_support_teams_list.json',
 				get_teams_issues_list: './site/assets/ws/mocks/get_open_issues_by_team.json',
-				get_iiris_issues_list: './site/assets/ws/mocks/get_iiris_issues.json',
+				get_iriis_issues_list: './site/assets/ws/mocks/get_iriis_issues.json',
 				get_data_list_severity: './site/assets/ws/mocks/get_data_list_severity.json',
 				get_data_list_source: './site/assets/ws/mocks/get_data_list_source.json',
 				get_data_list_tech: './site/assets/ws/mocks/get_data_list_tech.json',
@@ -761,7 +782,7 @@ asg.__etc.conf = {
 			TEST: {
 				get_support_teams_list: './site/assets/ws/mocks/get_support_teams_list.json',
 				get_teams_issues_list: './site/assets/ws/mocks/get_open_issues_by_team.json',
-				get_iiris_issues_list: './site/assets/ws/mocks/get_iiris_issues.json',
+				get_iriis_issues_list: './site/assets/ws/mocks/get_iriis_issues.json',
 				get_data_list_severity: './site/assets/ws/mocks/get_data_list_severity.json',
 				get_data_list_source: '/api/Source/GetSource',
 				get_data_list_tech: '/api/Source/GetTechnology',
@@ -787,6 +808,9 @@ for (var confEP in asg.__etc.conf.conf.endpoints.DEV) {
 for (var confEP in asg.__etc.conf.conf.endpoints.TEST) {
 	asg.conf.endpoints.TEST[confEP] = asg.__etc.conf.conf.endpoints.TEST[confEP];
 };
+for (var map in asg.__etc.conf.type_maps) {
+	asg.conf.type_maps[map] = asg.__etc.conf.type_maps[map];
+}
 
 // Add StringTable Entries
 asg.__etc.dash = {
@@ -837,14 +861,14 @@ asg.util.vdash = {
 			let _loaded = true &&
 				_dash.data.teamsListLoaded &&
 				_dash.data.teamsIssuesLoaded &&
-				_dash.data.iirisIssuesLoaded;
+				_dash.data.iriisIssuesLoaded;
 
 			return _loaded;
 		},
 
 		teamsListLoaded: false,
 		teamsIssuesLoaded: false,
-		iirisIssuesLoaded: false,
+		iriisIssuesLoaded: false,
 
 		currDataListId: '',
 		currDataListView: null,
@@ -1071,7 +1095,7 @@ asg.util.vdash = {
 				{
 					label: 'Issue',
 					sorted: true,
-					source: 'name',
+					source: 'label',
 					linked: true,
 					linkPattern: '#!/vuln/issue/<id>'
                 }
@@ -1084,12 +1108,12 @@ asg.util.vdash = {
 		});
 	},
 
-	draw_IIRIS_list: function () {
-		var container = document.getElementById(asg.conf.ids.vdash_iiris);
+	draw_iriis_list: function () {
+		var container = document.getElementById(asg.conf.ids.vdash_iriis);
 
 		var view = new asg.ViewComponent({
 			id: 'view_team_issues',
-			title: 'Open Issues with IIRIS Records',
+			title: 'Open Issues with IRIIS Records',
 			target: container,
 			height: '300px',
 			width: '100%',
@@ -1105,14 +1129,14 @@ asg.util.vdash = {
                 },
 				{
 					label: 'Issue',
-					source: 'name',
+					source: 'label',
 					linked: true,
 					linkPattern: '#!/vuln/issue/<id>',
 					sortable: true,
 					width: '50%',
                 }
             ],
-			row_data: asg.data.system.vdash.lists.issues_with_iiris_records,
+			row_data: asg.data.system.vdash.lists.issues_with_iriis_records,
 			on_init: function () {
 				this.redraw();
 				this.collapseAll();
@@ -1122,10 +1146,18 @@ asg.util.vdash = {
 
 	getData: function () {
 		let _dash = asg.util.vdash;
-
-		_dash.getTeamsListData();
-		_dash.getTeamsIssuesData();
-		_dash.getIIRISIssuesData();
+		asg.app.fn.siteData.request(
+			asg.util.vdash.getTeamsListData
+		);
+		asg.app.fn.siteData.request(
+			asg.util.vdash.getTeamsIssuesData
+		);
+		asg.app.fn.siteData.request(
+			asg.util.vdash.getiriisIssuesData
+		);
+		//	_dash.getTeamsListData();
+		//_dash.getTeamsIssuesData();
+		//_dash.getiriisIssuesData();
 	},
 
 	getDatasetAsOptions: function (objOptions) {
@@ -1257,25 +1289,67 @@ asg.util.vdash = {
 		return 'ERROR';
 	},
 
-	getIIRISIssuesData: function () {
+	getiriisIssuesData: function () {
+		// handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap, strOnComplete) 
+		/*
 		let objOptions = {
-			on_result: asg.util.vdash.updateIIRISList
+			on_result: asg.util.vdash.updateiriisList
 		};
-		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_iiris_issues_list, objOptions);
+		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_iriis_issues_list, objOptions);
+		*/
+		asg.app.fn.siteData.handleRequest(
+			'asg.data.system.vdash.lists.issues_with_iriis_records',
+			asg.conf.endpoints[asg.app.fn.mode()].get_iriis_issues_list,
+			'getiriisIssuesData',
+			'iriis_issue',
+			'asg.u.vdash.updateiriisList'
+		);
 	},
 
 	getTeamsListData: function () {
+		// handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap, strOnComplete)
+
+		/**
 		let objOptions = {
 			on_result: asg.util.vdash.updateTeamsList
 		};
 		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_support_teams_list, objOptions);
+		
+		
+		let _this = this;
+		let _data = _this.result.response.response_data;
+		
+		**/
+
+		/**
+		asg.data.system.vdash.lists.support_groups = _data;
+		asg.util.vdash.data.teamsListLoaded = true;
+		**/
+		asg.app.fn.siteData.handleRequest(
+			'asg.data.system.vdash.lists.support_groups',
+			asg.conf.endpoints[asg.app.fn.mode()].get_support_teams_list,
+			'getTeamsListData',
+			'support_team',
+			'asg.u.vdash.updateTeamsList'
+		);
 	},
 
 	getTeamsIssuesData: function () {
+		// handleRequest: function (strTarget, strEndpoint, strFn, strTypeMap, strOnComplete)
+		/*
 		let objOptions = {
 			on_result: asg.util.vdash.updateTeamsIssuesData
 		};
 		asg.app.fn.ws.fetch(asg.conf.endpoints[asg.app.fn.mode()].get_teams_issues_list, objOptions);
+		*/
+
+		asg.app.fn.siteData.handleRequest(
+			'asg.data.system.vdash.lists.issues_by_support_team',
+			asg.conf.endpoints[asg.app.fn.mode()].get_teams_issues_list,
+			'getTeamsIssuesData',
+			'support_team_issue',
+			'asg.u.vdash.updateTeamsIssuesData'
+		);
 	},
 
 	initialise: function () {
@@ -1288,7 +1362,7 @@ asg.util.vdash = {
 				_dash.drawPieChart();
 				_dash.drawOpenByDaysChart();
 				_dash.drawTeamsList();
-				_dash.draw_IIRIS_list();
+				_dash.draw_iriis_list();
 			} else {
 				window.setTimeout(_init, 200);
 			}
@@ -1626,24 +1700,28 @@ asg.util.vdash = {
 		}
 	},
 
-	updateIIRISList: function () {
+	updateiriisList: function () {
+		/*
 		let _this = this;
 		let _data = _this.result.response.response_data;
-		asg.data.system.vdash.lists.issues_with_iiris_records = _data;
-		asg.util.vdash.data.iirisIssuesLoaded = true;
+		asg.data.system.vdash.lists.issues_with_iriis_records = _data;
+		*/
+		asg.util.vdash.data.iriisIssuesLoaded = true;
 	},
 
 	updateTeamsIssuesData: function () {
+		/*
 		let _this = this;
 		let _data = _this.result.response.response_data;
 		asg.data.system.vdash.lists.issues_by_support_team = _data;
+		*/
 		asg.util.vdash.data.teamsIssuesLoaded = true;
 	},
 
 	updateTeamsList: function () {
-		let _this = this;
+		/*let _this = this;
 		let _data = _this.result.response.response_data;
-		asg.data.system.vdash.lists.support_groups = _data;
+		asg.data.system.vdash.lists.support_groups = _data;*/
 		asg.util.vdash.data.teamsListLoaded = true;
 	},
 

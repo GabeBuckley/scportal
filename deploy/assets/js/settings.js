@@ -115,6 +115,13 @@ asg.data.templates.html.settings = {
 
 // Copy in configuration items
 asg.__etc.conf = {
+	type_maps: {
+		email_template: {
+			id: 'id',
+			label: 'Label'
+		},
+	},
+
 	conf: {
 		ids: {
 			settings_page_home: 'asg_system_settings'
@@ -172,6 +179,13 @@ asg.util.settings = {
 						icon: 'fas fa-users-cog',
 						label: 'Manage Users, Roles &amp; Groups',
 						perms: ['can-access-user-settings']
+					},
+					{
+						id: 'asg_settings_email_templates_link',
+						href: '#!/settings/email_templates',
+						icon: 'fas fa-at',
+						label: 'Manage Email Templates',
+						perms: ['can_access_settings']
 					}
 				]
 			}

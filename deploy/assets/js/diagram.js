@@ -74,349 +74,145 @@ asg.data.lists.diagram = {
         ],
 	shapes: [
 		{
-			"id": "S0001",
-			"type": "system",
-			"label": "Demo System",
-			"position": {
-				"x": 622,
-				"y": 264
-			},
-			"size": {
-				"width": 100,
-				"height": 100
-			},
-			"attrs": {
-				"circle": {
-					"fill": "#eeeeee",
-					"stroke": "#333333",
-					"stroke-width": 1
+			type: "data_flow",
+			details: {
+				source: {
+					id: ""
 				},
-				"text": {
-					"text": "S0001\n\rDemo System",
-					"fill": "#000000",
-					"font-size": 10
-				}
-			}
-		},
-		{
-			"id": "E0001",
-			"type": "external_system",
-			"subtype": "api",
-			"label": "Registration API",
-			"icon": "servers",
-			"position": {
-				"x": 355,
-				"y": 49
-			},
-			"size": {
-				"width": 100,
-				"height": 60
-			},
-			"attrs": {
-				"text": {
-					"text": "E0002\n\rSplunk Log"
+				target: {
+					id: ""
 				},
-				"image": {
-					"xlink:href": "./site/assets/img/database.png"
-				}
-			}
-		},
-		{
-			"id": "DS0001",
-			"type": "data_store",
-			"label": "Log File",
-			"icon": "database",
-			"position": {
-				"x": 415,
-				"y": 415
-			},
-			"size": {
-				"width": 100,
-				"height": 60
-			},
-			"attrs": {
-				"text": {
-					"text": "DS0001\n\rLog File"
-				},
-				"image": {
-					"xlink:href": "./site/assets/img/database.png"
-				}
-			}
-		},
-		{
-			"id": "E0002",
-			"type": "external_system",
-			"subtype": "database",
-			"label": "Splunk Log",
-			"icon": "database",
-			"position": {
-				"x": 78,
-				"y": 200
-			},
-			"size": {
-				"width": 100,
-				"height": 60
-			},
-			"attrs": {
-				"text": {
-					"text": "E0002\n\rSplunk Log"
-				},
-				"image": {
-					"xlink:href": "./site/assets/img/database.png"
-				}
-			}
-		},
-		{
-			"id": "Z0001",
-			"type": "zone",
-			"label": "AWS VPC",
-			"position": {
-				"x": 39,
-				"y": 174
-			},
-			"size": {
-				"width": 186,
-				"height": 108
-			},
-			"attrs": {
-				"text": {
-					"text": "Z0003. AWS Public VPC",
-					"fill": "#478081"
-				},
-				"rect": {
-					"stroke": "#478081"
-				}
-			}
-		},
-		{
-			"id": "Z0002",
-			"type": "zone",
-			"label": "AWS Private VPC",
-			"position": {
-				"x": 349,
-				"y": 228
-			},
-			"size": {
-				"width": 446,
-				"height": 273
-			},
-			"attrs": {
-				"text": {
-					"text": "Z0003. AWS Public VPC",
-					"fill": "#478081"
-				},
-				"rect": {
-					"stroke": "#478081"
-				}
-			}
-		},
-		{
-			"id": "Z0003",
-			"type": "zone",
-			"label": "AWS Public VPC",
-			"position": {
-				"x": 228,
-				"y": 27
-			},
-			"size": {
-				"width": 653,
-				"height": 118
-			},
-			"attrs": {
-				"text": {
-					"text": "Z0003. AWS Public VPC",
-					"fill": "#478081"
-				},
-				"rect": {
-					"stroke": "#478081"
-				}
-			}
-		},
-		{
-			"id": "DF0001",
-			"type": "data_flow",
-			"label": "Create Portfolio",
-			"icon": "key",
-			"transport": "HTTPS with JWT",
-			"from": "S0001",
-			"to": "E0001",
-			"source": {
-				"id": "S0001"
-			},
-			"target": {
-				"id": "E0002"
-			},
-			"attrs": {
-				".marker-source": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
-				},
-				".marker-target": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 0 5 L 10 10 z"
-				}
-			},
-			"labels": [{
-				"position": 0.5,
-				"attrs": {
-					"text": {
-						"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
-						"font-size": 10,
-						"fill": "#145255"
+				attrs: {
+					'.marker-source': {
+						fill: '#145255',
+						stroke: '#145255',
+						d: 'M 10 0 L 10 10 L 0 10 L 0 0 z'
 					},
-					"rect": {
-						"stroke": "#EDF2F2",
-						"fill": "#EDF2F2",
-						"stroke-width": 20,
-						"rx": 5,
-						"ry": 5
+					'.marker-target': {
+						fill: '#145255',
+						stroke: '#145255',
+						d: 'M 10 0 L 0 5 L 10 10 z'
+					}
+				},
+				labels: [
+					{
+						position: 0.5,
+						attrs: {
+							text: {
+								text: 'fancy label',
+								'font-size': 10,
+								fill: '#145255'
+							},
+							rect: {
+								stroke: '#EDF2F2',
+								fill: '#EDF2F2',
+								'stroke-width': 20,
+								rx: 5,
+								ry: 5
+							}
+						}
+                        }
+                    ]
+			}
+            },
+
+		{
+			type: "external_system",
+			details: {
+				position: {
+					x: 150,
+					y: 80
+				},
+				size: {
+					width: 100,
+					height: 60
+				},
+				attrs: {
+					text: {
+						text: 'My Element'
+
+					},
+					image: {
+						'xlink:href': '/site/assets/img/database.png'
 					}
 				}
-			}]
-		},
+			}
+        },
+
 		{
-			"id": "DF0002",
-			"type": "data_flow",
-			"label": "Request Clone Portfolio",
-			"icon": "key",
-			"transport": "HTTPS with JWT",
-			"from": "E0001",
-			"to": "S0001",
-			"source": {
-				"id": "S0001"
-			},
-			"target": {
-				"id": "E0002"
-			},
-			"attrs": {
-				".marker-source": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+			type: "data_store",
+			details: {
+				position: {
+					x: 250,
+					y: 180
 				},
-				".marker-target": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 0 5 L 10 10 z"
-				}
-			},
-			"labels": [{
-				"position": 0.5,
-				"attrs": {
-					"text": {
-						"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
-						"font-size": 10,
-						"fill": "#145255"
+				size: {
+					width: 100,
+					height: 60
+				},
+				attrs: {
+					text: {
+						text: 'My Element'
+
 					},
-					"rect": {
-						"stroke": "#EDF2F2",
-						"fill": "#EDF2F2",
-						"stroke-width": 20,
-						"rx": 5,
-						"ry": 5
+					image: {
+						'xlink:href': '/site/assets/img/database.png'
 					}
 				}
-			}],
-			"vertices": [{
-				"x": 497,
-				"y": 277
-			}]
-		},
+			}
+        },
+
+
 		{
-			"id": "DF0003",
-			"type": "data_flow",
-			"label": "Write Log",
-			"icon": "tree",
-			"transport": "Local FS",
-			"from": "S0001",
-			"to": "DS0001",
-			"source": {
-				"id": "S0001"
-			},
-			"target": {
-				"id": "E0002"
-			},
-			"attrs": {
-				".marker-source": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+			type: "system",
+			details: {
+				position: {
+					x: 0,
+					y: 0
 				},
-				".marker-target": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 0 5 L 10 10 z"
-				}
-			},
-			"labels": [{
-				"position": 0.5,
-				"attrs": {
-					"text": {
-						"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
-						"font-size": 10,
-						"fill": "#145255"
+				size: {
+					width: 100,
+					height: 100
+				},
+				attrs: {
+					circle: {
+						fill: '#eeeeee',
+						stroke: '#333333',
+						"stroke-width": 1
 					},
-					"rect": {
-						"stroke": "#EDF2F2",
-						"fill": "#EDF2F2",
-						"stroke-width": 20,
-						"rx": 5,
-						"ry": 5
+					text: {
+						text: '',
+						fill: '#000000',
+						'font-size': 10
 					}
 				}
-			}]
-		},
+			}
+        },
+
 		{
-			"id": "DF0004",
-			"type": "data_flow",
-			"label": "Forward Log",
-			"icon": "key",
-			"transport": "HTTPS with JWT",
-			"from": "S0001",
-			"to": "E0002",
-			"source": {
-				"id": "S0001"
-			},
-			"target": {
-				"id": "E0002"
-			},
-			"attrs": {
-				".marker-source": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+			type: "zone",
+			details: {
+				position: {
+					x: 100,
+					y: 100
 				},
-				".marker-target": {
-					"fill": "#145255",
-					"stroke": "#145255",
-					"d": "M 10 0 L 0 5 L 10 10 z"
-				}
-			},
-			"labels": [{
-				"position": 0.5,
-				"attrs": {
-					"text": {
-						"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
-						"font-size": 10,
-						"fill": "#145255"
+				size: {
+					width: 200,
+					height: 100
+				},
+				attrs: {
+					text: {
+						text: '',
+						fill: '#478081'
 					},
-					"rect": {
-						"stroke": "#EDF2F2",
-						"fill": "#EDF2F2",
-						"stroke-width": 20,
-						"rx": 5,
-						"ry": 5
+					rect: {
+						strole: '#478081'
 					}
 				}
-			}],
-			"vertices": [{
-				"x": 289,
-				"y": 311
-			}]
-		}
-	]
+			}
+        }
+    ]
+
 };
 
 // Add modals
@@ -459,8 +255,8 @@ asg.data.system.diagram = {
 				"type": "system",
 				"label": "Demo System",
 				"position": {
-					"x": 417,
-					"y": 249
+					"x": 622,
+					"y": 264
 				},
 				"size": {
 					"width": 100,
@@ -478,8 +274,326 @@ asg.data.system.diagram = {
 						"font-size": 10
 					}
 				}
-			}
-		],
+		},
+			{
+				"id": "E0001",
+				"type": "external_system",
+				"subtype": "api",
+				"label": "Registration API",
+				"icon": "servers",
+				"position": {
+					"x": 355,
+					"y": 49
+				},
+				"size": {
+					"width": 100,
+					"height": 60
+				},
+				"attrs": {
+					"text": {
+						"text": "E0002\n\rSplunk Log"
+					},
+					"image": {
+						"xlink:href": "./site/assets/img/database.png"
+					}
+				}
+		},
+			{
+				"id": "DS0001",
+				"type": "data_store",
+				"label": "Log File",
+				"icon": "database",
+				"position": {
+					"x": 415,
+					"y": 415
+				},
+				"size": {
+					"width": 100,
+					"height": 60
+				},
+				"attrs": {
+					"text": {
+						"text": "DS0001\n\rLog File"
+					},
+					"image": {
+						"xlink:href": "./site/assets/img/database.png"
+					}
+				}
+		},
+			{
+				"id": "E0002",
+				"type": "external_system",
+				"subtype": "database",
+				"label": "Splunk Log",
+				"icon": "database",
+				"position": {
+					"x": 78,
+					"y": 200
+				},
+				"size": {
+					"width": 100,
+					"height": 60
+				},
+				"attrs": {
+					"text": {
+						"text": "E0002\n\rSplunk Log"
+					},
+					"image": {
+						"xlink:href": "./site/assets/img/database.png"
+					}
+				}
+		},
+			{
+				"id": "Z0001",
+				"type": "zone",
+				"label": "AWS VPC",
+				"position": {
+					"x": 39,
+					"y": 174
+				},
+				"size": {
+					"width": 186,
+					"height": 108
+				},
+				"attrs": {
+					"text": {
+						"text": "Z0003. AWS Public VPC",
+						"fill": "#478081"
+					},
+					"rect": {
+						"stroke": "#478081"
+					}
+				}
+		},
+			{
+				"id": "Z0002",
+				"type": "zone",
+				"label": "AWS Private VPC",
+				"position": {
+					"x": 349,
+					"y": 228
+				},
+				"size": {
+					"width": 446,
+					"height": 273
+				},
+				"attrs": {
+					"text": {
+						"text": "Z0003. AWS Public VPC",
+						"fill": "#478081"
+					},
+					"rect": {
+						"stroke": "#478081"
+					}
+				}
+		},
+			{
+				"id": "Z0003",
+				"type": "zone",
+				"label": "AWS Public VPC",
+				"position": {
+					"x": 228,
+					"y": 27
+				},
+				"size": {
+					"width": 653,
+					"height": 118
+				},
+				"attrs": {
+					"text": {
+						"text": "Z0003. AWS Public VPC",
+						"fill": "#478081"
+					},
+					"rect": {
+						"stroke": "#478081"
+					}
+				}
+		},
+			{
+				"id": "DF0001",
+				"type": "data_flow",
+				"label": "Create Portfolio",
+				"icon": "key",
+				"transport": "HTTPS with JWT",
+				"from": "S0001",
+				"to": "E0001",
+				"source": {
+					"id": "S0001"
+				},
+				"target": {
+					"id": "E0002"
+				},
+				"attrs": {
+					".marker-source": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+					},
+					".marker-target": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 0 5 L 10 10 z"
+					}
+				},
+				"labels": [{
+					"position": 0.5,
+					"attrs": {
+						"text": {
+							"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
+							"font-size": 10,
+							"fill": "#145255"
+						},
+						"rect": {
+							"stroke": "#EDF2F2",
+							"fill": "#EDF2F2",
+							"stroke-width": 20,
+							"rx": 5,
+							"ry": 5
+						}
+					}
+			}]
+		},
+			{
+				"id": "DF0002",
+				"type": "data_flow",
+				"label": "Request Clone Portfolio",
+				"icon": "key",
+				"transport": "HTTPS with JWT",
+				"from": "E0001",
+				"to": "S0001",
+				"source": {
+					"id": "S0001"
+				},
+				"target": {
+					"id": "E0002"
+				},
+				"attrs": {
+					".marker-source": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+					},
+					".marker-target": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 0 5 L 10 10 z"
+					}
+				},
+				"labels": [{
+					"position": 0.5,
+					"attrs": {
+						"text": {
+							"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
+							"font-size": 10,
+							"fill": "#145255"
+						},
+						"rect": {
+							"stroke": "#EDF2F2",
+							"fill": "#EDF2F2",
+							"stroke-width": 20,
+							"rx": 5,
+							"ry": 5
+						}
+					}
+			}],
+				"vertices": [{
+					"x": 497,
+					"y": 277
+			}]
+		},
+			{
+				"id": "DF0003",
+				"type": "data_flow",
+				"label": "Write Log",
+				"icon": "tree",
+				"transport": "Local FS",
+				"from": "S0001",
+				"to": "DS0001",
+				"source": {
+					"id": "S0001"
+				},
+				"target": {
+					"id": "E0002"
+				},
+				"attrs": {
+					".marker-source": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+					},
+					".marker-target": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 0 5 L 10 10 z"
+					}
+				},
+				"labels": [{
+					"position": 0.5,
+					"attrs": {
+						"text": {
+							"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
+							"font-size": 10,
+							"fill": "#145255"
+						},
+						"rect": {
+							"stroke": "#EDF2F2",
+							"fill": "#EDF2F2",
+							"stroke-width": 20,
+							"rx": 5,
+							"ry": 5
+						}
+					}
+			}]
+		},
+			{
+				"id": "DF0004",
+				"type": "data_flow",
+				"label": "Forward Log",
+				"icon": "key",
+				"transport": "HTTPS with JWT",
+				"from": "S0001",
+				"to": "E0002",
+				"source": {
+					"id": "S0001"
+				},
+				"target": {
+					"id": "E0002"
+				},
+				"attrs": {
+					".marker-source": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 10 10 L 0 10 L 0 0 z"
+					},
+					".marker-target": {
+						"fill": "#145255",
+						"stroke": "#145255",
+						"d": "M 10 0 L 0 5 L 10 10 z"
+					}
+				},
+				"labels": [{
+					"position": 0.5,
+					"attrs": {
+						"text": {
+							"text": "DF0004\n\rForward Log\n\rHTTPS with JWT",
+							"font-size": 10,
+							"fill": "#145255"
+						},
+						"rect": {
+							"stroke": "#EDF2F2",
+							"fill": "#EDF2F2",
+							"stroke-width": 20,
+							"rx": 5,
+							"ry": 5
+						}
+					}
+			}],
+				"vertices": [{
+					"x": 289,
+					"y": 311
+			}]
+		}
+	],
 
 		nextID: function (strType) {
 			var strID = "X0000";
@@ -1268,8 +1382,30 @@ asg.util.diagram = {
 					{
 						var strLabel = objShape.label;
 						var strIcon = objShape.icon;
-						objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
-						objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
+						if (objShape.attrs != null) {
+							objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
+							objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
+						} else {
+							var _d = {
+								"position": {
+									"x": 415,
+									"y": 415
+								},
+								"size": {
+									"width": 100,
+									"height": 60
+								},
+								"attrs": {
+									"text": {
+										"text": (objShape.id + '\n\r' + strLabel)
+									},
+									"image": {
+										"xlink:href": ('./site/assets/img/' + strIcon + '.png')
+									}
+								}
+							};
+							objShape = Object.assign(objShape, _d);
+						}
 						var shape = new joint.shapes.basic.ExternalSystem(objShape);
 						shape.on('change', function (shape, data) {
 							if (shape.changed.position != null) {
@@ -1294,6 +1430,7 @@ asg.util.diagram = {
 						objShape.target.id = strTo;
 						objShape.labels[0].attrs.text.text = objShape.id + '\n\r' + strLabel + '\n\r' + strTransport;
 						var link = new joint.dia.Link(objShape);
+
 						link.on('change', function (shape, data) {
 							if (shape.changed.vertices != null) {
 								var modelShape = asg.util.diagram.getModelShapeById(shape.id);
@@ -1311,13 +1448,43 @@ asg.util.diagram = {
 				case "zone":
 					{
 						var strLabel = objShape.label;
-						objShape.attrs.text.text = objShape.id + '. ' + strLabel;
-						var shape = new joint.shapes.basic.Zone(objShape);
-						shape.attr('rect/height', objShape.size.height);
-						shape.attr('rect/width', objShape.size.width);
-						shape.attr('rect/position/x', objShape.position.x);
-						shape.attr('rect/position/y', objShape.position.y);
+						if (objShape.attrs != null) {
+							objShape.attrs.text.text = objShape.id + '. ' + strLabel;
+						} else {
+							var _z = {
+								position: {
+									x: 50,
+									y: 200
+								},
+								size: {
+									width: 175,
+									height: 90
+								},
+								attrs: {
+									text: {
+										text: (objShape.id + ". " + objShape.label),
+										fill: "#478081"
+									},
+									rect: {
+										stroke: "#478081"
+									}
+								}
+							};
 
+							objShape = Object.assign(objShape, _z);
+						}
+
+
+
+						var shape = new joint.shapes.basic.Zone(objShape);
+						if (objShape.size != null) {
+							shape.attr('rect/height', objShape.size.height);
+							shape.attr('rect/width', objShape.size.width);
+						}
+						if (objShape.position != null) {
+							shape.attr('rect/position/x', objShape.position.x);
+							shape.attr('rect/position/y', objShape.position.y);
+						}
 						var g = graph.addCell(shape);
 						var el = g.getCell(objShape.id);
 						el.toBack();
@@ -1603,6 +1770,9 @@ asg.util.diagram = {
 			model: asg.data.elements.diagram.graph,
 			gridSize: 1,
 			interactive: true,
+			defaultConnector: {
+				name: 'smooth'
+			}
 		});
 
 		this.isBorderClicked = function (bbox, evt, strokeWidth) {
@@ -1702,10 +1872,15 @@ asg.util.diagram = {
 					var _p = cell.position();
 					var objShape = asg.util.diagram.getModelShapeById(modelData.id);
 					objShape.position = _p;
+
+					/**
+					
 					if (cell.attributes.attrs.rect != null) {
 						objShape.size.width = cell.attributes.attrs.rect.width;
 						objShape.size.height = cell.attributes.attrs.rect.height;
 					}
+					
+					**/
 				}
 			}
 			//	if(cell.attributes != null && cell.attributes.attrs != null && cell.attributes.attrs.rect !=null){
