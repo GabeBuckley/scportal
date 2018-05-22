@@ -133,7 +133,7 @@ asg.data.lists.diagram = {
 
 					},
 					image: {
-						'xlink:href': '/site/assets/img/database.png'
+						'xlink:href': '/assets/img/database.png'
 					}
 				}
 			}
@@ -156,7 +156,7 @@ asg.data.lists.diagram = {
 
 					},
 					image: {
-						'xlink:href': '/site/assets/img/database.png'
+						'xlink:href': '/assets/img/database.png'
 					}
 				}
 			}

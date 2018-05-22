@@ -1,6 +1,7 @@
 /**** Custom JS Classes *****/
 asg.HTMLComponent = class {
 	constructor(objArgs) {
+        this._args - objArgs;
 		this.init(objArgs);
 		this.build();
 		this._self = this;

@@ -1,6 +1,5 @@
 /* Vulnerabilities Dashboard */
-
-if (asg.__etc == null) {
+if (asg.__etc === null) {
 	asg.__etc = {};
 }
 
@@ -19,7 +18,7 @@ asg.data.system.vdash = {
                     'rgba(235,100,17,0.3)',
                     'rgba(106,147,27,0.3)',
                     'rgba(235,188,0,0.3)',
-                    'rgba(127,183,178,0.3)',
+                    'rgba(127,183,178,0.3)'
                 ],
 				borderColor: [
                     'rgba(0,111,102,1)',
@@ -27,7 +26,7 @@ asg.data.system.vdash = {
                     'rgba(235,100,17,1)',
                     'rgba(106,147,27,1)',
                     'rgba(235,188,0,1)',
-                    'rgba(127,183,178,1)',
+                    'rgba(127,183,178,1)'
 
                 ],
 				hoverBackgroundColor: [
@@ -36,7 +35,7 @@ asg.data.system.vdash = {
                     'rgba(235,100,17,0.7)',
                     'rgba(106,147,27,0.7)',
                     'rgba(235,188,0,0.7)',
-                    'rgba(127,183,178,0.7)',
+                    'rgba(127,183,178,0.7)'
 
                 ],
 				hoverBorderColor: [
@@ -45,11 +44,11 @@ asg.data.system.vdash = {
                     'rgba(235,100,17,1)',
                     'rgba(106,147,27,1)',
                     'rgba(235,188,0,1)',
-                    'rgba(127,183,178,1)',
+                    'rgba(127,183,178,1)'
 
                 ],
 				borderWidth: 2,
-				hoverBorderWidth: 3,
+				hoverBorderWidth: 3
             }
         ]
 	},
@@ -154,7 +153,7 @@ asg.data.system.vdash = {
 			display: {
 				bgcolour: '#fad8c3',
 				fgcolour: '#b04b0d',
-				bdrcolour: '#f5b188',
+				bdrcolour: '#f5b188'
 			}
         },
 		{
@@ -166,7 +165,7 @@ asg.data.system.vdash = {
 			display: {
 				bgcolour: '#bfdbd9',
 				fgcolour: '#00534c',
-				bdrcolour: '#7fb7b2',
+				bdrcolour: '#7fb7b2'
 			}
         },
 		{
@@ -178,7 +177,7 @@ asg.data.system.vdash = {
 			display: {
 				bgcolour: '#d0cac4',
 				fgcolour: '#514a45',
-				bdrcolour: '#b9b0a7',
+				bdrcolour: '#b9b0a7'
 			}
         }
     ],
@@ -201,10 +200,11 @@ asg.data.system.vdash = {
 				class: 'asg-chart-bg-red'
             }
         ],
-		severeIssuesOver30: 17,
+		severeIssuesOver30: 17
 	},
 
 	lists: {
+		currentList: null,
 		lookupTables: [
 			{
 				id: 'source',
@@ -365,7 +365,7 @@ asg.data.system.vdash = {
 				type: 'date',
 				attribute: 'value',
 				trigger: 'change',
-				target: 'reported_date',
+				target: 'reported_date'
 
 			},
 			asg_vuln_new_issue_src: {
@@ -448,28 +448,53 @@ asg.data.system.vdash = {
 				attribute: 'value',
 				trigger: 'click',
 				target: 'gen_iriis'
-			},
+			}
 		}
-	},
+	}
 };
 
-asg.__etc.dbModals = [
-	{
-		id: "addDataListItem",
-		title: "Add Data List Item",
-		template: "asg.data.templates.html.vdash.dialogs.addDataListItem"
-    }, {
-		id: "editDataListItem",
-		title: "Edit Data List item",
-		template: "asg.data.templates.html.vdash.dialogs.editDataListItem"
-    }, {
-		id: "deleteDataListItems",
-		title: "Delete Data List items",
-		template: "asg.data.templates.html.vdash.dialogs.deleteDataListItems"
-    }
-];
-for (var i = 0; i < asg.__etc.dbModals.length; i++) {
-	asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
+if (asg.__etc === null) {
+	asg.__etc = {};
+
+	asg.__etc.dbModals = [
+		{
+			id: "addDataListItem",
+			title: "Add Data List Item",
+			template: "asg.data.templates.html.vdash.dialogs.addDataListItem"
+        },
+		{
+			id: "editDataListItem",
+			title: "Edit Data List item",
+			template: "asg.data.templates.html.vdash.dialogs.editDataListItem"
+        },
+		{
+			id: "deleteDataListItems",
+			title: "Delete Data List items",
+			template: "asg.data.templates.html.vdash.dialogs.deleteDataListItems"
+        }
+    ];
+	for (var i = 0; i < asg.__etc.dbModals.length; i++) {
+		asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
+	}
+} else {
+	asg.__etc.dbModals = [
+		{
+			id: "addDataListItem",
+			title: "Add Data List Item",
+			template: "asg.data.templates.html.vdash.dialogs.addDataListItem"
+        }, {
+			id: "editDataListItem",
+			title: "Edit Data List item",
+			template: "asg.data.templates.html.vdash.dialogs.editDataListItem"
+        }, {
+			id: "deleteDataListItems",
+			title: "Delete Data List items",
+			template: "asg.data.templates.html.vdash.dialogs.deleteDataListItems"
+        }
+    ];
+	for (var i = 0; i < asg.__etc.dbModals.length; i++) {
+		asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
+	}
 }
 
 // Add Templates
@@ -591,8 +616,8 @@ asg.data.templates.html.vdash = {
 		'	<div class="row">',
 		'		<div class="col-xs-12">',
 		'			<div class="button-bar" id="asg_vuln_new_button_bar">',
-		'				<a class="sg-Btn sg-Btn--warning sg-Btn--iconLeftLarge" href="" id="asg_vuln_new_gen_email"><i class="fas fa-times-circle"></i> Discard</a>',
-		'				<a class="sg-Btn sg-Btn--secondary sg-Btn--iconLeftLarge" href="" id="asg_vuln_new_gen_email"><i class="fas fa-save"></i> Save</a>',
+		'				<a class="sg-Btn sg-Btn--warning sg-Btn--iconLeftLarge" href="#!/vuln" id="asg_vuln_new_cancel"><i class="fas fa-times-circle"></i> Discard</a>',
+		'				<a class="sg-Btn sg-Btn--secondary sg-Btn--iconLeftLarge" href="" id="asg_vuln_new_save"><i class="fas fa-save"></i> Save</a>',
 		'			</div>',
 		'		</div>',
 		'	</div>',
@@ -722,7 +747,69 @@ asg.data.templates.json.vdash = {
 		jira_ref: '',
 		iriis_ref: '',
 		remediation: ''
-	}
+	},
+	vuln_post_data: {
+		"Application": {
+			"ApplicationId": "string",
+			"Name": "string",
+			"TeamName": "string",
+			"OwnerUsername": "string",
+			"OwnerName": "string",
+			"OwnerEmail": "string",
+			"Id": 0,
+			"Created": "2018-05-21T23:59:40.546Z",
+			"Updated": "2018-05-21T23:59:40.546Z"
+		},
+		"Title": "string",
+		"Description": "string",
+		"JiraCard": "string",
+		"IriisRisk": "string",
+		"EventLog": "string",
+		"DateReported": "2018-05-21T23:59:40.546Z",
+		"DateResolved": "2018-05-21T23:59:40.546Z",
+		"SourceExtended": "string",
+		"ReportUrl": "string",
+		"Source": {
+			"Type": 1,
+			"Name": "string",
+			"CanEdit": true,
+			"Id": 0,
+			"Created": "2018-05-21T23:59:40.546Z",
+			"Updated": "2018-05-21T23:59:40.546Z"
+		},
+		"Technology": {
+			"Type": 1,
+			"Name": "string",
+			"CanEdit": true,
+			"Id": 0,
+			"Created": "2018-05-21T23:59:40.546Z",
+			"Updated": "2018-05-21T23:59:40.546Z"
+		},
+		"Severity": {
+			"Type": 1,
+			"Name": "string",
+			"CanEdit": true,
+			"Id": 0,
+			"Created": "2018-05-21T23:59:40.546Z",
+			"Updated": "2018-05-21T23:59:40.546Z"
+		},
+		"IssueType": {
+			"Type": 1,
+			"Name": "string",
+			"CanEdit": true,
+			"Id": 0,
+			"Created": "2018-05-21T23:59:40.546Z",
+			"Updated": "2018-05-21T23:59:40.546Z"
+		},
+		"User": {
+			"Username": "string",
+			"DisplayName": "string",
+			"Email": "string"
+		},
+		"Id": 0,
+		"Created": "2018-05-21T23:59:40.547Z",
+		"Updated": "2018-05-21T23:59:40.547Z"
+	},
 
 }
 
@@ -746,7 +833,104 @@ asg.__etc.conf = {
 		iriis_issue: {
 			id: 'Id',
 			label: 'Title'
+		},
+
+
+
+		vuln_model: {
+
+			"application": "",
+			"technology": "",
+			"reported_date": "",
+			"issue_source": "",
+			"issue_source_details": "Tested by Frank",
+			"source_url": "http://www.google.com",
+			"issue_title": "My Big Issue",
+			"issue_type": "2",
+			"issue_severity": "19",
+			"issue_description": "Able to do stuff",
+			"jira_ref": "123456",
+			"iriis_ref": "654321",
+			"remediation": "Fix it",
+			"asg_vuln_new_tech": "15",
+			"asg_vuln_new_repdate": "2018-05-22T02:27:15.482Z",
+			"asg_vuln_new_issue_src": "9",
+			"asg_vuln_new_issue_src_details": "Tested by Frank",
+			"asg_vuln_new_source_url": "http://www.google.com",
+			"asg_vuln_new_issue_title": "My Big Issue",
+			"asg_vuln_new_issue_type": "2",
+			"asg_vuln_new_issue_severity": "19",
+			"asg_vuln_new_issue_desc": "Able to do stuff",
+			"asg_vuln_new_jira_ref": "123456",
+			"asg_vuln_new_iriis_ref": "654321",
+			"asg_vuln_new_remediation": "Fix it"
+
+		},
+
+
+		vulnerability: {
+			"Application": {
+				"ApplicationId": "application",
+				"Name": "",
+				"TeamName": "",
+				"OwnerUsername": "",
+				"OwnerName": "",
+				"OwnerEmail": "",
+				"Id": "",
+				"Created": "",
+				"Updated": ""
+			},
+			"Title": "asg_vuln_new_issue_title",
+			"Description": "asg_vuln_new_issue_desc",
+			"JiraCard": "jira_ref",
+			"IriisRisk": "iriis_ref",
+			"EventLog": "",
+			"DateReported": "asg_vuln_new_repdate",
+			"DateResolved": "",
+			"SourceExtended": "asg_vuln_new_issue_src_details",
+			"ReportUrl": "asg_vuln_new_source_url",
+			"Source": {
+				"Type": "",
+				"Name": "",
+				"CanEdit": "",
+				"Id": "asg_vuln_new_issue_src",
+				"Created": "",
+				"Updated": "",
+			},
+			"Technology": {
+				"Type": "",
+				"Name": "",
+				"CanEdit": "",
+				"Id": "asg_vuln_new_tech",
+				"Created": "",
+				"Updated": "",
+			},
+			"Severity": {
+				"Type": "",
+				"Name": "",
+				"CanEdit": "",
+				"Id": "asg_vuln_new_issue_severity",
+				"Created": "",
+				"Updated": "",
+			},
+			"IssueType": {
+				"Type": "",
+				"Name": "",
+				"CanEdit": "",
+				"Id": "issue_type",
+				"Created": "",
+				"Updated": ""
+			},
+			"User": {
+				"Username": "",
+				"DisplayName": "",
+				"Email": "",
+			},
+			"Id": "",
+			"Created": "asg_vuln_new_repdate",
+			"Updated": "asg_vuln_new_repdate",
 		}
+
 	},
 
 	conf: {
@@ -770,6 +954,8 @@ asg.__etc.conf = {
 				get_data_list_source: './site/assets/ws/mocks/get_data_list_source.json',
 				get_data_list_tech: './site/assets/ws/mocks/get_data_list_tech.json',
 				get_data_list_type: './site/assets/ws/mocks/get_data_list_type.json',
+				update_data_list: './site/assets/ws/mocks/get_data_list_type.json',
+
 				add_data_list_severity: './site/assets/ws/mocks/get_data_list_severity.json',
 				add_data_list_source: './site/assets/ws/mocks/get_data_list_source.json',
 				add_data_list_tech: './site/assets/ws/mocks/get_data_list_tech.json',
@@ -783,11 +969,15 @@ asg.__etc.conf = {
 				get_support_teams_list: './site/assets/ws/mocks/get_support_teams_list.json',
 				get_teams_issues_list: './site/assets/ws/mocks/get_open_issues_by_team.json',
 				get_iriis_issues_list: './site/assets/ws/mocks/get_iriis_issues.json',
-				get_data_list_severity: './site/assets/ws/mocks/get_data_list_severity.json',
+				get_data_list_severity: '/api/Source/GetSeverity',
 				get_data_list_source: '/api/Source/GetSource',
 				get_data_list_tech: '/api/Source/GetTechnology',
-				get_data_list_type: '/api/GetIssueType',
-				add_data_list_severity: '/api//Source/GetSeverity',
+				get_data_list_type: '/api/Source/GetIssueType',
+				update_data_list: '/api/Source/Put',
+				delete_data_list_item: '/api/Source/Delete/',
+				add_data_list_item: '/api/Source/Post',
+
+				add_data_list_severity: '/api/Source/GetSeverity',
 				add_data_list_source: './site/assets/ws/mocks/get_data_list_source.json',
 				add_data_list_tech: './site/assets/ws/mocks/get_data_list_tech.json',
 				add_data_list_type: './site/assets/ws/mocks/get_data_list_type.json',
@@ -833,6 +1023,9 @@ for (var stringID in asg.__etc.dash.stringTable) {
 // Copy in dashboard utility functions 
 asg.util.vdash = {
 	addDataListItem: function () {
+		asg.ui.blockUI();
+		var _endpoint = asg.conf.endpoints[asg.app.fn.mode()].add_data_list_item;
+
 		var listId = document.getElementById('dlg_datalist_id').value;
 		var objList = asg.util.vdash.getListById(listId);
 		var idField = document.getElementById('dlg_dataitem_id');
@@ -844,24 +1037,73 @@ asg.util.vdash = {
 		var strLabelProp = labelField.getAttribute('data-accessor');
 		if (itemLabel.length > 0) {
 			var newItem = {};
-			newItem[strIdProp] = itemId;
+			newItem[strIdProp] = 0;
 			newItem[strLabelProp] = itemLabel;
-
+			newItem.type = asg.util.vdash.data.list_types[listId];
+			var nowDate = new Date();
+			newItem.Created = nowDate.toISOString();
+			newItem.Updated = nowDate.toISOString();
 			objList.data.push(newItem);
-			asg.ui.closeDialog();
-			asg.u.vdash.data.currDataListView.redraw();
+
+			//asg.u.vdash.data.currDataListView.redraw();
+
+
+			var fnOnDone = function () {
+				asg.ui.closeDialog();
+				//asg.u.vdash.data.currDataListView.setData(objList.data);
+				var listId = asg.u.vdash.data.currDataListView._id;
+				asg.u.vdash.refreshListData(listId);
+			}
+
+			var postOptions = {
+				on_result: fnOnDone,
+				method: 'POST',
+				post_headers: [{
+					name: 'Content-Type',
+					value: 'application/json'
+				}],
+				post_data: newItem
+			}
+
+			asg.app.fn.ws.fetch(_endpoint, postOptions);
+
 		} else {
 			asg.ui.attachErrorMsg(labelField, asg.s.dl_label2shrt);
 		}
 	},
 
 	data: {
+		list_types: {
+			severity: 2,
+			source: 3,
+			technology: 4,
+			type: 1
+		},
+
+		list_sources: {
+			severity: 'get_data_list_severity',
+			source: 'get_data_list_source',
+			technology: 'get_data_list_tech',
+			type: 'get_data_list_type'
+		},
+
 		loaded: function () {
 			let _dash = asg.util.vdash;
 			let _loaded = true &&
 				_dash.data.teamsListLoaded &&
 				_dash.data.teamsIssuesLoaded &&
 				_dash.data.iriisIssuesLoaded;
+
+			return _loaded;
+		},
+
+		lists_loaded: function () {
+			let _data = asg.util.vdash.data;
+			let _loaded = true &&
+				_data.dataListsLoaded.source &&
+				_data.dataListsLoaded.severity &&
+				_data.dataListsLoaded.type &&
+				_data.dataListsLoaded.technology;
 
 			return _loaded;
 		},
@@ -873,7 +1115,14 @@ asg.util.vdash = {
 		currDataListId: '',
 		currDataListView: null,
 
-		severityDataListLoaded: false,
+		dataListsLoaded: {
+			source: false,
+			severity: false,
+			type: false,
+			technology: false
+		},
+
+
 	},
 
 	deleteDataListItems: function () {
@@ -890,7 +1139,7 @@ asg.util.vdash = {
 			asg.u.vdash.removeDataListItem(objList, itemID);
 		}
 		asg.ui.closeDialog();
-		_view.setData(objList.data);
+		//_view.setData(objList.data);
 	},
 
 	drawPieChart: function () {
@@ -1231,8 +1480,22 @@ asg.util.vdash = {
 
 	},
 
+	getDataListIdColumn: function (objList) {
+		if (objList != null) {
+			var view = asg.u.vdash.data.currDataListView;
+			var _cols = view._columns;
+			for (var i = 0; i < _cols.length; i++) {
+				var _col = _cols[i];
+				if (_col.is_id) {
+					return _col.source;
+				}
+			}
+		}
+		return false;
+	},
+
 	getDataListItem: function (objList, strId, strIdField) {
-		_id = strIdField || 'id';
+		_id = strIdField || asg.util.vdash.getDataListIdColumn(objList) || 'id';
 		var arrNew = [];
 		for (var i = 0; i < objList.data.length; i++) {
 			if (objList.data[i][_id] == strId) {
@@ -1240,6 +1503,20 @@ asg.util.vdash = {
 			}
 		}
 		return null;
+	},
+
+	getDataListLabelColumn: function (objList) {
+		if (objList != null) {
+			var view = asg.u.vdash.data.currDataListView;
+			var _cols = view._columns;
+			for (var i = 0; i < _cols.length; i++) {
+				var _col = _cols[i];
+				if (!_col.is_id) {
+					return _col.source;
+				}
+			}
+		}
+		return false;
 	},
 
 	getListById: function (strListId) {
@@ -1372,17 +1649,147 @@ asg.util.vdash = {
 	},
 
 	initDataList: function (strListId, strTargetID) {
-		asg.u.vdash.showDataList(strListId, strTargetID);
+		asg.data.system.vdash.lists.currentList = asg.u.vdash.showDataList(strListId, strTargetID);
+	},
+
+	loadListData: function () {
+		var lists = ['source', 'severity', 'type', 'technology'];
+		while (lists.length > 0) {
+			var _target = lists.shift();
+			var _source = asg.util.vdash.data.list_sources[_target];
+			var _endpointBase = asg.conf.endpoints[asg.app.fn.mode()];
+			var _endpoint = _endpointBase[_source];
+
+			var _onResult = function () {
+				var _opts = this.options;
+				var _target = _opts.target;
+				var _list = asg.util.vdash.getListById(_target);
+				_list['data'] = this.result;
+
+				var loadRegistry = asg.util.vdash.data.dataListsLoaded;
+				loadRegistry[_target] = true;
+			}
+
+			let objOptions = {
+				on_result: _onResult,
+				target: _target
+			};
+
+			asg.app.fn.ws.fetch(_endpoint, objOptions);
+		}
+	},
+
+	postVulnerability: function (evt) {
+		var _v = asg.util.vdash;
+		evt.stopPropagation();
+		evt.preventDefault();
+
+		var postData = Object.assign({}, asg.data.templates.json.vdash.vuln_post_data);
+		var _currVuln = asg.data.system.vdash.current_vulnerability;
+		var _form = asg.data.system.vdash.new_vuln_form;
+		var _fieldIds = _form.ui.components;
+
+		for (var i = 0; i < _fieldIds.length; i++) {
+			var _id = _fieldIds[i];
+			var _field = _form.ui[_id];
+
+			if (_field.ui != null && _field.ui.type != 'button') {
+				var _val = _field.ui.value;
+				_currVuln[_id] = _val;
+			}
+		}
+
+		postDataMapped = asg.app.fn.ws.mapObjectToType(_currVuln, 'vulnerability')
+		postDataMapped.User = {};
+		postDataMapped.User.DisplayName = asg.data.system.current_user.name;
+		postDataMapped.User.Email = asg.data.system.current_user.email;
+		postDataMapped.User.UserName = asg.data.system.current_user.id;
+
+		var list = _v.getListById('technology');
+		var techId = _currVuln.asg_vuln_new_tech;
+		var objTech = _v.getDataListItem(list, techId, 'Id');
+		postDataMapped.Technology = objTech;
+
+		var list = _v.getListById('type');
+		var typeId = _currVuln.asg_vuln_new_issue_type;
+		var objType = _v.getDataListItem(list, typeId, 'Id');
+		postDataMapped.IssueType = objType;
+
+		var list = _v.getListById('source');
+		var srcId = _currVuln.asg_vuln_new_issue_src;
+		var objSrc = _v.getDataListItem(list, srcId, 'Id');
+		postDataMapped.Source = objSrc;
+
+		var list = _v.getListById('severity');
+		var sevId = _currVuln.asg_vuln_new_issue_severity;
+		var objSev = _v.getDataListItem(list, sevId, 'Id');
+		postDataMapped.Severity = objSev;
+
+		debugger;
+
+	},
+
+	refreshListData: function (strTarget) {
+		var _target = strTarget;
+		var _source = asg.util.vdash.data.list_sources[_target];
+		var _endpointBase = asg.conf.endpoints[asg.app.fn.mode()];
+		var _endpoint = _endpointBase[_source];
+		var _self = this;
+		var _onResult = function () {
+			let _me = _self;
+			let _this = this;
+			let _options = _this.options;
+
+			let _data = _this.result;
+			let _target = this.options.target;
+
+			let _targetBase = asg.data.system.vdash.lists.lookupTables;
+			for (let i = 0; i < _targetBase.length; i++) {
+				if (_targetBase[i].id == _target) {
+					_targetBase[i].data = _data;
+				}
+			}
+
+			asg.util.vdash.data[strTarget + 'DataListLoaded'] = true;
+			asg.u.vdash.data.currDataListView.setData(_data);
+			asg.ui.unBlockUI();
+			asg.u.vdash.data.currDataListView.redraw();
+		}
+
+		let objOptions = {
+			on_result: _onResult,
+			target: strTarget
+		};
+
+		asg.app.fn.ws.fetch(_endpoint, objOptions);
 	},
 
 	removeDataListItem: function (objList, strId) {
-		var arrNew = [];
-		for (var i = 0; i < objList.data.length; i++) {
-			if (objList.data[i].id != strId) {
-				arrNew.push(objList.data[i]);
+		asg.ui.blockUI();
+		var _fnOnSuccess = function () {
+
+			/**
+			var arrNew = [];
+			for (var i = 0; i < objList.data.length; i++) {
+			    if (objList.data[i].Id != strId) {
+			        arrNew.push(objList.data[i]);
+			    }
 			}
+			objList.data = arrNew;
+			**/
+			asg.ui.closeDialog();
+
+			var listId = asg.u.vdash.data.currDataListView._id;
+			asg.u.vdash.refreshListData(listId);
+		};
+
+		var _endpoint = asg.conf.endpoints[asg.app.fn.mode()].delete_data_list_item + strId;
+		var postOptions = {
+			on_result: _fnOnSuccess,
+			method: 'DELETE',
 		}
-		objList.data = arrNew;
+
+		asg.app.fn.ws.fetch(_endpoint, postOptions);
 	},
 
 	removeNewVulnForm: function () {
@@ -1395,34 +1802,40 @@ asg.util.vdash = {
 		var arrIdComponents = btn.id.split("_");
 		var viewId = arrIdComponents[1];
 		var btnId = arrIdComponents[3];
-		asg.ui.showDialog('addDataListItem', {
-			size: 'medium'
-		});
 
-		var _form = document.getElementById('modal_body_content');
 		var objList = asg.u.vdash.getListById(viewId);
-		var _newId = null;
+		if (objList != null) {
+			asg.ui.showDialog('addDataListItem', {
+				size: 'medium'
+			});
 
-		var listIdField = document.getElementById('dlg_datalist_id');
-		listIdField.value = viewId;
+			var _form = document.getElementById('modal_body_content');
 
-		var idField = document.getElementById('dlg_dataitem_id');
-		idField.value = _newId;
-		var idDisplay = document.getElementById('dlg_dataitem_id_display');
-		idDisplay.innerHTML = '---';
+			var _newId = null;
 
-		var legend = document.getElementById('dlg_legend');
-		legend.innerHTML = "Add " + objList.label;
-		var allLabels = _form.getElementsByTagName('label');
-		for (var i = 0; i < allLabels.length; i++) {
-			var currLabel = allLabels[i];
-			if (currLabel.getAttribute('for') == 'dlg_dataitem_id') {
-				currLabel.innerHTML = objList.label + ' ID:';
-			}
-			if (currLabel.getAttribute('for') == 'dlg_dataitem_label') {
-				currLabel.innerHTML = objList.label + ' Label:';
+			var listIdField = document.getElementById('dlg_datalist_id');
+			listIdField.value = viewId;
+
+			var idField = document.getElementById('dlg_dataitem_id');
+			idField.value = _newId;
+			var idDisplay = document.getElementById('dlg_dataitem_id_display');
+			idDisplay.innerHTML = '---';
+
+			var legend = document.getElementById('dlg_legend');
+
+			legend.innerHTML = "Add " + objList.label;
+			var allLabels = _form.getElementsByTagName('label');
+			for (var i = 0; i < allLabels.length; i++) {
+				var currLabel = allLabels[i];
+				if (currLabel.getAttribute('for') == 'dlg_dataitem_id') {
+					currLabel.innerHTML = objList.label + ' ID:';
+				}
+				if (currLabel.getAttribute('for') == 'dlg_dataitem_label') {
+					currLabel.innerHTML = objList.label + ' Label:';
+				}
 			}
 		}
+
 	},
 
 	showAllDataListLinks: function () {
@@ -1592,109 +2005,141 @@ asg.util.vdash = {
 		let _d = asg.data.system.vdash;
 		let _t = asg.data.templates.html.vdash;
 
-		let _container = document.getElementById(asg.conf.ids.vdash_new_issue);
-		_container.innerHTML = '';
+		if (_v.data.lists_loaded()) {
 
-		let _newForm = _u.createFromFragment(_t.new_vulnerability);
+			let _container = document.getElementById(asg.conf.ids.vdash_new_issue);
+			_container.innerHTML = '';
 
-		_container.appendChild(_newForm);
+			let _newForm = _u.createFromFragment(_t.new_vulnerability);
 
-		var _meta = _d.new_vuln_form;
-		_d.current_vulnerability = Object.assign({}, asg.data.templates.json.vdash.vulnerability);
+			_container.appendChild(_newForm);
 
-		for (var i = 0; i < _meta.ui.components.length; i++) {
-			var _id = _meta.ui.components[i];
-			var _c = _meta.ui[_id];
+			var _meta = _d.new_vuln_form;
+			_d.current_vulnerability = Object.assign({}, asg.data.templates.json.vdash.vulnerability);
 
-			var _updateFromDatePicker = function (_picker) {
-				var _c = this;
-				var model = asg.data.system.vdash.current_vulnerability;
-				model[_c.target] = _picker.value;
-			}
+			for (var i = 0; i < _meta.ui.components.length; i++) {
+				var _id = _meta.ui.components[i];
+				var _c = _meta.ui[_id];
 
-			var _updateVulnModel = function () {
-				var model = asg.data.system.vdash.current_vulnerability;
-				model[this.target] = this.ui[this.attribute];
-			}
+				var _updateFromDatePicker = function (_picker) {
+					var _c = this;
+					var model = asg.data.system.vdash.current_vulnerability;
+					model[_c.target] = _picker.value;
+				}
 
-			switch (_c.type) {
-				case "select":
-					{
-						if (_c.datasource != null) {
-							var oldSelect = document.getElementById(_id);
-							var newSelect = _v.getDatasetAsOptions({
-								list: _c.datasource,
-								attributes: [
-									{
-										'name': 'id',
-										'value': _id
+				var _updateVulnModel = function () {
+					var model = asg.data.system.vdash.current_vulnerability;
+					model[this.target] = this.ui[this.attribute];
+				}
+
+				switch (_c.type) {
+					case "select":
+						{
+							if (_c.datasource != null) {
+								var oldSelect = document.getElementById(_id);
+								var newSelect = _v.getDatasetAsOptions({
+									list: _c.datasource,
+									attributes: [
+										{
+											'name': 'id',
+											'value': _id
 									}
 								],
-								valueId: 'id',
-								labelId: 'label',
-								defaultValue: ''
-							});
-							var parent = oldSelect.parentElement;
-							parent.removeChild(oldSelect);
-							parent.appendChild(newSelect);
-							_c.ui = newSelect;
-							_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+									valueId: 'Id',
+									labelId: 'Name',
+									defaultValue: ''
+								});
+								var parent = oldSelect.parentElement;
+								parent.removeChild(oldSelect);
+								parent.appendChild(newSelect);
+								_c.ui = newSelect;
+								_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+							}
+							break;
 						}
-						break;
-					}
 
-				case "date":
-					{
-						var _placeholder = document.getElementById(_id);
-						var parent = _placeholder.parentElement;
-						parent.removeChild(_placeholder);
-						_c.ui = new asg.DatePicker({
-							id: _id,
-							target: parent,
-							value: new Date(),
-							onvaluechange: _updateFromDatePicker.bind(_c)
-						})
-						break;
-					}
+					case "date":
+						{
+							var _placeholder = document.getElementById(_id);
+							var parent = _placeholder.parentElement;
+							parent.removeChild(_placeholder);
+							_c.ui = new asg.DatePicker({
+								id: _id,
+								target: parent,
+								value: new Date(),
+								onvaluechange: _updateFromDatePicker.bind(_c)
+							})
+							break;
+						}
 
-				case "text":
-				case "textarea":
-					{
-						_c.ui = document.getElementById(_id);
-						_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
-						break;
-					}
-				case "button":
-					{
-						_c.ui = document.getElementById(_id);
-						break;
-					}
-				default:
-					{
-						//	alert(_c.type);
-						break;
-					}
+					case "text":
+					case "textarea":
+						{
+							_c.ui = document.getElementById(_id);
+							_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+							break;
+						}
+					case "button":
+						{
+							_c.ui = document.getElementById(_id);
+							break;
+						}
+					default:
+						{
+							//	alert(_c.type);
+							break;
+						}
+				}
 			}
-		}
+			asg.ui.unBlockUI();
 
+			var postButton = document.getElementById('asg_vuln_new_save');
+			postButton.addEventListener('click', asg.util.vdash.postVulnerability);
+		} else {
+			asg.ui.blockUI();
+			window.setTimeout(asg.util.vdash.showNewVulnForm);
+		}
 	},
 
-	updateDataListData: function (evt, data) {
-		debugger;
+	updateDataListData: function (objDataElement, fnOnDone) {
+		var _endpoint = asg.conf.endpoints[asg.app.fn.mode()].update_data_list;
+		var nowDate = new Date();
+		objDataElement['Updated'] = nowDate.toISOString();
+		var postOptions = {
+			on_result: fnOnDone,
+			method: 'PUT',
+			post_headers: [{
+				name: 'Content-Type',
+				value: 'application/json'
+			}],
+			post_data: objDataElement
+		}
+
+		asg.app.fn.ws.fetch(_endpoint, postOptions);
 	},
 
 	updateDataListItem: function () {
+		asg.ui.blockUI();
 		var listId = document.getElementById('dlg_datalist_id').value;
 		var objList = asg.util.vdash.getListById(listId);
 		var itemId = document.getElementById('dlg_dataitem_id').value;
+
 		var objItem = asg.util.vdash.getDataListItem(objList, itemId);
 
 		var labelField = document.getElementById('dlg_dataitem_label')
 		var itemLabel = labelField.value;
+		var labelColumnSource = asg.util.vdash.getDataListLabelColumn(objList) || 'label';
 		if (itemLabel.length > 0) {
-			objItem.label = itemLabel
-			asg.ui.closeDialog();
-			asg.u.vdash.data.currDataListView.redraw();
+			objItem[labelColumnSource] = itemLabel;
+			var _onUpdate = function (evt, data) {
+				asg.ui.closeDialog();
+
+				var listId = asg.u.vdash.data.currDataListView._id;
+				asg.u.vdash.refreshListData(listId);
+			}
+			asg.u.vdash.updateDataListData(objItem, _onUpdate);
+
+
 		} else {
 			asg.ui.attachErrorMsg(labelField, asg.s.dl_label2shrt);
 		}

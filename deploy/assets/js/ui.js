@@ -10,6 +10,26 @@ asg.ui = {
         }
 
     },
+    
+    blockUI: function(){
+        var blocker = document.getElementById('asg_ui_block');
+        if(blocker === null){
+            var blocker = asg.util.createFromFragment(
+                ['<div id="asg_ui_block" class="fa-10x bg-green-dark-50">',
+                    '<i class="primary-white fas fa-sync fa-spin"></i>',
+                    '<h1 class="primary-white">Reloading Data</h1>',
+                 '</div>'].join('')
+            );
+            document.body.appendChild(blocker);
+        }
+    },
+    
+    unBlockUI: function(){
+        var blocker = document.getElementById('asg_ui_block');
+        if(blocker != null){
+            blocker.parentElement.removeChild(blocker);
+        }
+    },
 
     closeDialog: function () {
         document.getElementById('modal_body_content').innerHTML = "";
@@ -207,5 +227,10 @@ asg.ui = {
                 objMsgDiv.remove();
             });
         });
+    },
+    
+    updateUserBlob: function(){
+        var usrButton = document.getElementById('asg_user_button');
+        usrButton.innerHTML = '<i class="fas fa-user-check"></i> ' + asg.data.system.current_user.name;
     }
 };

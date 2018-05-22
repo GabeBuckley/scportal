@@ -67,7 +67,7 @@ var asg = {};
 
 asg.conf = {
 	hosts: {
-		dev: ['\:8080', 'localhost', '127\.0\.0\.1', '.+\.dev'],
+		dev: ['\:8080', '127\.0\.0\.1', '.+\.dev'],
 		test: ['\:57373', '10\.75\.17\.43', '.+\.test'],
 		prod: []
 	},
@@ -716,7 +716,8 @@ asg.app = {
 					'asg.data.system.current_user',
 					asg.conf.endpoints[asg.app.fn.mode()].get_current_user_data,
 					this.name,
-					'current_user'
+					'current_user',
+                    'asg.ui.updateUserBlob'
 				);
 			},
 
@@ -882,16 +883,33 @@ asg.app = {
 
 			request: {
 				factory: function (strEndPoint, objOptions) {
+                    
 					this.objRet = {
 						oHTTP: null,
 						uri: strEndPoint,
 						options: objOptions,
-
 					};
 
 					this.send = function () {
-						this.objRet.oHTTP.open("GET", strEndPoint, true);
-						this.objRet.oHTTP.send();
+                        var _options = this.objRet.options;
+                        var _method = _options.method || 'GET';
+                        
+						this.objRet.oHTTP.open(_method, strEndPoint, true);
+                        if(_method.toLowerCase() == 'post' || _method.toLowerCase() == 'put'){
+                            if(_options.post_headers != null){
+                                for(var i = 0; i < _options.post_headers.length; i++){
+                                    var _header = _options.post_headers[i];
+                                    this.objRet.oHTTP.setRequestHeader(_header.name, _header.value);
+                                }
+                            }
+                        }
+                        
+                        var _data = null;
+                        if(_options.post_data != null){
+                            _data = JSON.stringify(_options.post_data);
+                        }
+                        
+						this.objRet.oHTTP.send(_data);
 					}
 
 					if (window.XMLHttpRequest) {
@@ -1795,6 +1813,7 @@ asg.app = {
 				onshow: function (evt, objPage) {
 					var doInit = function () {
 						if (asg.app.model.ready()) {
+                            asg.util.vdash.loadListData();
 							asg.app.fn.menu.load(asg.data.system.vdash.menu_data);
 							asg.util.vdash.showNewVulnForm();
 						} else {
@@ -2095,8 +2114,8 @@ asg.app = {
 				onhide: function (evt, objPage) {
 					return true;
 				}
-					},
-					],
+			},
+        ],
 		title: 'asg.data.system.name',
 	}
 

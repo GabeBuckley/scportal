@@ -592,6 +592,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 	.asg_vulnerability_form #asg_vuln_new_action_panel .sg-Btn {
 		text-align: left;
 		width: 100%;
+		font-size: 0.8em;
 	}
 	.asg_vulnerability_form #asg_vuln_new_action_panel .sg-Btn i {
 		margin-right: 0.75em;
