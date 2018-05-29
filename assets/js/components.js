@@ -464,7 +464,6 @@ asg.DatePicker = class extends asg.HTMLComponent {
 	}
 }
 
-
 asg.ViewComponent = class extends asg.HTMLComponent {
 
 	applyDefaultSort() {
@@ -1145,8 +1144,6 @@ asg.ViewComponent = class extends asg.HTMLComponent {
 	}
 }
 
-
-
 asg.UserPicker = class extends asg.HTMLComponent {
 	/** Options
 	{
@@ -1587,6 +1584,388 @@ asg.UserPicker = class extends asg.HTMLComponent {
 
 }
 
+asg.DataPicker = class extends asg.HTMLComponent {
+	/** Options
+	{
+	//- Mandatory
+	//------------------------
+		id: 'string',
+		target: HTMLElement,
+		data_source: String;
+		
+	//- Optional
+	//------------------------
+        allow_multiple: true || false,
+        icon_class: String
+		value: Object || null,
+		onvaluechange: function,
+		disabled: true || false
+	}
+	**/
 
+	set disabled(boolDisabled) {
+		if (boolDisabled != false) {
+			this._disabled = true;
+		} else {
+			this._disabled = false;
+		}
+
+
+		if (this._disabled) {
+			this._view.setAttribute('class', 'asg-data-picker disabled');
+			this._view.firstElementChild.removeAttribute('title');
+		} else {
+			this._view.setAttribute('class', 'asg-data-picker');
+			this._view.firstElementChild.setAttribute('title', 'Click to select...');
+		}
+	}
+
+	get disabled() {
+		if (this._disabled != null) {
+			return this._disabled;
+		} else {
+			return false;
+		}
+	}
+
+	get displayValue() {
+        var _myValues = this.value;
+        
+        if(_myValues == null){
+            return "Click to select...";
+        }
+                
+        if(_myValues.constructor === Array){
+            _myValues = _myValues.slice(0);
+        }
+        
+        if(_myValues.constructor === Object){
+            _myValues = Object.assign({}, _myValues);
+        }
+        
+        var dataEls = this._data_elements;
+		var _displayValue = [];
+        
+        if(_myValues.constructor === Array){
+            for (var i = 0; i < _myValues.length; i++) {
+                var _val = _myValues[i];
+                
+            }
+        }
+        
+        if(_myValues.constructor === Object){
+            _displayValue.push(_myValues[dataEls.label]);
+        }
+        
+        var _displayText = _displayValue.join(', ');
+		
+		return _displayText;
+	}
+    
+    fetchData(evt){
+        if(!this.isFetching){
+            this.isFetching = true;
+            let _query = this._searchfield.value;
+            if(_query.length > 0){
+                let objOptions = {
+                    on_result: this.updateData,
+                    target: this._dataView,
+                    query: _query,
+                    _self: this
+                };
+
+                var _endpoint = asg.conf.endpoints[asg.app.fn.mode()][this._data_source];
+                _endpoint = _endpoint + this._query_prefix + _query;
+
+                asg.app.fn.ws.fetch(_endpoint, objOptions);
+            } else {
+                this._dataView.innerHTML = '<p>No results found. Please try a different query.</p>';
+            }
+        }
+    }
+
+	fragments() {
+		return {
+            data_row: '<div class="asg-data-row" data-id="%1%" data-label="%2%" data-selected="false">%3%</div>'
+        };
+	}
+
+	hidePicker() {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		document.body.removeEventListener('click', this._hideFunction);
+		_cal.setAttribute('style', 'display: none;');
+	}
+
+	isSelected(strId) {
+		var _vals = this.value.slice(0);
+		for (var i = 0; i < _vals.length; i++) {
+			var _val = _vals[i];
+			if (_val[this._idField[0]] == strId) {
+				return true;
+			}
+		}
+	}
+
+	on_init() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+
+		this._showFunction = this.showPicker.bind(this);
+		this._hideFunction = this.hidePicker.bind(this);
+
+		this._frags = this.fragments();
+
+		this._selectedItems = [];
+
+		let _cal = _view.lastElementChild;
+		let _header = _cal.firstElementChild;
+		let _okBtn = _header.lastElementChild;
+        
+		_okBtn.addEventListener('click', this._updateFunction.bind(this));
+
+		_body.addEventListener('click', this._showFunction);
+        
+        let _searchBox = _header.nextElementSibling;
+        let _search = _searchBox.firstElementChild;
+        this._searchfield = _search;
+        
+        var _searchClick = function(evt){
+            evt.cancelBubble = true;
+            evt.stopPropagation();
+            evt.preventDefault();
+        }
+        
+        _search.addEventListener('keyup', this.fetchData.bind(this));
+        _searchBox.addEventListener('click', _searchClick);
+        
+        
+        let _data_display = _cal.lastElementChild;
+        
+        
+        let _dataView = _data_display.firstElementChild;
+        this._dataView = _dataView;
+        
+        this.isFetching = false;
+        this._fetchResult = [];
+
+		if (this._value == null) {
+			this._value = [];
+		}
+		if (this._disabled != null) {
+			this.disabled = this._disabled;
+		}
+
+        _search.focus();
+        
+		this._updateView();
+	}
+
+	showPicker(evt) {
+		var _view = this.ui();
+		let _cal = _view.lastElementChild;
+
+		evt.cancelBubble = true;
+		if (!this.disabled) {
+            this.isFetching = false;
+            this._searchfield.value = '';
+			document.body.addEventListener('click', this._hideFunction);
+
+			_cal.setAttribute('style', 'display: block;');
+
+            this._searchfield.focus();
+		}
+	}
+
+	styles() {
+		return [
+            '.asg-data-picker {display:inline-block; height: 36px; padding: 0.25em; background: #fff;border: 1px solid #006f66;border-radius:5px;}',
+            '.asg-data-picker.disabled {background: #f3f3f3; border-color: #999999;}',
+			'.asg-data-picker .asg-data-picker-body {display: inline-block;cursor:pointer;}',
+			'.asg-data-picker.disabled .asg-data-picker-body {cursor:default;}',
+			'.asg-data-picker .asg-data-display {display: inline-block; font-size: 0.85em;width: 235px; color: #006f66; text-align: center; white-space:nowrap; overflow:hidden;}',
+			'.asg-data-picker.disabled .asg-data-display {color: #999999; font-style: italic;}',
+			'.asg-data-picker .asg-data-button {display: inline-block; vertical-align: top; margin:0; padding:0; padding-left:5px; padding-right:5px; border: 1px solid #006f66;border-radius:5px;color: #006f66;}',
+			'.asg-data-picker.disabled .asg-data-button, .asg-data-picker.disabled .asg-data-button:hover {border-color:#999999;background: #f3f3f3;color: #999999;}',
+			'.asg-data-picker .asg-data-button:hover {background: #7fb7b2; color: #fff;}',
+			'.asg-data-picker .asg-data-browser {display: none; position:absolute; z-index: 9000; width: 450px; height: 350px;border: 2px solid #006f66; border-radius: 10px; background: #fff; -webkit-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);-moz-box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);box-shadow: 10px 10px 5px 0px rgba(0,111,102,0.35);}',
+			'.asg-data-picker .asg-data-browser-head {height: 30px;border-bottom: 2px outset #bfdbd9; border-top-left-radius: 10px;border-top-right-radius: 10px; background: #bfdbd9; text-align: right; padding-right: 5px; position: relative;}',
+            '.asg-data-picker .asg-data-browser-head .asg-browser-head-text {text-align: left; position: absolute; left: 1em; top: 0.25em; font-size: 0.8em; color: #006f66;font-weight: bold;}',
+			'.asg-data-picker .asg-data-browser-body {height: 275px; overflow-y: auto; font-size: 0.8em; color: #006f66;}',
+            '.asg-data-picker .asg-data-search {height: 36px; background: #006f66; padding: 3px;}',
+            '.asg-data-picker .asg-data-search input[type="text"] {height: 30px; line-height: 30px; font-size: 0.8em; padding: 3px; border-color: #006f66;}',
+			
+            '.asg-data-picker .asg-data-browser-body .asg-data-list {margin-bottom: 0.5em; margin-left: 0.25em;}',
+			
+            '.asg-data-picker .asg-data-list p {margin: 2em; color: #666; padding: 2em; border: 1px solid #666; border-radius: 15px; text-align: center;}',
+
+            '.asg-data-picker .asg-data-browser-body .asg-data-row { margin: 0.125em; padding: 0.125em; cursor:pointer;}',
+            '.asg-data-picker .asg-data-browser-body .asg-data-row:nth-child(even) { background:#f3f3f3; }',
+			
+			'.asg-data-picker .asg-data-browser-head .asg-button {',
+			'  display: inline-block; border-radius: 3px; margin: 2px; cursor: pointer;',
+			' color: #fff; padding: 2px 5px; margin-left: 0px; font-size: 0.8em;',
+			'-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4); -moz-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4); box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.4);',
+			'}',
+			'.asg-data-picker .asg-data-browser-head .asg-button:active {',
+			'margin-left:2px; margin-top:2px;',
+			'-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0); -moz-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0); box-shadow: 2px 2px 2px 1px rgba(0,0,0,0);',
+			'}',
+			'.asg-data-picker .asg-data-browser-head .asg-close-button {background-color: #B00020;}',
+			'.asg-data-picker .asg-data-browser-head .asg-close-button:hover {background-color: #E53935;}',
+			'.asg-data-picker .asg-data-browser-head .asg-ok-button {background-color: #018786;}',
+			'.asg-data-picker .asg-data-browser-head .asg-ok-button:hover {background-color: #26A69A;}',
+
+
+
+		].join('');
+	}
+
+	template() {
+		return [
+            '<div class="asg-data-picker" id="%1%">',
+			'  <div class="asg-data-picker-body"  title="Click to select...">',
+			'    <div class="asg-data-display"></div>',
+			'    <div class="asg-data-button">',
+			'      <i class="%2%"></i>',
+			'    </div>',
+			'  </div>',
+			'  <div class="asg-data-browser">',
+			'    <div class="asg-data-browser-head">',
+            '       <span class="asg-browser-head-text">Start typing in the text box below</span>',
+			'		<div class="asg-button asg-close-button"><i class="fas fa-times-circle"></i></div>',
+			'		<div class="asg-button asg-ok-button"><i class="fas fa-check-circle"></i></div>',
+			'    </div>',
+            '    <div class="asg-data-search"><input type="text" id="asg_data_picker_search" placeholder="Application Name..." /></div>',
+			'    <div class="asg-data-browser-body">',
+			'		<div class="asg-data-list"><p>No results found. Please try a different query.</p></div>',
+			'	 </div>',
+			'  </div',
+            '</div>'].join('');
+	}
+
+	templateArgs() {
+		return [
+            this._id,
+            this._icon_class
+        ];
+	}
+    
+    updateData(){
+        var _me = this.options._self;
+        var _view = this.options.target;
+        var _data = this.result.result;
+        
+        var frags = _me._frags;
+        var dataEls = _me._data_elements;
+        
+        _me._fetchResult = _data;
+        
+        if(_me._fetchResult.length == 0){
+            _view.innerHTML = '<p>No results found. Please try a different query.</p>';
+        }
+        else {
+             _view.innerHTML = '';
+        }
+        for( var i = 0; (i < _me._fetchResult.length && i < 30); i++){
+            var _item = _data[i];
+            
+            var dispLabel = _item[dataEls.label];
+            var qMatch = this.options.query;
+            
+            var matchTerm = dispLabel.slice(0, qMatch.length);
+            var matchRemainder = dispLabel.slice(qMatch.length, dispLabel.length);
+            
+            matchTerm = '<strong>' + matchTerm + '</strong>';
+            dispLabel = matchTerm.concat(matchRemainder);
+            
+            var display_row = asg.util.createFromFragment(
+                asg.util.strReplace(
+                    frags.data_row,
+                    [
+                        _item[dataEls.id],
+                        _item[dataEls.label],
+                        dispLabel
+                    ]
+                )
+            );
+            
+            display_row.addEventListener('click', _me._updateFunction.bind(_me));
+            
+            _view.appendChild(display_row);
+        }
+        
+        _me.isFetching = false;
+    }
+
+	set value(arrItems) {
+		this._value = arrItems;
+	}
+
+	get value() {
+        if(this._value.length == 0){
+            return null;
+        }
+        
+        if(this._value.length == 1){
+            return this._value[0];
+        }
+        
+		return this._value;
+	}
+
+	_updateFunction(evt) {
+		var arrItems = [];
+		
+        var clickedRow = evt.target;
+        var _rowId = clickedRow.getAttribute('data-id');
+        
+        var dataEls = this._data_elements;
+        
+        for(var i = 0; i < this._fetchResult.length; i++){
+            var _fr = this._fetchResult[i];
+            if (_fr[dataEls.id] == _rowId){
+                arrItems.push(Object.assign({},_fr));
+            }
+        }
+
+		this.value = arrItems;
+		this._onvaluechange(this);
+		this._updateView();
+	}
+
+	_updateView() {
+		var _view = this.ui();
+		var _body = _view.firstElementChild;
+		var _display = _body.firstElementChild;
+		_display.innerHTML = this.displayValue;
+	}
+
+	_selectRow(evt) {
+		evt.stopPropagation();
+		var _this = this;
+		var _target = evt.currentTarget;
+		var isSelected = eval(_target.getAttribute("data-selected"));
+		if (isSelected) {
+			_target.setAttribute("data-selected", "false");
+		} else {
+			_target.setAttribute("data-selected", "true");
+		}
+	};
+
+	_toggleGroup(evt) {
+		evt.stopPropagation();
+		var _this = this;
+		var _target = evt.currentTarget;
+		var isCollapsed = eval(_target.getAttribute("data-collapsed"));
+		if (isCollapsed) {
+			_target.setAttribute("data-collapsed", "false");
+		} else {
+			_target.setAttribute("data-collapsed", "true");
+		}
+	};
+
+}
 
 //EOF

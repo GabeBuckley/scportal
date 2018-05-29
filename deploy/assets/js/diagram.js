@@ -133,7 +133,7 @@ asg.data.lists.diagram = {
 
 					},
 					image: {
-						'xlink:href': './site/assets/img/database.png'
+						'xlink:href': './assets/img/database.png'
 					}
 				}
 			}
@@ -156,7 +156,7 @@ asg.data.lists.diagram = {
 
 					},
 					image: {
-						'xlink:href': './site/assets/img/database.png'
+						'xlink:href': './assets/img/database.png'
 					}
 				}
 			}
@@ -294,7 +294,7 @@ asg.data.system.diagram = {
 						"text": "E0002\n\rSplunk Log"
 					},
 					"image": {
-						"xlink:href": "./site/assets/img/database.png"
+						"xlink:href": "./assets/img/database.png"
 					}
 				}
 		},
@@ -316,7 +316,7 @@ asg.data.system.diagram = {
 						"text": "DS0001\n\rLog File"
 					},
 					"image": {
-						"xlink:href": "./site/assets/img/database.png"
+						"xlink:href": "./assets/img/database.png"
 					}
 				}
 		},
@@ -339,7 +339,7 @@ asg.data.system.diagram = {
 						"text": "E0002\n\rSplunk Log"
 					},
 					"image": {
-						"xlink:href": "./site/assets/img/database.png"
+						"xlink:href": "./assets/img/database.png"
 					}
 				}
 		},
@@ -1365,7 +1365,7 @@ asg.util.diagram = {
 						var strLabel = objShape.label;
 						var strIcon = objShape.icon;
 						objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
-						objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
+						objShape.attrs.image['xlink:href'] = './assets/img/' + strIcon + '.png'
 						var shape = new joint.shapes.basic.ExternalSystem(objShape);
 						shape.on('change', function (shape, data) {
 							if (shape.changed.position != null) {
@@ -1384,7 +1384,7 @@ asg.util.diagram = {
 						var strIcon = objShape.icon;
 						if (objShape.attrs != null) {
 							objShape.attrs.text.text = objShape.id + '\n\r' + strLabel;
-							objShape.attrs.image['xlink:href'] = './site/assets/img/' + strIcon + '.png'
+							objShape.attrs.image['xlink:href'] = './assets/img/' + strIcon + '.png'
 						} else {
 							var _d = {
 								"position": {
@@ -1400,7 +1400,7 @@ asg.util.diagram = {
 										"text": (objShape.id + '\n\r' + strLabel)
 									},
 									"image": {
-										"xlink:href": ('./site/assets/img/' + strIcon + '.png')
+										"xlink:href": ('./assets/img/' + strIcon + '.png')
 									}
 								}
 							};
@@ -2536,7 +2536,7 @@ asg.util.diagram = {
 			var imgField = document.getElementById('asg_shape_type_image');
 			imgField.innerHTML = "";
 			var objImg = document.createElement('img');
-			objImg.src = './site/assets/img/' + currEl.icon + '.png';
+			objImg.src = './assets/img/' + currEl.icon + '.png';
 			imgField.appendChild(objImg);
 
 			labelField.focus();
@@ -2975,6 +2975,6 @@ joint.shapes.basic.Zone = joint.shapes.basic.Generic.extend({
 	}, joint.shapes.basic.Generic.prototype.defaults)
 });
 
-asg.__etc = null;
+
 
 // EOF

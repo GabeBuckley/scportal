@@ -1,0 +1,27 @@
+{
+	"response": {
+		"status": 200,
+		"response_type": "get_iiris_issues_response",
+		"response_data": [{
+				"name": "SQL Injection Web Forms",
+				"id": "05d3ba70dbeafa00d808fa0dbf961943"
+            },
+			{
+				"name": "URL Hack Internet Banking",
+				"id": "01937b346f5e610039e8a5c5eb3ee4d9"
+            },
+			{
+				"name": "Man in the Middle Attack = Internet Banking",
+				"id": "00b26bfedbdf66406d3973e9bf961909"
+            },
+			{
+				"name": "Request Forgery - Insurance Quotes",
+				"id": "00c07eb76f23f940c5cc29309d3ee4a4"
+            },
+			{
+				"name": "XSS Hack - Internet Banking",
+				"id": "03d83745db90974866e5326f7c961953"
+            }
+		]
+	}
+}

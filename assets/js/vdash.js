@@ -348,10 +348,12 @@ asg.data.system.vdash = {
 				'asg_vuln_new_gen_iriis'
 			],
 			asg_vuln_new_application: {
-				type: 'select',
+				type: 'app_select',
 				attribute: 'value',
 				trigger: 'change',
 				target: 'application',
+                validity: ' != null ',
+                onValidationError: 'Please select an application from the list.',
 				datasource: null
 			},
 			asg_vuln_new_tech: {
@@ -359,12 +361,16 @@ asg.data.system.vdash = {
 				attribute: 'value',
 				trigger: 'change',
 				target: 'technology',
+                validity: ' != "" ',
+                onValidationError: 'Please select a technology from the list.',
 				datasource: 'technology'
 			},
 			asg_vuln_new_repdate: {
 				type: 'date',
 				attribute: 'value',
 				trigger: 'change',
+                validity: ' != "" ',
+                onValidationError: 'Please enter the date the issue was reported.',
 				target: 'reported_date'
 
 			},
@@ -373,12 +379,16 @@ asg.data.system.vdash = {
 				attribute: 'value',
 				trigger: 'change',
 				target: 'issue_source',
+                validity: ' != "" ',
+                onValidationError: 'Please select a source from the list.',
 				datasource: 'source'
 			},
 			asg_vuln_new_issue_src_details: {
 				type: 'text',
 				attribute: 'value',
 				trigger: 'change',
+                validity: ' != "" ',
+                onValidationError: 'Please provide details of the source of the report.',
 				target: 'issue_source_details'
 			},
 			asg_vuln_new_source_url: {
@@ -391,6 +401,8 @@ asg.data.system.vdash = {
 				type: 'text',
 				attribute: 'value',
 				trigger: 'change',
+                validity: ' != "" ',
+                onValidationError: 'Please give this issue report a title.',
 				target: 'issue_title'
 			},
 			asg_vuln_new_issue_type: {
@@ -398,6 +410,8 @@ asg.data.system.vdash = {
 				attribute: 'value',
 				trigger: 'change',
 				target: 'issue_type',
+                validity: ' != "" ',
+                onValidationError: 'Please select the type of issue.',
 				datasource: 'type'
 			},
 			asg_vuln_new_issue_severity: {
@@ -405,12 +419,16 @@ asg.data.system.vdash = {
 				attribute: 'value',
 				trigger: 'change',
 				target: 'issue_severity',
+                validity: ' != "" ',
+                onValidationError: 'Please indicate the potential severity of this issue.',
 				datasource: 'severity'
 			},
 			asg_vuln_new_issue_desc: {
 				type: 'textarea',
 				attribute: 'value',
 				trigger: 'change',
+                validity: '.length > 50',
+                onValidationError: 'The issue description should be at least 50 characters long.',
 				target: 'issue_description'
 			},
 			asg_vuln_new_jira_ref: {
@@ -453,31 +471,7 @@ asg.data.system.vdash = {
 	}
 };
 
-if (asg.__etc === null) {
-	asg.__etc = {};
-
-	asg.__etc.dbModals = [
-		{
-			id: "addDataListItem",
-			title: "Add Data List Item",
-			template: "asg.data.templates.html.vdash.dialogs.addDataListItem"
-        },
-		{
-			id: "editDataListItem",
-			title: "Edit Data List item",
-			template: "asg.data.templates.html.vdash.dialogs.editDataListItem"
-        },
-		{
-			id: "deleteDataListItems",
-			title: "Delete Data List items",
-			template: "asg.data.templates.html.vdash.dialogs.deleteDataListItems"
-        }
-    ];
-	for (var i = 0; i < asg.__etc.dbModals.length; i++) {
-		asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
-	}
-} else {
-	asg.__etc.dbModals = [
+asg.__etc.dbModals = [
 		{
 			id: "addDataListItem",
 			title: "Add Data List Item",
@@ -491,11 +485,11 @@ if (asg.__etc === null) {
 			title: "Delete Data List items",
 			template: "asg.data.templates.html.vdash.dialogs.deleteDataListItems"
         }
-    ];
-	for (var i = 0; i < asg.__etc.dbModals.length; i++) {
-		asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
-	}
+];
+for (var i = 0; i < asg.__etc.dbModals.length; i++) {
+	asg.data.lists.site.modals.push(asg.__etc.dbModals[i]);
 }
+
 
 // Add Templates
 asg.data.templates.html.vdash = {
@@ -516,7 +510,7 @@ asg.data.templates.html.vdash = {
 		'	</div>',
 		'	<div class="row">',
 		'		<div class="col-xs-4">',
-		'				<select id="asg_vuln_new_application"></select>',
+		'				<div id="asg_vuln_new_application"></div>',
 		'		</div>',
 		'		<div class="col-xs-4">',
 		'				<select id="asg_vuln_new_tech"></select>',
@@ -838,20 +832,6 @@ asg.__etc.conf = {
 
 
 		vuln_model: {
-
-			"application": "",
-			"technology": "",
-			"reported_date": "",
-			"issue_source": "",
-			"issue_source_details": "Tested by Frank",
-			"source_url": "http://www.google.com",
-			"issue_title": "My Big Issue",
-			"issue_type": "2",
-			"issue_severity": "19",
-			"issue_description": "Able to do stuff",
-			"jira_ref": "123456",
-			"iriis_ref": "654321",
-			"remediation": "Fix it",
 			"asg_vuln_new_tech": "15",
 			"asg_vuln_new_repdate": "2018-05-22T02:27:15.482Z",
 			"asg_vuln_new_issue_src": "9",
@@ -864,7 +844,6 @@ asg.__etc.conf = {
 			"asg_vuln_new_jira_ref": "123456",
 			"asg_vuln_new_iriis_ref": "654321",
 			"asg_vuln_new_remediation": "Fix it"
-
 		},
 
 
@@ -969,6 +948,9 @@ asg.__etc.conf = {
 				get_support_teams_list: './assets/ws/mocks/get_support_teams_list.json',
 				get_teams_issues_list: './assets/ws/mocks/get_open_issues_by_team.json',
 				get_iriis_issues_list: './assets/ws/mocks/get_iriis_issues.json',
+                
+                get_application_list: 'http://localhost:57373/api/ServiceNow/GetApplicationByName',
+                
 				get_data_list_severity: '/api/Source/GetSeverity',
 				get_data_list_source: '/api/Source/GetSource',
 				get_data_list_tech: '/api/Source/GetTechnology',
@@ -1121,7 +1103,6 @@ asg.util.vdash = {
 			type: false,
 			technology: false
 		},
-
 
 	},
 
@@ -1683,49 +1664,108 @@ asg.util.vdash = {
 		var _v = asg.util.vdash;
 		evt.stopPropagation();
 		evt.preventDefault();
+        
+        asg.ui.clearErrorMsgs();
 
 		var postData = Object.assign({}, asg.data.templates.json.vdash.vuln_post_data);
 		var _currVuln = asg.data.system.vdash.current_vulnerability;
 		var _form = asg.data.system.vdash.new_vuln_form;
 		var _fieldIds = _form.ui.components;
+        
+        var formIsValid = true;
 
 		for (var i = 0; i < _fieldIds.length; i++) {
 			var _id = _fieldIds[i];
 			var _field = _form.ui[_id];
 
 			if (_field.ui != null && _field.ui.type != 'button') {
-				var _val = _field.ui.value;
+                
+				var _val = _field.ui[_field.attribute] || _field.ui.value;
+                if(_field.validity != null){
+                    var fieldIsValid = eval('(_val ' + _field.validity + ')');
+                    if(!fieldIsValid){
+                        formIsValid = false;
+                        var errMsg = _field.onValidationError || 'There is a problem with the data in this field';
+                        asg.ui.attachErrorMsg(_field.ui, errMsg);
+                    }
+                
+                }
 				_currVuln[_id] = _val;
 			}
 		}
 
-		postDataMapped = asg.app.fn.ws.mapObjectToType(_currVuln, 'vulnerability')
-		postDataMapped.User = {};
-		postDataMapped.User.DisplayName = asg.data.system.current_user.name;
-		postDataMapped.User.Email = asg.data.system.current_user.email;
-		postDataMapped.User.UserName = asg.data.system.current_user.id;
+        if(formIsValid){
+            postDataMapped = asg.app.fn.ws.mapObjectToType(_currVuln, 'vulnerability')
+            postDataMapped.User = {};
+            postDataMapped.User.DisplayName = asg.data.system.current_user.name;
+            postDataMapped.User.Email = asg.data.system.current_user.email;
+            postDataMapped.User.UserName = asg.data.system.current_user.id;
 
-		var list = _v.getListById('technology');
-		var techId = _currVuln.asg_vuln_new_tech;
-		var objTech = _v.getDataListItem(list, techId, 'Id');
-		postDataMapped.Technology = objTech;
+            var application = _currVuln.application;
+            if(postDataMapped.DateReported.constructor === Date){
+                postDataMapped.DateReported = postDataMapped.DateReported.toISOString();
+            }
+            
+            postDataMapped.Created = postDataMapped.DateReported;
+            postDataMapped.Updated = postDataMapped.DateReported;
+            
+            postDataMapped.Application = Object.assign({}, application);
 
-		var list = _v.getListById('type');
-		var typeId = _currVuln.asg_vuln_new_issue_type;
-		var objType = _v.getDataListItem(list, typeId, 'Id');
-		postDataMapped.IssueType = objType;
+            var newAppObj = {};
+            newAppObj.ApplicationId = postDataMapped.Application.sys_id;
+            newAppObj.Name = postDataMapped.Application.name;
+            newAppObj.TeamName = '',
+            newAppObj.OwnerUsername = '',
+            newAppObj.OwnerName = '',
+            newAppObj.OwnerEmail = '',
+            newAppObj.Id = 0,
+            newAppObj.Created = "2018-05-22T23:58:24.887Z",
+            newAppObj.Updated = "2018-05-22T23:58:24.887Z"
+            
+            postDataMapped.Application = newAppObj;
+            
+            var list = _v.getListById('technology');
+            var techId = _currVuln.asg_vuln_new_tech;
+            var objTech = _v.getDataListItem(list, techId, 'Id');
+            postDataMapped.Technology = objTech;
 
-		var list = _v.getListById('source');
-		var srcId = _currVuln.asg_vuln_new_issue_src;
-		var objSrc = _v.getDataListItem(list, srcId, 'Id');
-		postDataMapped.Source = objSrc;
+            var list = _v.getListById('type');
+            var typeId = _currVuln.asg_vuln_new_issue_type;
+            var objType = _v.getDataListItem(list, typeId, 'Id');
+            postDataMapped.IssueType = objType;
 
-		var list = _v.getListById('severity');
-		var sevId = _currVuln.asg_vuln_new_issue_severity;
-		var objSev = _v.getDataListItem(list, sevId, 'Id');
-		postDataMapped.Severity = objSev;
+            var list = _v.getListById('source');
+            var srcId = _currVuln.asg_vuln_new_issue_src;
+            var objSrc = _v.getDataListItem(list, srcId, 'Id');
+            postDataMapped.Source = objSrc;
 
-		debugger;
+            var list = _v.getListById('severity');
+            var sevId = _currVuln.asg_vuln_new_issue_severity;
+            var objSev = _v.getDataListItem(list, sevId, 'Id');
+            postDataMapped.Severity = objSev;
+            
+            if(postDataMapped.Id == null){
+                postDataMapped.Id = 0;
+            }
+            
+            if(postDataMapped.DateResolved == null){
+                postDataMapped.DateResolved = '';
+            }
+            
+            if(postDataMapped.EventLog == null){
+                postDataMapped.EventLog = postDataMapped.Created + ' ' + postDataMapped.User.UserName + ' ( ' + postDataMapped.User.DisplayName + ' ): Created Issue report.';
+            }
+            
+            var testit = {};
+
+		}
+        else {
+            asg.ui.showMsg('vuln_form_invalid', 'error', 'Form Submission Error', 'There were validation errors on the form. Please correct and resubmit.');
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
 
 	},
 
@@ -2021,7 +2061,7 @@ asg.util.vdash = {
 				var _id = _meta.ui.components[i];
 				var _c = _meta.ui[_id];
 
-				var _updateFromDatePicker = function (_picker) {
+				var _updateFromPicker = function (_picker) {
 					var _c = this;
 					var model = asg.data.system.vdash.current_vulnerability;
 					model[_c.target] = _picker.value;
@@ -2067,16 +2107,59 @@ asg.util.vdash = {
 								id: _id,
 								target: parent,
 								value: new Date(),
-								onvaluechange: _updateFromDatePicker.bind(_c)
+								onvaluechange: _updateFromPicker.bind(_c)
 							})
 							break;
 						}
-
+                    case "app_select": 
+                        {
+                            var _placeholder = document.getElementById(_id);
+                            var parent = _placeholder.parentElement;
+				            parent.removeChild(_placeholder);
+                            _c.ui = new asg.DataPicker({
+                                id: _id,
+                                target: parent,
+                                data_source: 'get_application_list',
+                                data_elements: {
+                                    id: 'sys_id',
+                                    label: 'name'
+                                },
+                                query_prefix: '?name=',
+                                icon_class: 'fas fa-cubes',
+                                allow_multiple: false,
+                                value: null,
+                                onvaluechange: _updateFromPicker.bind(_c)
+                            });
+                            break;
+                        }
+                        
 					case "text":
+                        {
+							_c.ui = document.getElementById(_id);
+							_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+							break;
+						}
 					case "textarea":
 						{
 							_c.ui = document.getElementById(_id);
 							_c.ui.addEventListener(_c.trigger, _updateVulnModel.bind(_c));
+                            
+                            var _reportCount = function(){
+                                var numChars = this.value.length;
+                                var blob = this.nextElementSibling;
+                                if(numChars >= 50){
+                                    blob.setAttribute('class','asg-textarea-counter bg-green');
+                                }
+                                else {
+                                    blob.setAttribute('class','asg-textarea-counter bg-orange');
+                                }
+                                blob.innerHTML = numChars;
+                            }
+                            
+                            var counterBlob = asg.u.createFromFragment('<div class="asg-textarea-counter"></div>');
+                            _c.ui.addEventListener('keyup', _reportCount.bind(_c.ui));
+                            
+                            _c.ui.parentElement.appendChild(counterBlob);
 							break;
 						}
 					case "button":

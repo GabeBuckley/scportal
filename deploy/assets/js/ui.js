@@ -4,9 +4,20 @@ asg.ui = {
         msg.className = "field_error_msg";
         msg.innerHTML = strMsg;
         if (objEl != null) {
+            if(objEl.appendChild == null && objEl._view != null){
+                objEl = objEl._view;
+            }
+            if(objEl.appendChild == null && objEl._ui != null){
+                objEl = objEl._ui;
+            }
             var parEl = objEl.parentElement;
+            if(parEl.lastElementChild != null && parEl.lastElementChild.className == msg.className){
+                parEl.removeChild(parEl.lastElementChild);
+            }
             parEl.appendChild(msg);
-            asg.ui.setModalHeight(true);
+            if(asg.ui.modalShown){
+                asg.ui.setModalHeight(true);
+            }
         }
 
     },
@@ -23,13 +34,6 @@ asg.ui = {
             document.body.appendChild(blocker);
         }
     },
-    
-    unBlockUI: function(){
-        var blocker = document.getElementById('asg_ui_block');
-        if(blocker != null){
-            blocker.parentElement.removeChild(blocker);
-        }
-    },
 
     closeDialog: function () {
         document.getElementById('modal_body_content').innerHTML = "";
@@ -37,12 +41,23 @@ asg.ui = {
         document.getElementById('modal_header_text').innerHTML = "";
         $('#modal_dialog').hide(400, 'swing', function () {
             asg.ui.hideDialogScreen();
+            asg.ui.modalShown = false;
         });
     },
 
+    clearErrorMsgs: function(){
+        var allErrorDivs = document.querySelectorAll('.field_error_msg');
+        for(var i = 0; i < allErrorDivs.length; i++){
+            var _error = allErrorDivs[i];
+            _error.parentElement.removeChild(_error);
+        }
+    },
+    
     hideDialogScreen: function () {
         $("#dialog_screen").hide();
     },
+    
+    modalShown: false,
 
     setDialogDefaultAction: function () {
         var modal = document.getElementById('modal_dialog');
@@ -104,6 +119,7 @@ asg.ui = {
 
     showDialog: function (strDialogId, objArgs) {
         asg.ui.closeDialog();
+        asg.ui.modalShown = true;
         var objDialog = asg.util.getDialog(strDialogId);
         if (objDialog != null) {
             asg.ui.setModalTitle(objDialog.title);
@@ -228,6 +244,15 @@ asg.ui = {
             });
         });
     },
+    
+        
+    unBlockUI: function(){
+        var blocker = document.getElementById('asg_ui_block');
+        if(blocker != null){
+            blocker.parentElement.removeChild(blocker);
+        }
+    },
+
     
     updateUserBlob: function(){
         var usrButton = document.getElementById('asg_user_button');

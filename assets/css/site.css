@@ -32,6 +32,18 @@
 	margin-bottom: 1em;
 }
 
+.asg-textarea-counter {
+    position: absolute;
+    right: 1.5em;
+    top: -1.5em;
+    background: #666;
+    padding: 0.5em;
+    border-radius: 50%;
+    font-size: 0.675em;
+    color: #fff;
+    font-weight: bold;
+}
+
 li.BrandShared-navigation h2 {
 	margin-top: 0;
 }
@@ -147,6 +159,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 	border: 3px inset #004346;
 	border-radius: 4px;
 	margin: 0.125em;
+	margin-bottom: 1em;
 	-webkit-box-shadow: 5px 5px 8px 4px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 5px 5px 8px 4px rgba(0, 0, 0, 0.3);
 	box-shadow: 5px 5px 8px 4px rgba(0, 0, 0, 0.3);
@@ -218,6 +231,20 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 	content: "\f071";
 	margin-right: 1em;
 }
+
+#asg_ui_block {
+    width: 100%;
+    opacity: 0.55;
+    height: 500%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: 20000;
+    text-align: center;
+    padding-top: 1.25em;
+}
+
 
 #dialog_screen {
 	width: 100%;
@@ -394,6 +421,7 @@ div.asg-Menu-MenuBody a.sg-Menu-link i {
 	color: #bd1903;
 	font-size: 0.75em;
 	line-height: 0.75em;
+    margin-top: 0.25em;
 }
 
 #properties_form {

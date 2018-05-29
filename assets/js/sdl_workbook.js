@@ -724,10 +724,10 @@ asg.__etc.conf = {
 		},
 		endpoints: {
 			DEV: {
-				get_support_teams_list: '/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: './site/assets/ws/mocks/get_support_teams_list.json',
 			},
 			TEST: {
-				get_support_teams_list: '/assets/ws/mocks/get_support_teams_list.json',
+				get_support_teams_list: './site/assets/ws/mocks/get_support_teams_list.json',
 			}
 		}
 	}

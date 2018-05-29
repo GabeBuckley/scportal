@@ -64,6 +64,7 @@ GetOpenIssuesByTeam:
 */
 
 var asg = {};
+asg.__etc = {};
 
 asg.conf = {
 	hosts: {
@@ -74,7 +75,7 @@ asg.conf = {
 
 	endpoints: {
 		DEV: {
-			get_current_user_data: '/assets/ws/mocks/GetUserInfo.json',
+			get_current_user_data: './assets/ws/mocks/GetUserInfo.json',
 		},
 		TEST: {
 			get_current_user_data: '/api/Account/GetUserInfo'
